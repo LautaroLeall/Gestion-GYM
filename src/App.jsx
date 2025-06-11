@@ -45,7 +45,7 @@ const App = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">🏋️‍♂️ Reservas de Clases - Gimnasio</h1>
+      <h1 className="text-center mb-4">Reservas de Clases - Gimnasio</h1>
 
       <Formulario
         agregarSocio={agregarSocio}
