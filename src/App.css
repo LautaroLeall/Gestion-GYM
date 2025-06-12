@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif ,'work sans', sans-serif;
 }
 .contenedor-carousel {
     width: 100vw;
@@ -20,7 +21,7 @@ h1 {
 }
 
 .parallax-1 {
-    background: url('./assets/img4.png') no-repeat;
+    background: url('./assets/img2.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -28,7 +29,7 @@ h1 {
 }
 
 .parallax-2 {
-    background: url('./assets/img3.jpg') no-repeat;
+    background: url('./assets/img4.png') no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
