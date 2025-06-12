@@ -1,4 +1,4 @@
-const TablaSocios = ({ socios, eliminarSocio, editarSocio }) => {
+const PartnersTable = ({ socios, eliminarSocio, editarSocio }) => {
     return (
         <table className="table table-striped mt-4">
             <thead className="table-dark">
@@ -48,4 +48,4 @@ const TablaSocios = ({ socios, eliminarSocio, editarSocio }) => {
     );
 };
 
-export default TablaSocios;
+export default PartnersTable;

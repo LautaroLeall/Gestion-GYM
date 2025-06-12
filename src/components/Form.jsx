@@ -7,7 +7,7 @@ const clasesDisponibles = {
     Musculación: ["12:00-13:00", "17:00-18:00"],
 };
 
-const Formulario = ({ agregarSocio, socioEditado, actualizarSocio, modoEdicion, cancelarEdicion }) => {
+const Form = ({ agregarSocio, socioEditado, actualizarSocio, modoEdicion, cancelarEdicion }) => {
     const [formData, setFormData] = useState({
         nombreApellido: '',
         telefono: '',
@@ -96,4 +96,4 @@ const Formulario = ({ agregarSocio, socioEditado, actualizarSocio, modoEdicion, 
     );
 };
 
-export default Formulario;
+export default Form;

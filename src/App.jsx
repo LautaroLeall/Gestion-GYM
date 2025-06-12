@@ -1,67 +1,74 @@
-import { useState } from "react";
-import Formulario from "./components/Form";
-import TablaSocios from "./components/PartnersTable";
-import "./App.css";
+import { useState } from 'react';
+import Navbar from './components/NavBar';
+import Carousel from './components/Carousel';
+import Form from './components/Form';
+import PartnersTable from './components/PartnersTable';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'animate.css';
 
-const App = () => {
+function App() {
+  const [vista, setVista] = useState('inicio');
   const [socios, setSocios] = useState([]);
-  const [socioEditado, setSocioEditado] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
-  const [indexEditado, setIndexEditado] = useState(null);
+  const [socioEditado, setSocioEditado] = useState(null);
 
   const agregarSocio = (nuevoSocio) => {
-    // Simulación de llamada AJAX
-    setTimeout(() => {
-      setSocios([...socios, nuevoSocio]);
-    }, 300);
+    setSocios([...socios, nuevoSocio]);
+    setVista('tabla');
   };
 
-  const eliminarSocio = (index) => {
-    if (confirm("¿Estás seguro de eliminar este registro?")) {
-      setSocios(socios.filter((_, i) => i !== index));
-    }
+  const eliminarSocio = (indice) => {
+    const nuevosSocios = socios.filter((_, i) => i !== indice);
+    setSocios(nuevosSocios);
   };
 
-  const editarSocio = (index) => {
+  const editarSocio = (indice) => {
+    setSocioEditado({ ...socios[indice], indice });
     setModoEdicion(true);
-    setIndexEditado(index);
-    setSocioEditado(socios[index]);
+    setVista('formulario');
   };
 
   const actualizarSocio = (socioActualizado) => {
-    const copia = [...socios];
-    copia[indexEditado] = socioActualizado;
-    setSocios(copia);
+    const nuevosSocios = socios.map((s, i) =>
+      i === socioActualizado.indice ? socioActualizado : s
+    );
+    setSocios(nuevosSocios);
     setModoEdicion(false);
     setSocioEditado(null);
-    setIndexEditado(null);
+    setVista('tabla');
   };
 
   const cancelarEdicion = () => {
     setModoEdicion(false);
     setSocioEditado(null);
-    setIndexEditado(null);
+    setVista('tabla');
   };
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Reservas de Clases - Gimnasio</h1>
-
-      <Formulario
-        agregarSocio={agregarSocio}
-        socioEditado={socioEditado}
-        actualizarSocio={actualizarSocio}
-        modoEdicion={modoEdicion}
-        cancelarEdicion={cancelarEdicion}
-      />
-
-      <TablaSocios
-        socios={socios}
-        eliminarSocio={eliminarSocio}
-        editarSocio={editarSocio}
-      />
+    <div>
+      <Navbar cambiarVista={setVista} />
+      <div className="container mt-4">
+        {vista === 'inicio' && <Carousel />}
+        {vista === 'formulario' && (
+          <Form
+            agregarSocio={agregarSocio}
+            socioEditado={socioEditado}
+            actualizarSocio={actualizarSocio}
+            modoEdicion={modoEdicion}
+            cancelarEdicion={cancelarEdicion}
+          />
+        )}
+        {vista === 'tabla' && (
+          <PartnersTable
+            socios={socios}
+            eliminarSocio={eliminarSocio}
+            editarSocio={editarSocio}
+          />
+        )}
+      </div>
     </div>
   );
-};
+}
 
 export default App;
+
