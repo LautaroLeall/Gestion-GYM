@@ -6,7 +6,7 @@ const Carousel = () => {
     <section className='contenedor-carousel'>
         <section className="parallax-1">
             <div className="parallax-inner">
-                <h1>Scroll Down</h1>
+                <h1>Bienvenidos a Nuestro Gimnasio</h1>
             </div>
         </section>
         <h2>Parallax Effect</h2>
