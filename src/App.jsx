@@ -5,6 +5,7 @@ import Form from './components/Form';
 import PartnersTable from './components/PartnersTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
+import './App.css'
 
 function App() {
   const [vista, setVista] = useState('inicio');
@@ -47,7 +48,7 @@ function App() {
   return (
     <div>
       <Navbar cambiarVista={setVista} />
-      <div className="container mt-4">
+      <div className="contenedor-carousel">
         {vista === 'inicio' && <Carousel />}
         {vista === 'formulario' && (
           <Form
