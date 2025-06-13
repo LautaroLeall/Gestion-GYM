@@ -18,13 +18,13 @@ Esta aplicación permite gestionar la reserva de turnos para distintas clases de
 - Nombre y Apellido  
 - Teléfono  
 - Email  
-- Clase (Funcional, Zumba, Crossfit, Musculación, etc.)  
+- Clase (Funcional, Zumba, Crossfit, Musculación)  
 - Horario (dependiente de la clase elegida)
 
 ✔️ Tabla que muestra los turnos cargados.  
 ✔️ Botón para **Agregar** un nuevo socio.  
 ✔️ Botones de **Editar** y **Eliminar** para cada socio.  
-✔️ Al editar, el formulario se carga con los datos seleccionados y el botón cambia de “Agregar” a “Aceptar”.  
+✔️ Al editar, el formulario se carga con los datos seleccionados y el botón cambia de “Registrar Turno” a “Aceptar”.  
 ✔️ Simulación de CRUD usando funciones con React y uso de `useState`.
 
 ---
@@ -46,10 +46,19 @@ GIMNASIO-PF/
 ├── public/
 ├── src/
 │ ├── components/
-│ │ ├── Formulario.jsx
-│ │ └── TablaSocios.jsx
+│ │ ├── Carousel.jsx
+│ │ ├── Form.jsx
+│ │ ├── HorariosGym.jsx
+│ │ ├── NavBar.jsx
+│ │ ├── PartnersTable.jsx
+│ │ └── SobreNosotros.jsx
+│ ├── styles/
+│ │ ├── App.css
+│ │ ├── Carousel.css
+│ │ ├── HorariosGym.css
+│ │ ├── NavBar.css
+│ │ └── SobreNosotros.css
 │ ├── App.jsx
-│ ├── App.css
 │ └── main.jsx
 ├── index.html
 ├── package.json
@@ -62,7 +71,6 @@ GIMNASIO-PF/
 - Se utilizó comunicación entre componentes padre-hijo e hijo-padre mediante props y callbacks.
 - El CRUD se maneja con estados internos (`useState`) simulando una operación asincrónica tipo AJAX.
 - La interfaz fue desarrollada de forma responsiva con Bootstrap.
-- Cumple todos los requisitos solicitados en el enunciado de la consigna.
 
 ---
 

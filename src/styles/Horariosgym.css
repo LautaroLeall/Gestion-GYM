@@ -48,15 +48,9 @@ h2 {
 
 .attention-section h2 {
   color: #10db2b;
-  margin-top: 0;
-  margin-bottom: 30px;
+  margin: 0; 
 }
 
-.phone {
-  color: #666;
-  font-size: 0.9em;
-  margin-bottom: 15px;
-}
 
 .schedule-item {
   display: flex;
