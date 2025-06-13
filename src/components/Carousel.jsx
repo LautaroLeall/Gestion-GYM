@@ -1,52 +1,83 @@
-import Horariosgym from './Horariosgym'
-import '../styles/Carousel.css'
+import { useRef, useEffect } from 'react';
+import Horariosgym from './Horariosgym';
+import Form from './Form';
+import PartnersTable from './PartnersTable';
+import '../styles/Carousel.css';
 
-const Carousel = () => {
+const Carousel = ({
+    vista,
+    agregarSocio,
+    socioEditado,
+    actualizarSocio,
+    modoEdicion,
+    cancelarEdicion,
+    socios,
+    eliminarSocio,
+    editarSocio
+}) => {
+    const formRef = useRef(null);
+    const tablaRef = useRef(null);
+
+    useEffect(() => {
+        if (vista === 'formulario') {
+            formRef.current?.scrollIntoView({ behavior: 'smooth' });
+        } else if (vista === 'tabla') {
+            tablaRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [vista]);
+
+    // Función para que el Form llame y haga scroll a la tabla
+    const scrollToTabla = () => {
+        tablaRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
-        <>
-            <section className='contenedor-carousel'>
-
-                <section className="parallax-1">
-                    <div className="parallax-inner">
-                        <h1>Bienvenidos a Nuestro Gimnasio</h1>
-                    </div>
-                </section>
-
-                <section>
-                    <Horariosgym />
-                </section>
-
-                <section className="parallax-2">
-                    <div className="parallax-inner">
-                        <h1>Registar Turnos</h1>
-                    </div>
-                </section>
-
-                <p>
-                    orem ipsum dolor sit amet consectetur adipisicing elit. Veritatis minima fuga debitis quasi eius aliquid
-                    sapiente? Cumque blanditiis quibusdam, ex totam aliquam provident alias culpa, sit illo, eum doloribus
-                    doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi reprehenderit voluptatum
-                    aperiam pariatur numquam praesentium recusandae, ipsa at iusto eveniet, distinctio sunt dolore nemo veniam
-                    maiores vitae deserunt cum ducimus.
-                </p>
-
-                <section className="parallax-3">
-                    <div className="parallax-inner">
-                        <h1>Ver Turnos</h1>
-                    </div>
-                </section>
-
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis minima fuga debitis quasi eius aliquid
-                    sapiente? Cumque blanditiis quibusdam, ex totam aliquam provident alias culpa, sit illo, eum doloribus
-                    doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi reprehenderit voluptatum
-                    aperiam pariatur numquam praesentium recusandae, ipsa at iusto eveniet, distinctio sunt dolore nemo veniam
-                    maiores vitae deserunt cum ducimus.
-                </p>
-
+        <section className="contenedor-carousel">
+            <section className="parallax-1">
+                <div className="parallax-inner">
+                    <h1 className="title-img">Bienvenidos a Nuestro Gimnasio</h1>
+                </div>
             </section>
-        </>
-    )
-}
 
-export default Carousel
+            <section>
+                <Horariosgym />
+            </section>
+
+            <section className="parallax-2">
+                <div className="parallax-inner">
+                    <h1 className="title-img">Registrar Turnos</h1>
+                </div>
+            </section>
+
+            <section className="form" ref={formRef}>
+                <Form
+                    agregarSocio={agregarSocio}
+                    socioEditado={socioEditado}
+                    actualizarSocio={actualizarSocio}
+                    modoEdicion={modoEdicion}
+                    cancelarEdicion={cancelarEdicion}
+                    socios={socios}
+                    scrollToTabla={scrollToTabla}
+                />
+            </section>
+
+            <section className="parallax-3">
+                <div className="parallax-inner">
+                    <h1 className="title-img">Ver Turnos</h1>
+                </div>
+            </section>
+
+            <section className="table" ref={tablaRef}>
+                <PartnersTable
+                    socios={socios}
+                    eliminarSocio={eliminarSocio}
+                    editarSocio={editarSocio}
+                />
+            </section>
+        </section>
+    );
+};
+
+export default Carousel;
+
+
