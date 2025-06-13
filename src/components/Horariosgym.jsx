@@ -1,12 +1,12 @@
-import '../styles/Horariosgym.css';
+import '../styles/HorariosGym.css';
 
-const Horariosgym = () => {
+const HorariosGym = () => {
   return (
     <>
-      <div className="containers-text bg-secondary">
+      <div className="containers-text bg-dark">
         <div className="mission-section">
-          <h2>NUESTRA MISION</h2>
-          <p>
+          <h2 className="mision-title">NUESTRA MISION</h2>
+          <p className="text-light">
             Ofrecer un espacio integral para el bienestar físico y emocional, brindando herramientas, clases y acompañamiento personalizado que promuevan un estilo de vida saludable, activo y equilibrado.
           </p>
           <div className="services-grid">
@@ -38,26 +38,26 @@ const Horariosgym = () => {
         </div>
 
         <div className="attention-section">
-          <h2>HORARIOS DE ATENCIÓN</h2>
+          <h2 className="horarios-title">HORARIOS DE ATENCIÓN</h2>
           <div className="schedule-item">
-            <span className="schedule-day">LUNES </span>
-            <span>07:00 - 21:00</span>
+            <span className="schedule-day">LUNES</span>
+            <span>08:00 - 21:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">MARTES</span>
-            <span>07:00 - 21:00</span>
+            <span>08:00 - 21:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">MIERCOLES</span>
-            <span>07:00 - 21:00</span>
+            <span>08:00 - 21:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">JUEVES</span>
-            <span>07:00 - 21:00</span>
+            <span>08:00 - 21:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">VIERNES</span>
-            <span>07:00 - 21:00</span>
+            <span>08:00 - 21:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">SÁBADOS</span>
@@ -69,4 +69,4 @@ const Horariosgym = () => {
   )
 }
 
-export default Horariosgym
+export default HorariosGym
