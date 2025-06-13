@@ -6,6 +6,7 @@ import PartnersTable from './components/PartnersTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import './App.css'
+import Horariosgym from './components/Horariosgym';
 
 function App() {
   const [vista, setVista] = useState('inicio');
@@ -51,7 +52,7 @@ function App() {
       <div className="contenedor-carousel">
         {vista === 'inicio' && <Carousel />}
         {vista === 'formulario' && (
-          <Form
+            <Form
             agregarSocio={agregarSocio}
             socioEditado={socioEditado}
             actualizarSocio={actualizarSocio}
