@@ -14,7 +14,7 @@ const Form = ({
     modoEdicion,
     cancelarEdicion,
     socios,
-    scrollToTabla  // Recibimos la función que hace scroll a la tabla
+    scrollToTabla
 }) => {
     const [formData, setFormData] = useState({
         nombreApellido: '',
@@ -56,10 +56,10 @@ const Form = ({
 
         if (modoEdicion) {
             actualizarSocio(formData);
-            scrollToTabla();  // Scroll al actualizar
+            scrollToTabla();
         } else {
             agregarSocio(formData);
-            scrollToTabla();  // Scroll al agregar
+            scrollToTabla(); 
         }
 
         setFormData({
@@ -72,8 +72,8 @@ const Form = ({
     };
 
     return (
-        <div className="d-flex flex-column align-items-center bg-secondary">
-            <form onSubmit={handleSubmit} className="form bg-dark p-4 rounded bg-light w-75 my-5">
+        <div className="d-flex flex-column align-items-center bg-dark">
+            <form onSubmit={handleSubmit} className="form bg-success p-4 rounded bg-light w-75 my-5">
                 <div className="mb-3">
                     <select className="form-select" name="clase" value={formData.clase} onChange={handleChange} required>
                         <option value="">Seleccionar clase</option>
@@ -104,14 +104,14 @@ const Form = ({
                         <button type="submit" className="btn btn-outline-success flex-fill">
                             Aceptar
                         </button>
-                        <button type="button" className="btn btn-outline-secondary flex-fill" onClick={cancelarEdicion}>
+                        <button type="button" className="btn btn-outline-dark flex-fill" onClick={cancelarEdicion}>
                             Cancelar
                         </button>
                     </div>
                 ) : (
                     <div className="d-flex justify-content-center">
-                        <button type="submit" className="btn btn-outline-secondary w-50 mt-2">
-                            Regitrar Turno
+                        <button type="submit" className="btn btn-outline-dark w-50 mt-2">
+                            Registrar Turno
                         </button>
                     </div>
                 )}
