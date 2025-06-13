@@ -3,7 +3,7 @@ import '../styles/Horariosgym.css';
 const Horariosgym = () => {
   return (
     <>
-      <div className="containers-text">
+      <div className="containers-text bg-secondary">
         <div className="mission-section">
           <h2>NUESTRA MISION</h2>
           <p>
@@ -12,25 +12,25 @@ const Horariosgym = () => {
           <div className="services-grid">
             <div className="service-item">
               <h3>MUSCULACION</h3>
-              <p>
+              <p className="text-light">
                 Trabajamos fuerza, resistencia y tonificación muscular con rutinas personalizadas y acompañamiento profesional. Ideal para quienes buscan mejorar su composición corporal y rendimiento físico.
               </p>
             </div>
             <div className="service-item">
               <h3>CROSSFIT</h3>
-              <p>
+              <p className="text-light">
                 Entrenamientos funcionales de alta intensidad, diseñados para mejorar la fuerza, velocidad, agilidad y capacidad cardiovascular. ¡Superá tus límites en comunidad!
               </p>
             </div>
             <div className="service-item">
               <h3>ZUMBA</h3>
-              <p>
+              <p className="text-light">
                 Clases llenas de ritmo y energía para quemar calorías mientras te divertís. Ideal para mejorar la coordinación, el ánimo y la resistencia cardiovascular.
               </p>
             </div>
             <div className="service-item">
               <h3>FUNCIONAL</h3>
-              <p>
+              <p className="text-light">
                 Entrenamiento dinámico que imita movimientos de la vida real para mejorar fuerza, equilibrio, coordinación y postura. ¡Perfecto para todos los niveles!quid.
               </p>
             </div>

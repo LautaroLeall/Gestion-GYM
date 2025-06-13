@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 .navbar {
     height: 100px;
@@ -7,9 +7,9 @@
 #logo {
     font-size: 2em;
     color: #13200f;
-    cursor:grab;
-    text-shadow: 0px 0px 3px rgba(64,255,0,1);
-     transition: all 0.3s ease-in-out;   
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
 }
 
 #logo span {
@@ -21,14 +21,14 @@
     color: #10db2b;
 }
 
-#SobreNosotros{
+#SobreNosotros {
     font-size: 2em;
     color: #13200f;
-    cursor:grab;
-    text-shadow: 0px 0px 3px rgba(64,255,0,1);
-     transition: all 0.3s ease-in-out; 
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
 }
-    
+
 #SobreNosotros span {
     color: #10db2b;
 }
@@ -36,33 +36,30 @@
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
     color: #10db2b;
-}
+    }
 
-
-
-#boton1{
+#boton1 {
     font-size: 1.8em;
     color: #4fc22c;
-    cursor:grab;
-    text-shadow: 0px 0px 3px rgba(64,255,0,1); 
-     transition: all 0.3s ease-in-out;
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
 }
-    
 
 #boton1:hover {
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
     color: #10db2b;
-}
+    }
 
-#boton2{
+#boton2 {
     font-size: 1.8em;
     color: #4fc22c;
-    cursor:grab;
-    text-shadow: 0px 0px 3px rgba(64,255,0,1);
-     transition: all 0.3s ease-in-out;
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
 }
-    
+
 #boton2:hover {
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
