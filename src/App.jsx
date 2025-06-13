@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import Navbar from './components/NavBar';
 import Carousel from './components/Carousel';
-import Form from './components/Form';
-import PartnersTable from './components/PartnersTable';
+import SobreNosotros from './components/SobreNosotros';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'animate.css';
 import './styles/App.css';
 
 function App() {
@@ -15,7 +13,7 @@ function App() {
 
   const agregarSocio = (nuevoSocio) => {
     setSocios([...socios, nuevoSocio]);
-    setVista('tabla');
+    setVista('tabla'); // Esto hará scroll automático a la tabla
   };
 
   const eliminarSocio = (indice) => {
@@ -26,7 +24,7 @@ function App() {
   const editarSocio = (indice) => {
     setSocioEditado({ ...socios[indice], indice });
     setModoEdicion(true);
-    setVista('formulario');
+    setVista('formulario'); // Para hacer scroll al formulario
   };
 
   const actualizarSocio = (socioActualizado) => {
@@ -48,28 +46,23 @@ function App() {
   return (
     <div>
       <Navbar cambiarVista={setVista} />
-      <div className="contenedor-carousel">
-        {vista === 'inicio' && <Carousel />}
-        {vista === 'formulario' && (
-            <Form
-            agregarSocio={agregarSocio}
-            socioEditado={socioEditado}
-            actualizarSocio={actualizarSocio}
-            modoEdicion={modoEdicion}
-            cancelarEdicion={cancelarEdicion}
-          />
-        )}
-        {vista === 'tabla' && (
-          <PartnersTable
-            socios={socios}
-            eliminarSocio={eliminarSocio}
-            editarSocio={editarSocio}
-          />
-        )}
-      </div>
+      {vista === 'inicio' || vista === 'formulario' || vista === 'tabla' ? (
+        <Carousel
+          vista={vista}
+          agregarSocio={agregarSocio}
+          socioEditado={socioEditado}
+          actualizarSocio={actualizarSocio}
+          modoEdicion={modoEdicion}
+          cancelarEdicion={cancelarEdicion}
+          socios={socios}
+          eliminarSocio={eliminarSocio}
+          editarSocio={editarSocio}
+        />
+      ) : vista === 'sobreNosotros' ? (
+        <SobreNosotros />
+      ) : null}
     </div>
   );
 }
 
 export default App;
-

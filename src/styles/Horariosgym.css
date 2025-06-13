@@ -1,8 +1,6 @@
 .containers-text {
-  background-color: #fff;
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 30px;
@@ -26,20 +24,7 @@ h2 {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.service-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.service-item svg {
-  width: 30px;
-  height: 30px;
-  margin-bottom: 10px;
-  fill:#aaa250; /* Un verde para los iconos */
+  gap: 10px;
 }
 
 .service-item h3 {
@@ -52,19 +37,19 @@ h2 {
 .service-item p {
   color: #666;
   font-size: 0.9em;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .attention-section {
   border: 2px solid #10db2b;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .attention-section h2 {
   color: #10db2b;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .phone {
@@ -85,16 +70,9 @@ h2 {
   font-weight: bold;
 }
 
-.schedule-time {
-  color: #666;
-}
-
-p {
-    font-size: 16px;
-    color: #555;
+p{
     text-align: justify;
-    line-height: 30px;
-    margin: 0 50px 40px;
+    margin: 0 15px 20px;
 }
 
 p:nth-of-type(2),
@@ -107,6 +85,10 @@ p:nth-of-type(3) {
   padding: 5px;
   transition: all 0.3s ease-in-out;
   border: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .service-item:hover{
