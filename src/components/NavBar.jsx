@@ -1,4 +1,5 @@
 import'../styles/Navbar.css';
+import SobreNosotros from './SobreNosotros';
 
 const Navbar = ({ cambiarVista }) => {
     return (
@@ -15,7 +16,7 @@ const Navbar = ({ cambiarVista }) => {
                     Ver los turnos
                 </button>
             </div>
-            <h1 className="navbar-brand" id="SobreNosotros" onClick={() => cambiarVista('inicio')}>
+            <h1 className="navbar-brand" id="SobreNosotros" onClick={() => cambiarVista('SobreNosotros.jsx')}>
             <span>Sobre</span>Nosotros
             </h1>
         </nav>
