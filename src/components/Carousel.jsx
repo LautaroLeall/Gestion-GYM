@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import Horariosgym from './Horariosgym';
+import HorariosGym from './HorariosGym';
 import Form from './Form';
 import PartnersTable from './PartnersTable';
 import '../styles/Carousel.css';
@@ -40,7 +40,7 @@ const Carousel = ({
             </section>
 
             <section>
-                <Horariosgym />
+                <HorariosGym />
             </section>
 
             <section className="parallax-2">

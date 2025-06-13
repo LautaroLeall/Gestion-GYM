@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Navbar from './components/NavBar';
+import NavBar from './components/NavBar';
 import Carousel from './components/Carousel';
 import SobreNosotros from './components/SobreNosotros';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,8 +44,8 @@ function App() {
   };
 
   return (
-    <div>
-      <Navbar cambiarVista={setVista} />
+    <div className="bg-secondary">
+      <NavBar cambiarVista={setVista} />
       {vista === 'inicio' || vista === 'formulario' || vista === 'tabla' ? (
         <Carousel
           vista={vista}

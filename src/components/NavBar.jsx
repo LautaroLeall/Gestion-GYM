@@ -1,7 +1,6 @@
-import'../styles/Navbar.css';
-import SobreNosotros from './SobreNosotros';
+import'../styles/NavBar.css';
 
-const Navbar = ({ cambiarVista }) => {
+const NavBar = ({ cambiarVista }) => {
     return (
         <nav className="navbar navbar-dark bg-dark navbar-expand-lg px-4 d-flex justify-content-around">
             <h1 className="navbar-brand" id="logo" onClick={() => cambiarVista('inicio')}>
@@ -23,5 +22,5 @@ const Navbar = ({ cambiarVista }) => {
     );
 };
 
-export default Navbar;
+export default NavBar;
 
