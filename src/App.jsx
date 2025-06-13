@@ -5,8 +5,7 @@ import Form from './components/Form';
 import PartnersTable from './components/PartnersTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import './App.css'
-import Horariosgym from './components/Horariosgym';
+import './styles/App.css';
 
 function App() {
   const [vista, setVista] = useState('inicio');
