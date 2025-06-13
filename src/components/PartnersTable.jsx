@@ -26,9 +26,9 @@ const PartnersTable = ({ socios, eliminarSocio, editarSocio }) => {
     };
 
     return (
-        <div className="d-flex flex-column align-items-center bg-secondary">
-            <table className="table table-striped  bg-dark p-4 rounded bg-light w-75 my-5">
-                <thead className="table-dark">
+        <div className="d-flex flex-column align-items-center bg-dark">
+            <table className="table table-striped p-4 rounded bg-light w-75 my-5">
+                <thead className="table-secondary">
                     <tr>
                         <th>Nombre y Apellido</th>
                         <th>Teléfono</th>
