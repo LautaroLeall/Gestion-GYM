@@ -1,0 +1,116 @@
+.containers-text {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  max-width: 1900px;
+  width: 100%;
+}
+
+h2 {
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin: 20px 0 10px;
+}
+
+.mission-section p {
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.service-item svg {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  fill:#aaa250; /* Un verde para los iconos */
+}
+
+.service-item h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.service-item p {
+  color: #666;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.attention-section {
+  border: 2px solid #10db2b;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.attention-section h2 {
+  color: #10db2b;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.phone {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: 1.2em;
+  color: #000000;
+}
+
+.schedule-day {
+  font-weight: bold;
+}
+
+.schedule-time {
+  color: #666;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    text-align: justify;
+    line-height: 30px;
+    margin: 0 50px 40px;
+}
+
+p:nth-of-type(2),
+p:nth-of-type(3) {
+    margin: 40px 50px;
+}
+
+.service-item{
+  cursor: pointer;
+  padding: 5px;
+  transition: all 0.3s ease-in-out;
+  border: 50px;
+}
+
+.service-item:hover{
+  border: 2px solid #10db2b;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
