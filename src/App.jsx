@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="bg-secondary">
       <NavBar cambiarVista={setVista} />
-      {vista === 'inicio' || vista === 'formulario' || vista === 'tabla' ? (
+      {vista === 'inicio' || vista === 'formulario' || vista === 'tabla' || vista === 'SobreNosotros' ? (
         <Carousel
           vista={vista}
           agregarSocio={agregarSocio}
@@ -58,7 +58,7 @@ function App() {
           eliminarSocio={eliminarSocio}
           editarSocio={editarSocio}
         />
-      ) : vista === 'sobreNosotros' ? (
+      ) : vista === 'SobreNosotros' ? (
         <SobreNosotros />
       ) : null}
     </div>
