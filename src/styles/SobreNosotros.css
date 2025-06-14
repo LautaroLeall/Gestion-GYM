@@ -11,17 +11,6 @@
   position: relative;
 }
 
-.descuento {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #b44;
-  color: white;
-  padding: 6px 10px;
-  font-weight: bold;
-  border-radius: 4px;
-}
-
 .imagen-principal img {
   width: 100%;
   max-width: 400px;
