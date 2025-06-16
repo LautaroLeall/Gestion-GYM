@@ -1,33 +1,97 @@
-import React from 'react'
-import '../styles/SobreNosotros.css'
+import React from 'react';
+import '../styles/SobreNosotros.css';
+import sobreNosotros from '../assets/sobre-nosotros.jpg';
 
 const SobreNosotros = () => {
     return (
-        <>
-            <div class="producto-container">
-                <div class="galeria">
-                    <div class="imagen-principal">
-                        <img src="../Assets/imglogopersonal1 (1).png " alt="imagen-logo" />
-                    </div>
+        <div className="producto-container d-flex align-items-center gap-2 mx-5 my-5 text-light">
+
+            <div className="detalles d-flex flex-column gap-2 rounded-5">
+                <div className="title text-center">
+                    <h1 className="title">GONZALO MARTINEZ</h1>
                 </div>
-                <div class="detalles">
-                    <h1>𝙂𝙤𝙣𝙯𝙖𝙡𝙤 𝙈𝙖𝙧𝙩𝙞𝙣𝙚𝙯</h1>
-                    <P> - 𝙀𝙨𝙩𝙪𝙙𝙞𝙖𝙣𝙩𝙚 𝙙𝙚 𝙏𝙚𝙘𝙣𝙞𝙘𝙖𝙩𝙪𝙧𝙖 𝙚𝙣 𝘿𝙚𝙨𝙖𝙧𝙧𝙤𝙡𝙡𝙤 𝙮 𝙘𝙖𝙡𝙞𝙙𝙖𝙙 𝙙𝙚 𝙎𝙤𝙛𝙩𝙬𝙖𝙧𝙚</P>
-                    <P> - 𝐅𝐫𝐨𝐧𝐭𝐞𝐧𝐝 𝐝𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 𝐚𝐧𝐝 𝐃𝐚𝐭𝐚 𝐀𝐧𝐚𝐥𝐲𝐭𝐢𝐜𝐬</P>
-                    <p> - 𝐯𝐢𝐯𝐨 𝐞𝐧 𝐀𝐫𝐠𝐞𝐧𝐭𝐢𝐧𝐚 𝐞𝐧 𝐥𝐚 𝐜𝐢𝐮𝐝𝐚𝐝 𝐝𝐞 𝐒𝐚𝐧 𝐦𝐢𝐠𝐮𝐞𝐥 𝐝𝐞 𝐓𝐮𝐜𝐮𝐦𝐚𝐧, 𝐟𝐨𝐫𝐦𝐚𝐧𝐝𝐨𝐦𝐞 𝐩𝐚𝐫𝐚 𝐝𝐞𝐬𝐚𝐫𝐫𝐨𝐥𝐥𝐚𝐫 𝐲 𝐞𝐧𝐟𝐨𝐜𝐚𝐫𝐦𝐞 𝐞𝐧 𝐥𝐚 𝐜𝐚𝐥𝐢𝐝𝐚𝐝 𝐝𝐞𝐥 𝐬𝐨𝐟𝐭𝐰𝐚𝐫𝐞. 𝐄𝐧𝐜𝐨𝐧𝐭𝐫𝐚𝐧𝐝𝐨 𝐦𝐢𝐬 𝐠𝐮𝐬𝐭𝐨𝐬 𝐭𝐚𝐦𝐛𝐢𝐞𝐧 𝐬𝐨𝐛𝐫𝐞 𝐥𝐚 𝐝𝐚𝐭𝐚.</p>
-                    <H5>𝗛𝗔𝗕𝗜𝗟𝗜𝗗𝗔𝗗𝗘𝗦</H5>
-
-                    <p class="descripcion">ᴘʀᴏᴀᴄᴛɪᴠɪᴅᴀᴅ - ᴀᴅᴀᴘᴛᴀʙɪʟɪᴅᴀᴅ -ᴄʀᴇᴀᴛɪᴠɪᴅᴀᴅ  ɪɴᴛᴇɴꜱɪᴅᴀᴅ - ʀᴇꜱᴘᴏɴꜱᴀʙɪʟɪᴅᴀᴅ- ᴠᴇʀꜱᴀᴛɪʟɪᴅᴀᴅ.</p>
-                    <p><strong>ᴄᴏɴꜱᴛᴀɴᴛᴇ - ᴀɴᴀʟɪᴛɪᴄᴏ - ʟɪᴅᴇʀ - ᴄᴏᴍᴘʀᴏᴍᴇᴛɪᴅᴏ ʏ ᴀᴍʙɪᴄɪᴏꜱᴏ </strong> </p>
-
-                        <H5>SOBRE MI</H5>
-                        🙋🏼‍♂️𝐒𝐨𝐲 𝐮𝐧 𝐏𝐫𝐨𝐠𝐫𝐚𝐦𝐚𝐝𝐨𝐫 𝐭𝐫𝐚𝐢𝐧𝐞𝐞 𝐝𝐞 𝟐𝟏 𝐚ñ𝐨𝐬 𝐝𝐞 𝐀𝐫𝐠𝐞𝐧𝐭𝐢𝐧𝐚 ;𝐄𝐦𝐩𝐫𝐞𝐧𝐝𝐞𝐝𝐨𝐫 𝐝𝐢𝐬𝐩𝐮𝐞𝐬𝐭𝐨 𝐚 𝐚𝐲𝐮𝐝𝐚𝐫 𝐲 𝐩𝐫𝐨𝐠𝐫𝐞𝐬𝐚𝐫 𝐞𝐧 𝐞𝐥 á𝐦𝐛𝐢𝐭𝐨 𝐝𝐞𝐥 𝐝𝐞𝐬𝐚𝐫𝐫𝐨𝐥𝐥𝐨,𝐥𝐢𝐝𝐞𝐫𝐚𝐳𝐠𝐨,𝐝𝐞𝐬𝐞𝐦𝐩𝐞ñ𝐨 𝐞𝐧 𝐥𝐚 𝐜𝐨𝐦𝐮𝐧𝐢𝐜𝐚𝐜𝐢ó𝐧 𝐲 𝐩𝐨𝐫 𝐬𝐨𝐛𝐫𝐞 𝐭𝐨𝐝𝐨 𝐜𝐫𝐞𝐜𝐢𝐦𝐢𝐞𝐧𝐭𝐨 𝐩𝐞𝐫𝐬𝐨𝐧𝐚𝐥.        ✔️𝐌𝐞 𝐜𝐨𝐧𝐬𝐢𝐝𝐞𝐫𝐨 𝐮𝐧𝐚 𝐩𝐞𝐫𝐬𝐨𝐧𝐚 𝐯𝐞𝐫𝐬á𝐭𝐢𝐥 𝐲, 𝐬𝐨𝐛𝐫𝐞 𝐭𝐨𝐝𝐨, 𝐚𝐭𝐞𝐧𝐭𝐚 𝐚 𝐥𝐚𝐬 𝐜𝐢𝐫𝐜𝐮𝐧𝐬𝐭𝐚𝐧𝐜𝐢𝐚𝐬 𝐥𝐚𝐛𝐨𝐫𝐚𝐥𝐞𝐬, 𝐜𝐨𝐧 𝐮𝐧 𝐞𝐧𝐟𝐨𝐪𝐮𝐞 𝐞𝐧 𝐥𝐚 𝐫𝐞𝐬𝐨𝐥𝐮𝐜𝐢ó𝐧 𝐝𝐞 𝐩𝐫𝐨𝐛𝐥𝐞𝐦𝐚𝐬. 𝐄𝐬𝐭𝐨𝐲 𝐬𝐢𝐞𝐦𝐩𝐫𝐞 𝐝𝐢𝐬𝐩𝐮𝐞𝐬𝐭𝐨 𝐚 𝐝𝐢𝐬𝐞ñ𝐚𝐫 𝐲 𝐦𝐞𝐣𝐨𝐫𝐚𝐫 𝐢𝐧𝐭𝐞𝐫𝐟𝐚𝐜𝐞𝐬 𝐥ó𝐠𝐢𝐜𝐚𝐬 𝐪𝐮𝐞 𝐟𝐚𝐜𝐢𝐥𝐢𝐭𝐞𝐧 𝐥𝐚 𝐞𝐱𝐩𝐞𝐫𝐢𝐞𝐧𝐜𝐢𝐚 𝐝𝐞𝐥 𝐮𝐬𝐮𝐚𝐫𝐢𝐨
-
+                <div className="info">
+                    <p>Estudiante de Desarrollo y Calidad de Software en la Universidad del Norte Santo Tomás de Aquino.</p>
                 </div>
 
+                <div className="title-aboutMy text-center">
+                    <h4 className="title-secondary">SOBRE MÍ</h4>
+                </div>
+                <div className="aboutMy">
+                    <p>
+                        Programador trainee de 20 años, apasionado por la tecnología y el aprendizaje constante.
+                        <br />
+                        Estudiante de Desarrollo y Calidad de Software en la UNSTA.
+                        <br />
+                        Me defino como un emprendedor en formación, con interés en proyectos reales que impliquen trabajo en equipo, desafíos técnicos y mejora continua.
+                        <br />
+                        Con experiencia en metodologías ágiles como SCRUM, destaco por mi enfoque analítico, comunicación efectiva y compromiso con la calidad.
+                    </p>
+                </div>
+
+                <div className="title-redes text-center">
+                    <h4 className="title-secondary">REDES SOCIALES</h4>
+                </div>
+                <div className="redes d-flex flex-wrap justify-content-center gap-5">
+                    <a href="https://www.linkedin.com/in/gonzalo-martinez-8576b7329/" className="text-center" target="_blank">
+                        <i className="bi bi-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/GonzaloMartinezz" className="text-center" target="_blank">
+                        <i className="bi bi-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/gonchi_martinezz/" className="text-center" target="_blank">
+                        <i className="bi bi-instagram"></i>
+                    </a>
+                </div>
             </div>
-        </>
-    )
+
+            <div className="galeria">
+                <div className="imagen-principal">
+                    <img src={sobreNosotros} alt="imagen-logo" />
+                </div>
+            </div>
+
+            <div className="detalles d-flex flex-column gap-2 rounded-5">
+                <div className="title text-center">
+                    <h1 className="title">LAUTARO LEAL</h1>
+                </div>
+                <div className="info">
+                    <p>Estudiante de Desarrollo y Calidad de Software en la Universidad del Norte Santo Tomás de Aquino.</p>
+                </div>
+
+                <div className="title-aboutMy text-center">
+                    <h4 className="title-secondary">SOBRE MÍ</h4>
+                </div>
+                <div className="aboutMy">
+                    <p>
+                        Programador trainee de 20 años, apasionado por la tecnología y el aprendizaje constante.
+                        <br />
+                        Estudiante de Desarrollo y Calidad de Software en la UNSTA.
+                        <br />
+                        Me defino como un emprendedor en formación, con interés en proyectos reales que impliquen trabajo en equipo, desafíos técnicos y mejora continua.
+                        <br />
+                        Con experiencia en metodologías ágiles como SCRUM, destaco por mi enfoque analítico, comunicación efectiva y compromiso con la calidad.
+                    </p>
+                </div>
+
+                <div className="title-redes text-center">
+                    <h4 className="title-secondary">REDES SOCIALES</h4>
+                </div>
+                <div className="redes d-flex flex-wrap justify-content-center gap-5">
+                    <a href="https://www.linkedin.com/in/lauldp/" className="text-center" target="_blank">
+                        <i className="bi bi-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/LautaroLeall" className="text-center" target="_blank">
+                        <i className="bi bi-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/lautaro_leall/" className="text-center" target="_blank">
+                        <i className="bi bi-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    );
 };
 
-export default SobreNosotros
+export default SobreNosotros;

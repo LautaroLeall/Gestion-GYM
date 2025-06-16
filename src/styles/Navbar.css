@@ -29,15 +29,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-#SobreNosotros span {
-    color: #10db2b;
-}
-#SobreNosotros:hover {
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-    color: #10db2b;
-    }
-
 #boton1 {
     font-size: 1.8em;
     color: #4fc22c;
@@ -65,3 +56,13 @@
     transition: all 0.3s ease-in-out;
     color: #10db2b;
 }
+
+#SobreNosotros span {
+    color: #10db2b;
+}
+
+#SobreNosotros:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    color: #10db2b;
+    }
