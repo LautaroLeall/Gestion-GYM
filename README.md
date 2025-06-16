@@ -52,6 +52,8 @@ GIMNASIO-PF/
 │ │ ├── NavBar.jsx
 │ │ ├── PartnersTable.jsx
 │ │ └── SobreNosotros.jsx
+│ ├── routes/
+│ │ └── routes.jsx
 │ ├── styles/
 │ │ ├── App.css
 │ │ ├── Carousel.css
