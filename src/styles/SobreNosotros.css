@@ -4,6 +4,31 @@
   border: 2px solid #10db2b;
 }
 
+/* AQUI DEBERIA DE SOLUCIONAR EL PROBLEMA QUE HAY EN EL NAVBAR DEL SOBRENOSOTROS */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .producto-container {
+    flex-direction: column;
+  }
+  
+@media screen and (max-width: 768px) {
+  .galeria {
+    display: none;
+  }
+  
+}
+}
+@media screen and (max-width: 768px) {
+  .detalles {
+    display: none;
+  }
+  
+}
+
 .title {
   font-weight: 300;
   letter-spacing: 1px;

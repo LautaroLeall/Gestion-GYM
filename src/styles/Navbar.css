@@ -3,6 +3,15 @@
 
 .navbar {
     height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        display:inline-block;
+    }
 }
 #logo {
     font-size: 2em;
