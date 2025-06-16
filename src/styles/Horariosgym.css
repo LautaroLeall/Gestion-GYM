@@ -9,6 +9,11 @@
   max-width: 1900px;
   width: 100%;
 }
+@media screen and (max-width: 768px) and (min-width: 350px){
+  .containers-text {
+    grid-template-columns: 1fr;
+  }
+}
 
 .mission-section p {
   line-height: 1.6;
