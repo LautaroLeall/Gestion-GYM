@@ -7,13 +7,6 @@
     font-family: 'Poppins', sans-serif ,'work sans', sans-serif;
 }
 
-@media screen and (max-width: 768px) 
-{
-    .title-img{
-        font-size: 2em;
-    }    
-}
-
 .title-img{
     font-size: 5em;
     text-align: center;
@@ -45,4 +38,11 @@
 
 .parallax-inner {
     padding: 13% 0;
+}
+
+@media screen and (max-width: 768px) 
+{
+    .title-img{
+        font-size: 2em;
+    }    
 }
