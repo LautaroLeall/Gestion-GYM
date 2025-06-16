@@ -4,31 +4,6 @@
   border: 2px solid #10db2b;
 }
 
-/* AQUI DEBERIA DE SOLUCIONAR EL PROBLEMA QUE HAY EN EL NAVBAR DEL SOBRENOSOTROS */
-@media screen and (max-width: 1024px) and (min-width: 768px) {
-  .navbar {
-    display: none;
-  }
-}
-@media screen and (max-width: 1024px) {
-  .producto-container {
-    flex-direction: column;
-  }
-  
-@media screen and (max-width: 768px) {
-  .galeria {
-    display: none;
-  }
-  
-}
-}
-@media screen and (max-width: 768px) {
-  .detalles {
-    display: none;
-  }
-  
-}
-
 .title {
   font-weight: 300;
   letter-spacing: 1px;
@@ -64,34 +39,58 @@
 
 .galeria {
   flex: 1;
-  height: 28rem;
-  overflow-y: auto;
+  max-width: 28rem;
+  aspect-ratio: 1 / 1;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
 }
 
 .imagen-principal {
   width: 90%;
   height: 90%;
+  border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
 }
 
 .imagen-principal img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
   filter: grayscale(1);
+  transition: all 0.3s ease-in-out;
 }
 
 .imagen-principal img:hover {
   transform: scale(1.1);
-  transition: all 0.3s ease-in-out;
   filter: grayscale(0);
+}
+
+/* AQUI DEBERIA DE SOLUCIONAR EL PROBLEMA QUE HAY EN EL NAVBAR DEL SOBRENOSOTROS */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .producto-container {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 768px) {
+    .galeria {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .detalles {
+    display: none;
+  }
 }

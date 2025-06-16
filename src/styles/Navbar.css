@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
-
 .navbar {
     height: 100px;
     display: flex;
@@ -8,11 +5,6 @@
     align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-    .navbar {
-        display:inline-block;
-    }
-}
 #logo {
     font-size: 2em;
     color: #13200f;
@@ -24,6 +16,7 @@
 #logo span {
     color: #10db2b;
 }
+
 #logo:hover {
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
@@ -50,7 +43,7 @@
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
     color: #10db2b;
-    }
+}
 
 #boton2 {
     font-size: 1.8em;
@@ -74,4 +67,10 @@
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
     color: #10db2b;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        display:inline-block;
     }
+}
