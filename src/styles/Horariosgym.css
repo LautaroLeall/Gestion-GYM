@@ -29,7 +29,7 @@
 }
 
 .service-item{
-  cursor: pointer;
+  cursor: grab;
   padding: 10px;
   display: flex;
   align-items: center;

@@ -5,7 +5,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     return (
-        <nav className="navbar navbar-dark bg-dark navbar-expand-lg px-4 d-flex justify-content-around">
+        <nav className="navbar navbar-dark navbar-expand-lg px-4 d-flex justify-content-around">
             <h1 className="navbar-brand" id="logo" onClick={() => navigate('/')}>
                 <span>GYM</span>NASIO
             </h1>
