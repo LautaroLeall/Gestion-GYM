@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import '../styles/Form.css';
 
 const clasesDisponibles = {
     Funcional: ["08:00-09:00", "18:00-19:00"],
@@ -72,13 +73,13 @@ const Form = ({
     };
 
     return (
-        <div className="d-flex flex-column align-items-center bg-dark">
-            <form onSubmit={handleSubmit} className="form bg-success p-4 rounded bg-light w-75 my-5">
+        <div className="d-flex flex-column align-items-center">
+            <form onSubmit={handleSubmit} className="formulario p-4 w-75 my-5">
                 <div className="mb-3">
                     <select className="form-select" name="clase" value={formData.clase} onChange={handleChange} required>
-                        <option value="">Seleccionar clase</option>
+                        <option className="option-form" value="">Seleccionar clase</option>
                         {Object.keys(clasesDisponibles).map((clase) => (
-                            <option key={clase} value={clase}>{clase}</option>
+                            <option className="option-form" key={clase} value={clase}>{clase}</option>
                         ))}
                     </select>
                 </div>
@@ -93,9 +94,9 @@ const Form = ({
                 </div>
                 <div className="mb-3">
                     <select className="form-select" name="horario" value={formData.horario} onChange={handleChange} required>
-                        <option value="">Seleccionar horario</option>
+                        <option className="option-form" value="">Seleccionar horario</option>
                         {horariosOpciones.map((hora) => (
-                            <option key={hora} value={hora}>{hora}</option>
+                            <option className="option-form" key={hora} value={hora}>{hora}</option>
                         ))}
                     </select>
                 </div>
@@ -104,13 +105,13 @@ const Form = ({
                         <button type="submit" className="btn btn-outline-success flex-fill">
                             Aceptar
                         </button>
-                        <button type="button" className="btn btn-outline-dark flex-fill" onClick={cancelarEdicion}>
+                        <button type="button" className="btn btn-outline-danger flex-fill" onClick={cancelarEdicion}>
                             Cancelar
                         </button>
                     </div>
                 ) : (
                     <div className="d-flex justify-content-center">
-                        <button type="submit" className="btn btn-outline-dark w-50 mt-2">
+                        <button type="submit" className="btn btn-outline-secondary w-50 mt-2">
                             Registrar Turno
                         </button>
                     </div>

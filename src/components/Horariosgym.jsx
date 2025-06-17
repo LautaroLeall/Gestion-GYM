@@ -3,7 +3,7 @@ import '../styles/HorariosGym.css';
 const HorariosGym = () => {
   return (
     <>
-      <div className="containers-text bg-dark">
+      <div className="containers-text">
         <div className="mission-section">
           <h2 className="mision-title">NUESTRA MISION</h2>
           <p className="text-light">
