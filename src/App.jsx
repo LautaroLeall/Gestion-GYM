@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/App.css';
 import AppRoutes from './routes/routes';
 
 function App() {
