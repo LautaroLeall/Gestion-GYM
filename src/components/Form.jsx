@@ -36,18 +36,17 @@ const Form = ({
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Opciones de horarios dependiendo la clase seleccionada
     const horariosOpciones = formData.clase ? clasesDisponibles[formData.clase] || [] : [];
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validar que no exista un turno duplicado para ese socio
+        // Validación para evitar turnos duplicados
         const existeTurnoDuplicado = socios.some((socio) =>
             socio.nombreApellido.toLowerCase() === formData.nombreApellido.toLowerCase() &&
             socio.clase === formData.clase &&
             socio.horario === formData.horario &&
-            (!modoEdicion || (modoEdicion && socio.indice !== formData.indice)) // Si está editando, ignorar el mismo índice
+            (!modoEdicion || socio.id !== formData.id)
         );
 
         if (existeTurnoDuplicado) {
@@ -60,7 +59,7 @@ const Form = ({
             scrollToTabla();
         } else {
             agregarSocio(formData);
-            scrollToTabla(); 
+            scrollToTabla();
         }
 
         setFormData({
@@ -77,43 +76,42 @@ const Form = ({
             <form onSubmit={handleSubmit} className="formulario p-4 w-75 my-5">
                 <div className="mb-3">
                     <select className="form-select" name="clase" value={formData.clase} onChange={handleChange} required>
-                        <option className="option-form" value="">Seleccionar clase</option>
+                        <option value="">Seleccionar clase</option>
                         {Object.keys(clasesDisponibles).map((clase) => (
-                            <option className="option-form" key={clase} value={clase}>{clase}</option>
+                            <option key={clase} value={clase}>{clase}</option>
                         ))}
                     </select>
                 </div>
+
                 <div className="mb-3">
                     <input className="form-control" type="text" name="nombreApellido" value={formData.nombreApellido} onChange={handleChange} required placeholder="Nombre y Apellido" />
                 </div>
+
                 <div className="mb-3">
                     <input className="form-control" type="text" name="telefono" value={formData.telefono} onChange={handleChange} required placeholder="Teléfono" />
                 </div>
+
                 <div className="mb-3">
                     <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="Email" />
                 </div>
+
                 <div className="mb-3">
                     <select className="form-select" name="horario" value={formData.horario} onChange={handleChange} required>
-                        <option className="option-form" value="">Seleccionar horario</option>
+                        <option value="">Seleccionar horario</option>
                         {horariosOpciones.map((hora) => (
-                            <option className="option-form" key={hora} value={hora}>{hora}</option>
+                            <option key={hora} value={hora}>{hora}</option>
                         ))}
                     </select>
                 </div>
+
                 {modoEdicion ? (
                     <div className="d-flex gap-3 mt-2">
-                        <button type="submit" className="btn btn-outline-success flex-fill">
-                            Aceptar
-                        </button>
-                        <button type="button" className="btn btn-outline-danger flex-fill" onClick={cancelarEdicion}>
-                            Cancelar
-                        </button>
+                        <button type="submit" className="btn btn-outline-success flex-fill">Aceptar</button>
+                        <button type="button" className="btn btn-outline-danger flex-fill" onClick={cancelarEdicion}>Cancelar</button>
                     </div>
                 ) : (
                     <div className="d-flex justify-content-center">
-                        <button type="submit" className="btn btn-outline-secondary w-50 mt-2">
-                            Registrar Turno
-                        </button>
+                        <button type="submit" className="btn btn-outline-secondary w-50 mt-2">Registrar Turno</button>
                     </div>
                 )}
             </form>
