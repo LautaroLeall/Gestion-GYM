@@ -69,8 +69,20 @@
     color: #10db2b;
 }
 
-@media screen and (max-width: 768px) {
-    .navbar {
-        display:inline-block;
+@media (max-width: 768px) {
+    .container-btn {
+        display: flex;
+        align-items: center;
+    }
+
+    #logo,
+    #SobreNosotros {
+        font-size: 1.3em;
+    }
+
+    #boton1,
+    #boton2 {
+        font-size: 1em;
+        width: 70%;
     }
 }
