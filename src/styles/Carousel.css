@@ -4,10 +4,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif ,'work sans', sans-serif;
+    font-family: 'Poppins', sans-serif, 'work sans', sans-serif;
 }
 
-.title-img{
+.title-img {
     font-size: 5em;
     text-align: center;
     color: rgba(300, 300, 300, 0.505);
@@ -40,9 +40,8 @@
     padding: 13% 0;
 }
 
-@media screen and (max-width: 768px) 
-{
-    .title-img{
+@media screen and (max-width: 768px) {
+    .title-img {
         font-size: 2em;
-    }    
+    }
 }

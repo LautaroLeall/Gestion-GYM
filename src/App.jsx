@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppRoutes from './routes/routes';
 
@@ -7,25 +7,47 @@ function App() {
   const [modoEdicion, setModoEdicion] = useState(false);
   const [socioEditado, setSocioEditado] = useState(null);
 
+  // Al cargar la app, recuperamos los datos del localStorage
+  useEffect(() => {
+    const sociosGuardados = JSON.parse(localStorage.getItem("Socios"));
+    if (sociosGuardados) {
+      setSocios(sociosGuardados);
+    }
+  }, []);
+
+  const guardarEnLocalStorage = (nuevosSocios) => {
+    localStorage.setItem("Socios", JSON.stringify(nuevosSocios));
+  };
+
   const agregarSocio = (nuevoSocio) => {
-    setSocios([...socios, nuevoSocio]);
-  };
+    const nuevoId = socios.length > 0
+      ? Math.max(...socios.map(s => s.id)) + 1
+      : 1;
 
-  const eliminarSocio = (indice) => {
-    const nuevosSocios = socios.filter((_, i) => i !== indice);
+    const socioConId = { ...nuevoSocio, id: nuevoId };
+    const nuevosSocios = [...socios, socioConId];
     setSocios(nuevosSocios);
+    guardarEnLocalStorage(nuevosSocios);
   };
 
-  const editarSocio = (indice) => {
-    setSocioEditado({ ...socios[indice], indice });
+  const eliminarSocio = (id) => {
+    const nuevosSocios = socios.filter((s) => s.id !== id);
+    setSocios(nuevosSocios);
+    guardarEnLocalStorage(nuevosSocios);
+  };
+
+  const editarSocio = (id) => {
+    const socioAEditar = socios.find((s) => s.id === id);
+    setSocioEditado(socioAEditar);
     setModoEdicion(true);
   };
 
   const actualizarSocio = (socioActualizado) => {
-    const nuevosSocios = socios.map((s, i) =>
-      i === socioActualizado.indice ? socioActualizado : s
+    const nuevosSocios = socios.map((s) =>
+      s.id === socioActualizado.id ? socioActualizado : s
     );
     setSocios(nuevosSocios);
+    guardarEnLocalStorage(nuevosSocios);
     setModoEdicion(false);
     setSocioEditado(null);
   };
