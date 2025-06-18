@@ -1,11 +1,11 @@
 .detalles {
   flex: 1;
-  padding: 10px;
+  padding: 100px;
   border: 2px solid #10db2b;
 }
 
 .title {
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1px;
   font-size: 1.5em;
   color: #13200f;
@@ -48,8 +48,8 @@
 }
 
 .imagen-principal {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
