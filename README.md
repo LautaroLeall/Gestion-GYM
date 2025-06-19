@@ -57,8 +57,10 @@ GIMNASIO-PF/
 │ ├── styles/
 │ │ ├── App.css
 │ │ ├── Carousel.css
+│ │ ├── Form.css
 │ │ ├── HorariosGym.css
 │ │ ├── NavBar.css
+│ │ ├── PartnersTable.css
 │ │ └── SobreNosotros.css
 │ ├── App.jsx
 │ └── main.jsx
