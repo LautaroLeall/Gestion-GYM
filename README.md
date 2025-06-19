@@ -12,77 +12,71 @@ Esta aplicación permite gestionar la reserva de turnos para distintas clases de
 
 ---
 
-## 🎯 Funcionalidades
+## 🎯 Funcionalidades principales
 
-✔️ Formulario para ingresar los datos de un socio:  
-- Nombre y Apellido  
-- Teléfono  
-- Email  
-- Clase (Funcional, Zumba, Crossfit, Musculación)  
-- Horario (dependiente de la clase elegida)
-
-✔️ Tabla que muestra los turnos cargados.  
-✔️ Botón para **Agregar** un nuevo socio.  
-✔️ Botones de **Editar** y **Eliminar** para cada socio.  
-✔️ Al editar, el formulario se carga con los datos seleccionados y el botón cambia de “Registrar Turno” a “Aceptar”.  
-✔️ Simulación de CRUD usando funciones con React y uso de `useState`.
+- ⏰ Visualización y reserva de horarios para clases.  
+- 📝 Formulario para ingresar los datos de un socio: <br>
+         ✔️ Nombre y Apellido  
+         ✔️ Teléfono  
+         ✔️ Email  
+         ✔️ Clase (Funcional, Zumba, Crossfit, Musculación)  
+         ✔️ Horario (dependiente de la clase elegida)
+- 📊 Tablas interactivas para gestionar los datos cargados en el formulario.
+- 🎉 Notificacion con SweetAlert2 si desea eliminar su turno.
+- 💾 Se guarda la informacion del usuario al registrarse en el **LocalStorage** y se actualiza en tiempo real si desea acatualizar/eliminar el turno.   
+- 🏆 Página "Sobre Nosotros" con información de los participantes del grupo.  
 
 ---
 
 ## 🛠️ Tecnologías Usadas
 
+```
 - ⚛️ ReactJS (Vite)
 - 💅 Bootstrap 5
 - 🎯 HTML5 + CSS3
 - ⚙️ JavaScript (ES6+)
 - 🎣 React Hooks: `useState`
 - 📡 Comunicación padre ↔ hijo entre componentes
+```
 
 ---
 
 ## 📁 Estructura del Proyecto
 ```
 GIMNASIO-PF/
-├── public/
+├── public/              # Archivos estáticos (img)
 ├── src/
-│ ├── components/
-│ │ ├── Carousel.jsx
-│ │ ├── Form.jsx
-│ │ ├── HorariosGym.jsx
-│ │ ├── NavBar.jsx
-│ │ ├── PartnersTable.jsx
-│ │ └── SobreNosotros.jsx
-│ ├── routes/
-│ │ └── routes.jsx
-│ ├── styles/
-│ │ ├── App.css
-│ │ ├── Carousel.css
-│ │ ├── Form.css
-│ │ ├── HorariosGym.css
-│ │ ├── NavBar.css
-│ │ ├── PartnersTable.css
-│ │ └── SobreNosotros.css
-│ ├── App.jsx
-│ └── main.jsx
+│   ├── assets/          # Imagenes del Proyecto
+│   ├── components/      # Componentes React
+│   ├── routes/          # Definición de rutas
+│   ├── styles/          # Archivos CSS por componente
+│   ├── App.jsx          # Componente principal
+│   └── main.jsx         # Punto de entrada
 ├── index.html
 ├── package.json
 └── vite.config.js
 ```
+
 ---
 
 ## 🧠 Consideraciones Técnicas
 
 - Se utilizó comunicación entre componentes padre-hijo e hijo-padre mediante props y callbacks.
 - El CRUD se maneja con estados internos (`useState`) simulando una operación asincrónica tipo AJAX.
-- La interfaz fue desarrollada de forma responsiva con Bootstrap.
 
 ---
 
-## 🚀 ¿Cómo correr la app?
-
-1. Clonar el repositorio
-2. Instalar dependencias:
+## ⚙️ Instalación y ejecución
 
 ```bash
+# Clona el repositorio
+git clone https://github.com/LautaroLeall/Gimnasio-PF.git
+
+# Entra al proyecto
+cd Gimnasio-PF
+
+# Instala dependencias
 npm install
-# Gimnasio-PF
+
+# Levanta el servidor de desarrollo
+npm run dev
