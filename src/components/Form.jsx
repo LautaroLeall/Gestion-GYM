@@ -76,9 +76,9 @@ const Form = ({
             <form onSubmit={handleSubmit} className="formulario p-4 w-75 my-5">
                 <div className="mb-3">
                     <select className="form-select" name="clase" value={formData.clase} onChange={handleChange} required>
-                        <option value="">Seleccionar clase</option>
+                        <option className="option-form" value="">Seleccionar clase</option>
                         {Object.keys(clasesDisponibles).map((clase) => (
-                            <option key={clase} value={clase}>{clase}</option>
+                            <option className="option-form" key={clase} value={clase}>{clase}</option>
                         ))}
                     </select>
                 </div>
@@ -97,9 +97,9 @@ const Form = ({
 
                 <div className="mb-3">
                     <select className="form-select" name="horario" value={formData.horario} onChange={handleChange} required>
-                        <option value="">Seleccionar horario</option>
+                        <option className="option-form" value="">Seleccionar horario</option>
                         {horariosOpciones.map((hora) => (
-                            <option key={hora} value={hora}>{hora}</option>
+                            <option className="option-form" key={hora} value={hora}>{hora}</option>
                         ))}
                     </select>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppRoutes from './routes/routes';
+import './styles/App.css';
 
 function App() {
   const [socios, setSocios] = useState([]);

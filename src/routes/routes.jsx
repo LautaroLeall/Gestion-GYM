@@ -32,7 +32,6 @@ const AppRoutes = (props) => {
 
     return (
         <BrowserRouter>
-            <div className="bg-dark">
                 <NavBar />
                 <Routes>
                     <Route path="/" element={renderCarousel("inicio")} />
@@ -40,7 +39,6 @@ const AppRoutes = (props) => {
                     <Route path="/tabla" element={renderCarousel("tabla")} />
                     <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                 </Routes>
-            </div>
         </BrowserRouter>
     );
 };
