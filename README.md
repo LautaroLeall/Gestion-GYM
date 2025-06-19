@@ -44,27 +44,14 @@ Esta aplicación permite gestionar la reserva de turnos para distintas clases de
 ## 📁 Estructura del Proyecto
 ```
 GIMNASIO-PF/
-├── public/
+├── public/              # Archivos estáticos (img)
 ├── src/
-│ ├── components/
-│ │ ├── Carousel.jsx
-│ │ ├── Form.jsx
-│ │ ├── HorariosGym.jsx
-│ │ ├── NavBar.jsx
-│ │ ├── PartnersTable.jsx
-│ │ └── SobreNosotros.jsx
-│ ├── routes/
-│ │ └── routes.jsx
-│ ├── styles/
-│ │ ├── App.css
-│ │ ├── Carousel.css
-│ │ ├── Form.css
-│ │ ├── HorariosGym.css
-│ │ ├── NavBar.css
-│ │ ├── PartnersTable.css
-│ │ └── SobreNosotros.css
-│ ├── App.jsx
-│ └── main.jsx
+│   ├── assets/          # Imagenes del Proyecto
+│   ├── components/      # Componentes React
+│   ├── routes/          # Definición de rutas
+│   ├── styles/          # Archivos CSS por componente
+│   ├── App.jsx          # Componente principal
+│   └── main.jsx         # Punto de entrada
 ├── index.html
 ├── package.json
 └── vite.config.js
