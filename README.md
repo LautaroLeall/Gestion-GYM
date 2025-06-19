@@ -15,27 +15,29 @@ Esta aplicación permite gestionar la reserva de turnos para distintas clases de
 ## 🎯 Funcionalidades principales
 
 - ⏰ Visualización y reserva de horarios para clases.  
-- 💾 Se guarda la informacion del usuario al registrarse en la Clase en el **LocalStorage** y se actualiza en tiempo real si deseas acatualizar/eliminar el turno.  
-- 🏆 Página "Sobre Nosotros" con información de los participantes del grupo.   
 - 📝 Formulario para ingresar los datos de un socio: <br>
-   ✔️ Nombre y Apellido  
-   ✔️ Teléfono  
-   ✔️ Email  
-   ✔️ Clase (Funcional, Zumba, Crossfit, Musculación)  
-   ✔️ Horario (dependiente de la clase elegida)
-- 📊 Tablas interactivas para gestionar los datos cargados en el formulario.  
+         ✔️ Nombre y Apellido  
+         ✔️ Teléfono  
+         ✔️ Email  
+         ✔️ Clase (Funcional, Zumba, Crossfit, Musculación)  
+         ✔️ Horario (dependiente de la clase elegida)
+- 📊 Tablas interactivas para gestionar los datos cargados en el formulario.
 - 🎉 Notificacion con SweetAlert2 si desea eliminar su turno.
+- 💾 Se guarda la informacion del usuario al registrarse en el **LocalStorage** y se actualiza en tiempo real si desea acatualizar/eliminar el turno.   
+- 🏆 Página "Sobre Nosotros" con información de los participantes del grupo.  
 
 ---
 
 ## 🛠️ Tecnologías Usadas
 
+```
 - ⚛️ ReactJS (Vite)
 - 💅 Bootstrap 5
 - 🎯 HTML5 + CSS3
 - ⚙️ JavaScript (ES6+)
 - 🎣 React Hooks: `useState`
 - 📡 Comunicación padre ↔ hijo entre componentes
+```
 
 ---
 
