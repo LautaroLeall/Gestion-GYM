@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import '../styles/Form.css';
+import Swal from 'sweetalert2';
 
 const clasesDisponibles = {
-    Funcional: ["08:00-09:00", "18:00-19:00"],
-    Zumba: ["10:00-11:00", "20:00-21:00"],
-    Crossfit: ["06:00-07:00", "19:00-20:00"],
-    Musculación: ["12:00-13:00", "17:00-18:00"],
+    Funcional: ["08:00-09:00", "16:00-17:00",],
+    Zumba: ["10:00-11:00", "17:00-18:00"],
+    Crossfit: ["12:00-13:00", "19:00-20:00"],
+    Musculación: ["14:00-15:00", "21:00-22:00"],
 };
 
 const Form = ({
@@ -50,7 +51,13 @@ const Form = ({
         );
 
         if (existeTurnoDuplicado) {
-            alert('¡No podés registrarte dos veces en la misma clase y horario!');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Registro duplicado',
+                text: '¡No podés registrarte dos veces en la misma clase y horario!',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ok'
+            });
             return;
         }
 

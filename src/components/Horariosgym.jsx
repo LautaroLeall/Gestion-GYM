@@ -41,27 +41,31 @@ const HorariosGym = () => {
           <h2 className="horarios-title">HORARIOS DE ATENCIÓN</h2>
           <div className="schedule-item">
             <span className="schedule-day">LUNES</span>
-            <span>08:00 - 21:00</span>
+            <span>08:00 - 22:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">MARTES</span>
-            <span>08:00 - 21:00</span>
+            <span>08:00 - 22:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">MIERCOLES</span>
-            <span>08:00 - 21:00</span>
+            <span>08:00 - 22:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">JUEVES</span>
-            <span>08:00 - 21:00</span>
+            <span>08:00 - 22:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">VIERNES</span>
-            <span>08:00 - 21:00</span>
+            <span>08:00 - 22:00</span>
           </div>
           <div className="schedule-item">
             <span className="schedule-day">SÁBADOS</span>
-            <span>09:00 - 16:00</span>
+            <span>08:00 - 22:00</span>
+          </div>
+          <div className="schedule-item">
+            <span className="schedule-day">DOMINGO</span>
+            <span>CLOSED</span>
           </div>
         </div>
       </div>
