@@ -15,7 +15,7 @@
 }
 
 .parallax-1 {
-    background: url('src/assets/imagen1.jpg') no-repeat;
+    background: url('/public//imagen1.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -23,14 +23,14 @@
 }
 
 .parallax-2 {
-    background: url('src/assets/imagen2.jpg') no-repeat;
+    background: url('/public/imagen2.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
 
 .parallax-3 {
-    background: url('src/assets/imagen3.jpg') no-repeat;
+    background: url('/public/imagen3.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
