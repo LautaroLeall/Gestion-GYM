@@ -31,6 +31,11 @@ const Carousel = ({
         tablaRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    // Función para hacer scroll suave al formulario
+    const scrollToForm = () => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
         <section className="contenedor-carousel">
             <section className="parallax-1">
@@ -72,6 +77,7 @@ const Carousel = ({
                     socios={socios}
                     eliminarSocio={eliminarSocio}
                     editarSocio={editarSocio}
+                    scrollToForm={scrollToForm}
                 />
             </section>
         </section>
@@ -79,5 +85,3 @@ const Carousel = ({
 };
 
 export default Carousel;
-
-
