@@ -1,0 +1,101 @@
+.producto-container {
+  height: 42em;
+}
+
+.detalles {
+  flex: 1;
+  border: 2px solid #10db2b;
+}
+
+.title {
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 1.5em;
+  color: #13200f;
+  text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+}
+
+.title-secondary {
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #10db2b;
+  text-shadow: 0px 0px 10px rgba(64, 255, 0, 1);
+  font-size: 1.5em;
+}
+
+.skills {
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.redes a {
+  transition: all 0.3s ease-in-out;
+  color: #13200f;
+  text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+  font-size: x-large;
+}
+
+.redes a:hover {
+  transform: scale(1.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.galeria {
+  flex: 1;
+  max-width: 28rem;
+  aspect-ratio: 1 / 1;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagen-principal {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagen-principal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: grayscale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+.imagen-principal img:hover {
+  transform: scale(1.1);
+  filter: grayscale(0);
+}
+
+/* AQUI DEBERIA DE SOLUCIONAR EL PROBLEMA QUE HAY EN EL NAVBAR DEL SOBRENOSOTROS */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .producto-container {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 768px) {
+    .galeria {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .detalles {
+    display: none;
+  }
+}

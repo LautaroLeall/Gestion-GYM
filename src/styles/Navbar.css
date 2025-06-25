@@ -1,0 +1,85 @@
+.navbar {
+    height: 100px;
+}
+
+#logo {
+    font-size: 2em;
+    color: #13200f;
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
+}
+
+#logo span {
+    color: #10db2b;
+}
+
+#logo:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    color: #10db2b;
+}
+
+#SobreNosotros {
+    font-size: 2em;
+    color: #13200f;
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
+}
+
+#boton1 {
+    font-size: 1.8em;
+    color: #4fc22c;
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
+}
+
+#boton1:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    color: #10db2b;
+}
+
+#boton2 {
+    font-size: 1.8em;
+    color: #4fc22c;
+    cursor: grab;
+    text-shadow: 0px 0px 3px rgba(64, 255, 0, 1);
+    transition: all 0.3s ease-in-out;
+}
+
+#boton2:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    color: #10db2b;
+}
+
+#SobreNosotros span {
+    color: #10db2b;
+}
+
+#SobreNosotros:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    color: #10db2b;
+}
+
+@media (max-width: 768px) {
+    .container-btn {
+        display: flex;
+        align-items: center;
+    }
+
+    #logo,
+    #SobreNosotros {
+        font-size: 1.3em;
+    }
+
+    #boton1,
+    #boton2 {
+        font-size: 1em;
+        width: 70%;
+    }
+}

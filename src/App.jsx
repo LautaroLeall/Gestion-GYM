@@ -1,74 +1,75 @@
-import { useState } from 'react';
-import Navbar from './components/NavBar';
-import Carousel from './components/Carousel';
-import Form from './components/Form';
-import PartnersTable from './components/PartnersTable';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'animate.css';
+import AppRoutes from './routes/routes';
+import './styles/App.css';
 
 function App() {
-  const [vista, setVista] = useState('inicio');
   const [socios, setSocios] = useState([]);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [socioEditado, setSocioEditado] = useState(null);
 
+  // Al cargar la app, recuperamos los datos del localStorage
+  useEffect(() => {
+    const sociosGuardados = JSON.parse(localStorage.getItem("Socios"));
+    if (sociosGuardados) {
+      setSocios(sociosGuardados);
+    }
+  }, []);
+
+  const guardarEnLocalStorage = (nuevosSocios) => {
+    localStorage.setItem("Socios", JSON.stringify(nuevosSocios));
+  };
+
   const agregarSocio = (nuevoSocio) => {
-    setSocios([...socios, nuevoSocio]);
-    setVista('tabla');
-  };
+    const nuevoId = socios.length > 0
+      ? Math.max(...socios.map(s => s.id)) + 1
+      : 1;
 
-  const eliminarSocio = (indice) => {
-    const nuevosSocios = socios.filter((_, i) => i !== indice);
+    const socioConId = { ...nuevoSocio, id: nuevoId };
+    const nuevosSocios = [...socios, socioConId];
     setSocios(nuevosSocios);
+    guardarEnLocalStorage(nuevosSocios);
   };
 
-  const editarSocio = (indice) => {
-    setSocioEditado({ ...socios[indice], indice });
+  const eliminarSocio = (id) => {
+    const nuevosSocios = socios.filter((s) => s.id !== id);
+    setSocios(nuevosSocios);
+    guardarEnLocalStorage(nuevosSocios);
+  };
+
+  const editarSocio = (id) => {
+    const socioAEditar = socios.find((s) => s.id === id);
+    setSocioEditado(socioAEditar);
     setModoEdicion(true);
-    setVista('formulario');
   };
 
   const actualizarSocio = (socioActualizado) => {
-    const nuevosSocios = socios.map((s, i) =>
-      i === socioActualizado.indice ? socioActualizado : s
+    const nuevosSocios = socios.map((s) =>
+      s.id === socioActualizado.id ? socioActualizado : s
     );
     setSocios(nuevosSocios);
+    guardarEnLocalStorage(nuevosSocios);
     setModoEdicion(false);
     setSocioEditado(null);
-    setVista('tabla');
   };
 
   const cancelarEdicion = () => {
     setModoEdicion(false);
     setSocioEditado(null);
-    setVista('tabla');
   };
 
   return (
-    <div>
-      <Navbar cambiarVista={setVista} />
-      <div className="container mt-4">
-        {vista === 'inicio' && <Carousel />}
-        {vista === 'formulario' && (
-          <Form
-            agregarSocio={agregarSocio}
-            socioEditado={socioEditado}
-            actualizarSocio={actualizarSocio}
-            modoEdicion={modoEdicion}
-            cancelarEdicion={cancelarEdicion}
-          />
-        )}
-        {vista === 'tabla' && (
-          <PartnersTable
-            socios={socios}
-            eliminarSocio={eliminarSocio}
-            editarSocio={editarSocio}
-          />
-        )}
-      </div>
-    </div>
+    <AppRoutes
+      socios={socios}
+      agregarSocio={agregarSocio}
+      eliminarSocio={eliminarSocio}
+      editarSocio={editarSocio}
+      actualizarSocio={actualizarSocio}
+      cancelarEdicion={cancelarEdicion}
+      modoEdicion={modoEdicion}
+      socioEditado={socioEditado}
+    />
   );
 }
 
 export default App;
-
