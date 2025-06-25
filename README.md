@@ -68,6 +68,8 @@ GIMNASIO-PF/
 
 ## ⚙️ Instalación y ejecución
 
+[![Probar Gestión Gym](https://img.shields.io/badge/Probar%20Gestión%20Gym-%232196F3?style=for-the-badge&logo=netlify&logoColor=white)](https://gestion-gym.netlify.app/)
+
 ```bash
 # Clona el repositorio
 git clone https://github.com/LautaroLeall/Gestion-GYM.git
