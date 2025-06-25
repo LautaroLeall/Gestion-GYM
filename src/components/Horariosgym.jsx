@@ -1,4 +1,4 @@
-import '../styles/HorariosGym.css';
+import '../styles/Horariosgym.css';
 
 const HorariosGym = () => {
   return (
