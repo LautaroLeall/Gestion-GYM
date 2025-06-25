@@ -19,16 +19,16 @@ const SobreNosotros = () => {
                 </div>
                 <div className="aboutMy">
                     <p>
-                      Soy una persona proactiva,comprometida y responsable en mis proyectos de vida.
-                      <br />
-                      Soy capas de desarollar tareas grupales potenciando habilidades individuales. 
-                      <br />
-                      Busco adquirir experencia y formacion en un ambito laboral de
-                      respeto y cooperacion.
-                      <br />
-                      Actualmente estoy en constante capacitacion y formacion en la toma de decisiones
-                      basadas en datos para la identificacion de oportunidades de mejora,tendencia y prediccion de actos futuros que
-                      puedan ayudar e impulsar el crecimiento y el desaollo en las diversas areas de la empresa.
+                        Soy una persona proactiva,comprometida y responsable en mis proyectos de vida.
+                        <br />
+                        Soy capas de desarollar tareas grupales potenciando habilidades individuales.
+                        <br />
+                        Busco adquirir experencia y formacion en un ambito laboral de
+                        respeto y cooperacion.
+                        <br />
+                        Actualmente estoy en constante capacitacion y formacion en la toma de decisiones
+                        basadas en datos para la identificacion de oportunidades de mejora,tendencia y prediccion de actos futuros que
+                        puedan ayudar e impulsar el crecimiento y el desaollo en las diversas areas de la empresa.
                     </p>
                 </div>
 
