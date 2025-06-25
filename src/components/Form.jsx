@@ -95,7 +95,7 @@ const Form = ({
                 </div>
 
                 <div className="mb-3">
-                    <input className="form-control" type="text" name="telefono" value={formData.telefono} onChange={handleChange} required placeholder="Teléfono" />
+                    <input className="form-control" type="number" name="telefono" value={formData.telefono} onChange={handleChange} required placeholder="Teléfono" />
                 </div>
 
                 <div className="mb-3">
