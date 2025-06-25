@@ -32,9 +32,9 @@ Esta aplicación permite gestionar la reserva de turnos para distintas clases de
 
 ```
 - ⚛️ ReactJS (Vite)
-- 💅 Bootstrap 5
 - 🎯 HTML5 + CSS3
 - ⚙️ JavaScript (ES6+)
+- 💅 Bootstrap 5 - SweetAlert
 - 🎣 React Hooks: `useState`
 - 📡 Comunicación padre ↔ hijo entre componentes
 ```
@@ -70,7 +70,7 @@ GIMNASIO-PF/
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/LautaroLeall/Gimnasio-PF.git
+git clone https://github.com/LautaroLeall/Gestion-GYM.git
 
 # Entra al proyecto
 cd Gimnasio-PF
