@@ -4,9 +4,9 @@ import sobreNosotros from '../../public/sobre-nosotros.jpg';
 
 const SobreNosotros = () => {
     return (
-        <div className="producto-container d-flex align-items-center text-light my-5">
+        <div className="producto-container d-flex align-items-center text-light my-5 mx-5">
 
-            <div className="detalles d-flex flex-column gap-3 rounded-5 p-3 mx-5 my-5">
+            <div className="detalles d-flex flex-column gap-2 rounded-5 p-3">
                 <div className="title text-center">
                     <h1 className="title">GONZALO MARTINEZ</h1>
                 </div>
@@ -54,7 +54,7 @@ const SobreNosotros = () => {
                 </div>
             </div>
 
-            <div className="detalles d-flex flex-column gap-3 rounded-5 p-4 mx-5">
+            <div className="detalles d-flex flex-column gap-2 rounded-5 p-3">
                 <div className="title text-center">
                     <h1 className="title">LAUTARO LEAL</h1>
                 </div>
