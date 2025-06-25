@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '../styles/PartnersTable.css';
 
-const PartnersTable = ({ socios, eliminarSocio, editarSocio }) => {
+const PartnersTable = ({ socios, eliminarSocio, editarSocio, scrollToForm }) => {
 
     const confirmarEliminacion = (id) => {
         Swal.fire({
@@ -20,6 +20,12 @@ const PartnersTable = ({ socios, eliminarSocio, editarSocio }) => {
                 Swal.fire('Eliminado', 'El turno fue eliminado exitosamente.', 'success');
             }
         });
+    };
+
+    // Función para editar y hacer scroll al formulario
+    const handleEditar = (id) => {
+        editarSocio(id);
+        scrollToForm();  // Scroll suave al formulario
     };
 
     return (
@@ -49,7 +55,8 @@ const PartnersTable = ({ socios, eliminarSocio, editarSocio }) => {
                                 <td className="border">{socio.clase}</td>
                                 <td className="border">{socio.horario}</td>
                                 <td className="border">
-                                    <button className="btn btn-warning btn-sm me-2" onClick={() => editarSocio(socio.id)}>
+                                    {/* Usamos la función handleEditar para editar y hacer scroll */}
+                                    <button className="btn btn-warning btn-sm me-2" onClick={() => handleEditar(socio.id)}>
                                         Editar
                                     </button>
                                     <button className="btn btn-danger btn-sm" onClick={() => confirmarEliminacion(socio.id)}>
@@ -66,4 +73,3 @@ const PartnersTable = ({ socios, eliminarSocio, editarSocio }) => {
 };
 
 export default PartnersTable;
-
