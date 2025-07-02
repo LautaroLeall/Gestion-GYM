@@ -15,7 +15,7 @@
 }
 
 .parallax-1 {
-    background: url('/public//imagen1.jpg') no-repeat;
+    background: url('/public/imagen1.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
