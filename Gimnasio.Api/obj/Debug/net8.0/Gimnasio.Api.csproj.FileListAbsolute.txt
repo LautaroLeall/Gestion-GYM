@@ -126,3 +126,4 @@ F:\LLDP\Desarrollo Back End\TP_FINAL-GYM\Gimnasio.Api\obj\Debug\net8.0\refint\Gi
 F:\LLDP\Desarrollo Back End\TP_FINAL-GYM\Gimnasio.Api\obj\Debug\net8.0\Gimnasio.Api.pdb
 F:\LLDP\Desarrollo Back End\TP_FINAL-GYM\Gimnasio.Api\obj\Debug\net8.0\Gimnasio.Api.genruntimeconfig.cache
 F:\LLDP\Desarrollo Back End\TP_FINAL-GYM\Gimnasio.Api\obj\Debug\net8.0\ref\Gimnasio.Api.dll
+F:\LLDP\Desarrollo Back End\TP_FINAL-GYM\Gimnasio.Api\obj\Debug\net8.0\Gimnasio.Api.sourcelink.json
