@@ -105,7 +105,7 @@ const ClasesPage = () => {
           <div>
             <label className="block text-sm font-medium mb-1">Días de la semana</label>
             <div className="flex flex-wrap gap-2">
-              {['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map((dia) => (
+              {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((dia) => (
                 <label key={dia} className="flex items-center space-x-1">
                   <input
                     type="checkbox"
@@ -165,7 +165,7 @@ const ClasesPage = () => {
                   <td className="px-4 py-2 whitespace-nowrap">{item.nombre}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.instructor}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.diasSemana}</td>
-                  <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0,5)}</td>
+                  <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0, 5)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.cupoMaximo}</td>
                   <td className="px-4 py-2 space-x-2">
                     <button onClick={() => handleEdit(item)} className="text-blue-600 hover:underline">Editar</button>
