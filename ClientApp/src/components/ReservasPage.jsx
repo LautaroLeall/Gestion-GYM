@@ -112,7 +112,7 @@ const ReservasPage = () => {
               <option value="">Seleccione una clase</option>
               {clases.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.nombre} ({c.diasSemana} {c.hora?.substring(0,5)})
+                  {c.nombre} ({c.diasSemana} {c.hora?.substring(0, 5)})
                 </option>
               ))}
             </select>
