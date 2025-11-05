@@ -8,7 +8,8 @@ import { NavLink } from 'react-router-dom';
  */
 const NavBar = () => {
   const navItemClass = ({ isActive }) =>
-    `px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-100'
+    `px-3 py-2 rounded-md text-sm font-medium ${
+      isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-100'
     }`;
   return (
     <nav className="bg-white shadow-md">
