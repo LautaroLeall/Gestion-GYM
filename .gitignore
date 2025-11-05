@@ -1,5 +1,15 @@
-*.user
-*.suo
-/bin/
-/obj/
-/Properties/launchSettings.json
+# Archivos generados por compilación
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.db-shm
+*.db-wal
+*.db-journal
+
+# Archivos de build automáticos de .NET
+**/AssemblyInfo.cs
+**/AssemblyInfoInputs.cache
