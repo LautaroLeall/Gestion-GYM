@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -110,7 +110,12 @@ const MembresiasPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Descripción</label>
-            <input className="w-full border rounded px-2 py-1" value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} />
+            <input
+              className="w-full border rounded px-2 py-1"
+              value={form.descripcion}
+              maxLength={50}
+              onChange={(e) => setForm({ ...form, descripcion: e.target.value.slice(0, 50) })}
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Precio</label>
