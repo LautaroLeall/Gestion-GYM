@@ -14,7 +14,7 @@ const NavBar = () => {
   return (
     <nav className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-blue-700">Gimnasio</h1>
+        <h1 className="text-xl font-semibold text-blue-700">Gestion GYM</h1>
         <div className="flex space-x-4">
           <NavLink to="/" className={navItemClass}>Inicio</NavLink>
           <NavLink to="/socios" className={navItemClass}>Socios</NavLink>
