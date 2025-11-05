@@ -11,12 +11,15 @@ namespace Gimnasio.Api.DTOs
     {
         [Required]
         [MaxLength(100)]
+        [MinLength(4, ErrorMessage = "El nombre debe tener al menos 4 caracteres.")]
+        [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
         public string Nombre { get; set; } = string.Empty;
 
-        [MaxLength(255)]
+        [MaxLength(20)]
+        [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]*$", ErrorMessage = "La descripción solo puede contener letras y espacios.")]
         public string? Descripcion { get; set; }
 
-        [Range(0, double.MaxValue)]
+        [Range(10000, double.MaxValue, ErrorMessage = "El precio mínimo es $10.000.")]
         public decimal Precio { get; set; }
 
         [Range(1, 3650)]

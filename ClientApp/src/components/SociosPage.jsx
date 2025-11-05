@@ -46,13 +46,19 @@ const SociosPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validar campos en cliente antes de enviar al servidor
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     try {
       const payload = {
         nombre: form.nombre,
         apellido: form.apellido,
         fechaNacimiento: form.fechaNacimiento,
-        email: form.email || null,
-        telefono: form.telefono || null,
+        email: form.email,
+        telefono: form.telefono,
         membresiaId: form.membresiaId ? Number(form.membresiaId) : null
       };
       if (isEditing) {
@@ -65,6 +71,49 @@ const SociosPage = () => {
     } catch (err) {
       setError(err.response?.data || 'Error al guardar');
     }
+  };
+
+  /**
+   * Valida el formulario de socios. Devuelve una cadena con el mensaje
+   * de error si hay algún problema; de lo contrario devuelve null.
+   */
+  const validateForm = () => {
+    // Validar nombre: mínimo 3 letras, solo letras y espacios
+    if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{3,}$/.test(form.nombre.trim())) {
+      return 'El nombre debe tener al menos 3 caracteres y solo letras.';
+    }
+    // Validar apellido
+    if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{3,}$/.test(form.apellido.trim())) {
+      return 'El apellido debe tener al menos 3 caracteres y solo letras.';
+    }
+    // Validar fecha de nacimiento y edad mínima de 8 años
+    if (!form.fechaNacimiento) {
+      return 'Debe ingresar la fecha de nacimiento.';
+    }
+    const fn = new Date(form.fechaNacimiento);
+    const today = new Date();
+    const minBirth = new Date();
+    minBirth.setFullYear(today.getFullYear() - 8);
+    if (fn > minBirth) {
+      return 'La fecha de nacimiento indica que el socio debe tener al menos 8 años.';
+    }
+    // Validar email: debe existir y tener al menos 3 letras antes del @
+    if (!form.email) {
+      return 'Debe ingresar un correo electrónico.';
+    }
+    const parts = form.email.split('@');
+    if (parts.length < 2 || !/^[A-Za-z]{3,}/.test(parts[0])) {
+      return 'El correo electrónico debe tener al menos 3 letras antes del @.';
+    }
+    // Validar teléfono: solo números, 10 a 13 caracteres
+    if (!/^[0-9]{10,13}$/.test(form.telefono)) {
+      return 'El teléfono debe contener solo números y tener entre 10 y 13 dígitos.';
+    }
+    // Validar membresía seleccionada
+    if (!form.membresiaId) {
+      return 'Debe seleccionar una membresía.';
+    }
+    return null;
   };
 
   const handleEdit = (socio) => {
@@ -91,7 +140,7 @@ const SociosPage = () => {
       <h2 className="text-2xl font-semibold">Socios</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
         <h3 className="text-lg font-medium">{isEditing ? 'Editar socio' : 'Nuevo socio'}</h3>
-        {error && <p className="text-red-600">{JSON.stringify(error)}</p>}
+        {error && <p className="text-red-600">{error}</p>}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Nombre</label>
@@ -107,11 +156,23 @@ const SociosPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Correo electrónico</label>
-            <input type="email" className="w-full border rounded px-2 py-1" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            <input
+              type="email"
+              className="w-full border rounded px-2 py-1"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              required
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Teléfono</label>
-            <input type="text" className="w-full border rounded px-2 py-1" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} />
+            <input
+              type="text"
+              className="w-full border rounded px-2 py-1"
+              value={form.telefono}
+              onChange={(e) => setForm({ ...form, telefono: e.target.value })}
+              required
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Membresía</label>
@@ -119,6 +180,7 @@ const SociosPage = () => {
               className="w-full border rounded px-2 py-1"
               value={form.membresiaId ?? ''}
               onChange={(e) => setForm({ ...form, membresiaId: e.target.value ? Number(e.target.value) : '' })}
+              required
             >
               <option value="">— Seleccionar —</option>
               {membresias.map((m) => (

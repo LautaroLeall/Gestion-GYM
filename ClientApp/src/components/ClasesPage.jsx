@@ -7,6 +7,36 @@ import { motion, AnimatePresence } from 'framer-motion';
  * clases, así como eliminarlas. Se muestra la fecha y el cupo máximo.
  */
 const ClasesPage = () => {
+  // Días de la semana disponibles con etiquetas en español
+  const diasSemanaDisponibles = [
+    { value: 'Monday', label: 'Lunes' },
+    { value: 'Tuesday', label: 'Martes' },
+    { value: 'Wednesday', label: 'Miércoles' },
+    { value: 'Thursday', label: 'Jueves' },
+    { value: 'Friday', label: 'Viernes' },
+    { value: 'Saturday', label: 'Sábado' },
+    { value: 'Sunday', label: 'Domingo' }
+  ];
+  // Horarios disponibles de 10:00 a 22:00 en intervalos de 30 minutos
+  const horariosDisponibles = [];
+  for (let h = 10; h <= 22; h++) {
+    const hourStr = String(h).padStart(2, '0');
+    horariosDisponibles.push(`${hourStr}:00`);
+    if (h < 22) horariosDisponibles.push(`${hourStr}:30`);
+  }
+
+  // Convierte una cadena de días separados por coma (en inglés) a una
+  // representación en español unida por comas.
+  const formatoDias = (dias) => {
+    if (!dias) return '';
+    return dias
+      .split(',')
+      .map((d) => {
+        const item = diasSemanaDisponibles.find((x) => x.value === d.trim());
+        return item ? item.label : d.trim();
+      })
+      .join(', ');
+  };
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({
     id: null,
@@ -44,6 +74,12 @@ const ClasesPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validar el formulario
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     const payload = {
       nombre: form.nombre,
       descripcion: form.descripcion || null,
@@ -66,6 +102,40 @@ const ClasesPage = () => {
     }
   };
 
+  /**
+   * Valida el formulario de clases. Devuelve un mensaje de error si
+   * encuentra algún problema; en caso contrario devuelve null.
+   */
+  const validateForm = () => {
+    // Nombre e instructor no vacíos
+    if (!form.nombre.trim()) {
+      return 'El nombre de la clase es obligatorio.';
+    }
+    if (!form.instructor.trim()) {
+      return 'El nombre del instructor es obligatorio.';
+    }
+    // Cupo debe estar entre 5 y 50
+    const cupo = parseInt(form.cupoMaximo);
+    if (isNaN(cupo) || cupo < 5 || cupo > 50) {
+      return 'El cupo máximo debe ser un número entre 5 y 50.';
+    }
+    // Al menos un día seleccionado
+    if (!form.diasSemana || form.diasSemana.length === 0) {
+      return 'Debe seleccionar al menos un día de la semana.';
+    }
+    // Hora seleccionada
+    if (!form.hora) {
+      return 'Debe seleccionar un horario.';
+    }
+    // Descripción opcional: máximo 20 caracteres y solo letras/espacios
+    if (form.descripcion && form.descripcion.trim() !== '') {
+      if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{0,20}$/.test(form.descripcion.trim())) {
+        return 'La descripción solo puede contener letras y espacios y máximo 20 caracteres.';
+      }
+    }
+    return null;
+  };
+
   const handleEdit = (item) => {
     setIsEditing(true);
     setForm({
@@ -83,12 +153,21 @@ const ClasesPage = () => {
     await axios.delete(`/api/clases/${id}`);
     fetchData();
   };
+
+  // Alternar selección de un día de la semana
+  const toggleDia = (dia) => {
+    if (form.diasSemana.includes(dia)) {
+      setForm({ ...form, diasSemana: form.diasSemana.filter((d) => d !== dia) });
+    } else {
+      setForm({ ...form, diasSemana: [...form.diasSemana, dia] });
+    }
+  };
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold">Clases</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
         <h3 className="text-lg font-medium">{isEditing ? 'Editar clase' : 'Nueva clase'}</h3>
-        {error && <p className="text-red-600">{JSON.stringify(error)}</p>}
+        {error && <p className="text-red-600">{error}</p>}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Nombre</label>
@@ -100,38 +179,44 @@ const ClasesPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Cupo máximo</label>
-            <input type="number" min="1" className="w-full border rounded px-2 py-1" value={form.cupoMaximo} onChange={(e) => setForm({ ...form, cupoMaximo: e.target.value })} required />
+            <input
+              type="number"
+              min="5"
+              max="50"
+              className="w-full border rounded px-2 py-1"
+              value={form.cupoMaximo}
+              onChange={(e) => setForm({ ...form, cupoMaximo: e.target.value })}
+              required
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Días de la semana</label>
             <div className="flex flex-wrap gap-2">
-              {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((dia) => (
-                <label key={dia} className="flex items-center space-x-1">
-                  <input
-                    type="checkbox"
-                    checked={form.diasSemana.includes(dia)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setForm({ ...form, diasSemana: [...form.diasSemana, dia] });
-                      } else {
-                        setForm({ ...form, diasSemana: form.diasSemana.filter((d) => d !== dia) });
-                      }
-                    }}
-                  />
-                  <span>{dia}</span>
-                </label>
+              {diasSemanaDisponibles.map(({ value, label }) => (
+                <button
+                  type="button"
+                  key={value}
+                  onClick={() => toggleDia(value)}
+                  className={`px-3 py-1 rounded border transition-colors ${form.diasSemana.includes(value) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}
+                >
+                  {label}
+                </button>
               ))}
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Hora de inicio</label>
-            <input
-              type="time"
+            <label className="block text-sm font-medium mb-1">Horario de inicio</label>
+            <select
               className="w-full border rounded px-2 py-1"
               value={form.hora}
               onChange={(e) => setForm({ ...form, hora: e.target.value })}
               required
-            />
+            >
+              <option value="">Seleccione un horario</option>
+              {horariosDisponibles.map((h) => (
+                <option key={h} value={h}>{h}</option>
+              ))}
+            </select>
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-medium mb-1">Descripción</label>
@@ -164,8 +249,8 @@ const ClasesPage = () => {
                 <motion.tr key={item.id} initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: 0.2 }}>
                   <td className="px-4 py-2 whitespace-nowrap">{item.nombre}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.instructor}</td>
-                  <td className="px-4 py-2 whitespace-nowrap">{item.diasSemana}</td>
-                  <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0, 5)}</td>
+                  <td className="px-4 py-2 whitespace-nowrap">{formatoDias(item.diasSemana)}</td>
+                  <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0,5)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.cupoMaximo}</td>
                   <td className="px-4 py-2 space-x-2">
                     <button onClick={() => handleEdit(item)} className="text-blue-600 hover:underline">Editar</button>

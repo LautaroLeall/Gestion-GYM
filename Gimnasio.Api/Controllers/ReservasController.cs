@@ -91,6 +91,17 @@ namespace Gimnasio.Api.Controllers
             {
                 return Conflict("El socio ya tiene una reserva para esta clase en la fecha seleccionada");
             }
+
+            // Validar que la fecha seleccionada esté dentro de la semana actual
+            // Se considera la semana en curso desde hoy hasta el próximo domingo inclusive.
+            var hoy = DateTime.Today;
+            // Calcular los días hasta el domingo (0 = Sunday, 1 = Monday, ...)
+            int diasHastaDomingo = ((int)DayOfWeek.Sunday - (int)hoy.DayOfWeek + 7) % 7;
+            var finSemana = hoy.AddDays(diasHastaDomingo);
+            if (dto.FechaClase.Date < hoy || dto.FechaClase.Date > finSemana)
+            {
+                return BadRequest("La fecha seleccionada debe estar dentro de la semana en curso.");
+            }
             // Verificar capacidad para la fecha específica
             int reservados = await _context.Reservas.CountAsync(r => r.ClaseId == dto.ClaseId && r.FechaClase == dto.FechaClase);
             if (reservados >= clase.CupoMaximo)

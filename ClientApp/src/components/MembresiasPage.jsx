@@ -29,6 +29,12 @@ const MembresiasPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validar formulario
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     const payload = {
       nombre: form.nombre,
       descripcion: form.descripcion || null,
@@ -46,6 +52,34 @@ const MembresiasPage = () => {
     } catch (err) {
       setError(err.response?.data || 'Error al guardar');
     }
+  };
+
+  /**
+   * Valida el formulario de membresías. Devuelve un mensaje de error si
+   * encuentra algún problema; de lo contrario, devuelve null.
+   */
+  const validateForm = () => {
+    // Nombre mínimo 4 caracteres y solo letras/espacios
+    if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{4,}$/.test(form.nombre.trim())) {
+      return 'El nombre debe tener al menos 4 caracteres y solo letras.';
+    }
+    // Descripción opcional: máximo 20 caracteres y solo letras/espacios
+    if (form.descripcion && form.descripcion.trim() !== '') {
+      if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{0,20}$/.test(form.descripcion.trim())) {
+        return 'La descripción solo puede contener letras y hasta 20 caracteres.';
+      }
+    }
+    // Precio mínimo 10000
+    const precioVal = parseFloat(form.precio);
+    if (isNaN(precioVal) || precioVal < 10000) {
+      return 'El precio debe ser un número mayor o igual a 10.000.';
+    }
+    // Duración días mínimo 1
+    const durVal = parseInt(form.duracionDias);
+    if (isNaN(durVal) || durVal < 1) {
+      return 'La duración en días debe ser un número mayor a 0.';
+    }
+    return null;
   };
 
   const handleEdit = (item) => {
@@ -68,7 +102,7 @@ const MembresiasPage = () => {
       <h2 className="text-2xl font-semibold">Membresías</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
         <h3 className="text-lg font-medium">{isEditing ? 'Editar membresía' : 'Nueva membresía'}</h3>
-        {error && <p className="text-red-600">{JSON.stringify(error)}</p>}
+        {error && <p className="text-red-600">{error}</p>}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Nombre</label>

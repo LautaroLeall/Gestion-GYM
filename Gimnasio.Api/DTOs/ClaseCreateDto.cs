@@ -13,14 +13,15 @@ namespace Gimnasio.Api.DTOs
         [MaxLength(100)]
         public string Nombre { get; set; } = string.Empty;
 
-        [MaxLength(255)]
+        [MaxLength(20)]
+        [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]*$", ErrorMessage = "La descripción solo puede contener letras y espacios.")]
         public string? Descripcion { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Instructor { get; set; } = string.Empty;
 
-        [Range(1, int.MaxValue)]
+        [Range(5, 50, ErrorMessage = "El cupo máximo debe estar entre 5 y 50 personas.")]
         public int CupoMaximo { get; set; }
 
         /// <summary>

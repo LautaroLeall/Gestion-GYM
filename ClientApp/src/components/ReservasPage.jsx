@@ -43,29 +43,31 @@ const ReservasPage = () => {
       setForm((prev) => ({ ...prev, fechaClase: '' }));
       return;
     }
-    // Convertir diasSemana y hora a Date objects (HH:mm:ss)
+    // Convertir diasSemana y hora a valores utilizable
     const dias = (clase.diasSemana || '').split(',').map((d) => d.trim());
     const [horaStr, minutoStr] = clase.hora.split(':');
     const hora = parseInt(horaStr, 10);
     const minuto = parseInt(minutoStr, 10);
-    // Generar próximas 14 ocurrencias
-    const options = [];
+    const opciones = [];
     const today = new Date();
-    for (let i = 0; i < 14; i++) {
+    // Calcular días hasta el domingo (0 = Sunday)
+    const diasHastaDomingo = (7 - today.getDay()) % 7;
+    for (let i = 0; i <= diasHastaDomingo; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
+      // Obtener día en inglés para comparar con diasSemana de la clase
       const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
       if (dias.includes(dayName)) {
         const optionDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hora, minuto, 0);
-        // Solo fechas futuras
+        // Solo fechas en el futuro o hoy a una hora futura
         if (optionDate >= today) {
-          options.push(optionDate);
+          opciones.push(optionDate);
         }
       }
     }
-    setScheduleOptions(options);
+    setScheduleOptions(opciones);
     // Seleccionar la primera opción por defecto
-    setForm((prev) => ({ ...prev, fechaClase: options.length ? options[0].toISOString() : '' }));
+    setForm((prev) => ({ ...prev, fechaClase: opciones.length ? opciones[0].toISOString() : '' }));
   }, [form.claseId, clases]);
 
   const handleSubmit = async (e) => {
@@ -112,7 +114,7 @@ const ReservasPage = () => {
               <option value="">Seleccione una clase</option>
               {clases.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.nombre} ({c.diasSemana} {c.hora?.substring(0, 5)})
+                  {c.nombre} ({c.diasSemana} {c.hora?.substring(0,5)})
                 </option>
               ))}
             </select>
