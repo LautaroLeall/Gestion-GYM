@@ -170,6 +170,7 @@ const ClasesPage = () => {
             <label className="block text-sm font-medium mb-1">Nombre</label>
             <input className="w-full border rounded px-2 py-1" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} required />
           </div>
+          {/* Eliminado campo Instructor: las clases ya no tienen instructor asignado */}
           <div>
             <label className="block text-sm font-medium mb-1">Cupo máximo</label>
             <input
@@ -184,13 +185,13 @@ const ClasesPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Días de la semana</label>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4">
               {diasSemanaDisponibles.map(({ value, label }) => (
                 <button
                   type="button"
                   key={value}
                   onClick={() => toggleDia(value)}
-                  className={`px-7 py-2 rounded border transition-colors ${form.diasSemana.includes(value) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}
+                  className={`px-6 py-2 rounded border transition-colors ${form.diasSemana.includes(value) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}
                 >
                   {label}
                 </button>
@@ -202,7 +203,7 @@ const ClasesPage = () => {
             <div
               role="radiogroup"
               aria-label="Horario de inicio"
-              className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-56 overflow-auto pr-2"
+              className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-56 overflow-auto pr-1"
             >
               {horariosDisponibles.map((h) => {
                 const seleccionado = form.hora === h;
