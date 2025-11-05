@@ -70,14 +70,18 @@ namespace Gimnasio.Api.Controllers
                 return BadRequest("Socio o clase no encontrados");
             }
             // Verificar si la fecha seleccionada coincide con los días de la semana de la clase
-            var dias = (clase.DiasSemana ?? string.Empty).Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            // Comparar DayOfWeek.ToString() en inglés, ya que DiasSemana se almacena en ese formato
-            var diaSeleccionado = dto.FechaClase.DayOfWeek.ToString();
-            if (!dias.Any(d => string.Equals(d, diaSeleccionado, StringComparison.InvariantCultureIgnoreCase)))
+            // Los días se almacenan como números separados por comas (1=Lunes, …, 7=Domingo)
+            var dias = (clase.DiasSemana ?? string.Empty)
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(int.Parse)
+                .ToList();
+            // Convertir el día seleccionado al formato numérico 1..7 (domingo es 7)
+            int diaSeleccionado = dto.FechaClase.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)dto.FechaClase.DayOfWeek;
+            if (!dias.Contains(diaSeleccionado))
             {
                 return BadRequest("La fecha seleccionada no corresponde a los días de la clase");
             }
-            // Verificar hora
+            // Verificar hora (TimeOfDay compara TimeSpan)
             if (dto.FechaClase.TimeOfDay != clase.Hora)
             {
                 return BadRequest("La hora seleccionada no corresponde a la hora de la clase");

@@ -18,7 +18,8 @@ namespace Gimnasio.Api.Models
         [MaxLength(100)]
         public string Nombre { get; set; } = string.Empty;
 
-        [MaxLength(255)]
+        // La descripción es opcional y se limita a 50 caracteres para evitar textos demasiado largos.
+        [MaxLength(50)]
         public string? Descripcion { get; set; }
 
         [Column(TypeName = "decimal(10,2)")]

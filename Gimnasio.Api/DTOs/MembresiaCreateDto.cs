@@ -15,7 +15,8 @@ namespace Gimnasio.Api.DTOs
         [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
         public string Nombre { get; set; } = string.Empty;
 
-        [MaxLength(20)]
+        // La descripción es opcional. Debe tener como máximo 50 caracteres y solo letras y espacios.
+        [MaxLength(50)]
         [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]*$", ErrorMessage = "La descripción solo puede contener letras y espacios.")]
         public string? Descripcion { get; set; }
 

@@ -6,8 +6,8 @@ namespace Gimnasio.Api.Models
 {
     /// <summary>
     /// Representa una clase o actividad ofrecida por el gimnasio. Las
-    /// clases se planifican para una fecha y hora específicas con un
-    /// instructor y un cupo máximo de asistentes. Los socios pueden
+    /// clases se planifican para ciertos días de la semana con una
+    /// hora de inicio y un cupo máximo de asistentes. Los socios pueden
     /// reservar su asistencia a una clase a través de la entidad Reserva.
     /// </summary>
     public class Clase
@@ -20,28 +20,25 @@ namespace Gimnasio.Api.Models
         [MaxLength(100)]
         public string Nombre { get; set; } = string.Empty;
 
-        [MaxLength(255)]
+        // Descripción opcional con un máximo de 50 caracteres. Permite dar un detalle breve de la clase.
+        [MaxLength(50)]
         public string? Descripcion { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string Instructor { get; set; } = string.Empty;
-
         /// <summary>
-        /// Capacidad máxima de la clase. Indica cuántos socios pueden
-        /// inscribirse.
+        /// Capacidad máxima de la clase. Debe estar entre 5 y 50 personas.
         /// </summary>
+        [Range(5, 50)]
         public int CupoMaximo { get; set; }
 
         /// <summary>
-        /// Días de la semana en los que se dicta la clase, separados por comas (por ejemplo "Monday,Wednesday,Friday").
-        /// Estos valores deben coincidir con los nombres de los días devueltos por DayOfWeek.ToString().
+        /// Días de la semana en los que se dicta la clase, codificados como números separados por comas (1=Lunes, 2=Martes, ... ,7=Domingo).
+        /// Por ejemplo "1,3,5" indica lunes, miércoles y viernes. Se utiliza para validar las reservas.
         /// </summary>
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string DiasSemana { get; set; } = string.Empty;
 
         /// <summary>
-        /// Hora de inicio de la clase. Se utiliza en conjunto con DiasSemana para calcular las fechas específicas.
+        /// Hora de inicio de la clase. Debe estar en intervalos de media hora (:00 o :30) y entre las 10:00 y las 22:00 (no incluido).
         /// </summary>
         public TimeSpan Hora { get; set; }
 

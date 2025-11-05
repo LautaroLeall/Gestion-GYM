@@ -58,19 +58,20 @@ namespace Gimnasio.Api.Controllers
                 return BadRequest(ModelState);
             }
             // Validaciones adicionales para clases
+            // Debe seleccionar al menos un día de la semana
             if (dto.DiasSemana == null || !dto.DiasSemana.Any())
             {
                 return BadRequest("Debe seleccionar al menos un día de la semana para la clase.");
             }
-            // Asegurarse de que todos los días sean válidos
+            // Verificar que los días sean números entre 1 (lunes) y 7 (domingo)
             foreach (var dia in dto.DiasSemana)
             {
-                if (!Enum.TryParse<DayOfWeek>(dia, true, out _))
+                if (dia < 1 || dia > 7)
                 {
-                    return BadRequest($"El día '{dia}' no es válido.");
+                    return BadRequest($"El día '{dia}' no es válido. Debe estar entre 1 y 7.");
                 }
             }
-            // Validar la hora: debe ser en punto o media y entre 10:00 y 22:00
+            // Validar la hora: debe ser en punto o y media y entre 10:00 y 21:30
             if (dto.Hora.Minutes != 0 && dto.Hora.Minutes != 30)
             {
                 return BadRequest("La hora de la clase debe ser en punto o y media.");
@@ -80,10 +81,10 @@ namespace Gimnasio.Api.Controllers
                 return BadRequest("La hora de la clase no puede tener segundos.");
             }
             var horaMin = new TimeSpan(10, 0, 0);
-            var horaMax = new TimeSpan(22, 0, 0);
+            var horaMax = new TimeSpan(21, 30, 0);
             if (dto.Hora < horaMin || dto.Hora > horaMax)
             {
-                return BadRequest("La hora de la clase debe estar entre las 10:00 y las 22:00.");
+                return BadRequest("La hora de la clase debe estar entre las 10:00 y las 21:30.");
             }
             var entity = _mapper.Map<Clase>(dto);
             await _repository.AddAsync(entity);
@@ -105,9 +106,9 @@ namespace Gimnasio.Api.Controllers
             }
             foreach (var dia in dto.DiasSemana)
             {
-                if (!Enum.TryParse<DayOfWeek>(dia, true, out _))
+                if (dia < 1 || dia > 7)
                 {
-                    return BadRequest($"El día '{dia}' no es válido.");
+                    return BadRequest($"El día '{dia}' no es válido. Debe estar entre 1 y 7.");
                 }
             }
             if (dto.Hora.Minutes != 0 && dto.Hora.Minutes != 30)
@@ -119,10 +120,10 @@ namespace Gimnasio.Api.Controllers
                 return BadRequest("La hora de la clase no puede tener segundos.");
             }
             var minHora = new TimeSpan(10, 0, 0);
-            var maxHora = new TimeSpan(22, 0, 0);
+            var maxHora = new TimeSpan(21, 30, 0);
             if (dto.Hora < minHora || dto.Hora > maxHora)
             {
-                return BadRequest("La hora de la clase debe estar entre las 10:00 y las 22:00.");
+                return BadRequest("La hora de la clase debe estar entre las 10:00 y las 21:30.");
             }
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)

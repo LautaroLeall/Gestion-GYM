@@ -11,11 +11,11 @@ namespace Gimnasio.Api.DTOs
         public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
         public string? Descripcion { get; set; }
-        public string Instructor { get; set; } = string.Empty;
         public int CupoMaximo { get; set; }
 
         /// <summary>
-        /// Días de la semana en los que se dicta la clase (formato "Monday,Wednesday").
+        /// Días de la semana en los que se dicta la clase.
+        /// Se almacenan como números separados por comas (1=Lunes, …, 7=Domingo).
         /// </summary>
         public string DiasSemana { get; set; } = string.Empty;
 
