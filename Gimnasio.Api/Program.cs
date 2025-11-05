@@ -4,6 +4,7 @@ using Gimnasio.Api.Repositories;
 using Gimnasio.Api.Models;
 using AutoMapper;
 using Gimnasio.Api.Profiles;
+using Gimnasio.Api.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,12 @@ builder.Services.AddScoped<IGenericRepository<Membresia>, GenericRepository<Memb
 builder.Services.AddScoped<IGenericRepository<Clase>, GenericRepository<Clase>>();
 
 // Añadir controladores con soporte de JSON.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddJsonOptions(options =>
+{
+    // SOLO este, para formatear DateTime como "yyyy-MM-dd"
+    options.JsonSerializerOptions.Converters.Add(new JsonStringDateConverter());
+});
 
 // Habilitar Swagger para documentar las API.
 builder.Services.AddEndpointsApiExplorer();
@@ -35,8 +41,8 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
     {
         builder.WithOrigins("http://localhost:5173")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
