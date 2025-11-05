@@ -63,10 +63,10 @@ const MembresiasPage = () => {
     if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{4,}$/.test(form.nombre.trim())) {
       return 'El nombre debe tener al menos 4 caracteres y solo letras.';
     }
-    // Descripción opcional: máximo 20 caracteres y solo letras/espacios
+    // Descripción opcional: máximo 50 caracteres y solo letras/espacios
     if (form.descripcion && form.descripcion.trim() !== '') {
-      if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{0,20}$/.test(form.descripcion.trim())) {
-        return 'La descripción solo puede contener letras y hasta 20 caracteres.';
+      if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{0,50}$/.test(form.descripcion.trim())) {
+        return 'La descripción solo puede contener letras y hasta 50 caracteres.';
       }
     }
     // Precio mínimo 10000

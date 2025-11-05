@@ -127,10 +127,10 @@ const ClasesPage = () => {
     if (!form.hora) {
       return 'Debe seleccionar un horario.';
     }
-    // Descripción opcional: máximo 20 caracteres y solo letras/espacios
+    // Descripción opcional: máximo 50 caracteres y solo letras/espacios
     if (form.descripcion && form.descripcion.trim() !== '') {
-      if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{0,20}$/.test(form.descripcion.trim())) {
-        return 'La descripción solo puede contener letras y espacios y máximo 20 caracteres.';
+      if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{0,50}$/.test(form.descripcion.trim())) {
+        return 'La descripción solo puede contener letras y espacios y máximo 50 caracteres.';
       }
     }
     return null;
@@ -250,7 +250,7 @@ const ClasesPage = () => {
                   <td className="px-4 py-2 whitespace-nowrap">{item.nombre}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.instructor}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{formatoDias(item.diasSemana)}</td>
-                  <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0,5)}</td>
+                  <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0, 5)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.cupoMaximo}</td>
                   <td className="px-4 py-2 space-x-2">
                     <button onClick={() => handleEdit(item)} className="text-blue-600 hover:underline">Editar</button>
