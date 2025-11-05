@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Gimnasio.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d3793dea76c69ee5df77dd40a2f2a322f0b28fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5625071d7113ea5eab5fcdf14ff7e1961626a95")]
 [assembly: System.Reflection.AssemblyProductAttribute("Gimnasio.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Gimnasio.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
