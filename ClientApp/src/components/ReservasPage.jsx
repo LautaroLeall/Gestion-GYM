@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,6 +15,25 @@ const ReservasPage = () => {
   const [error, setError] = useState(null);
 
   const [scheduleOptions, setScheduleOptions] = useState([]);
+
+  // Mapeo de números de día a nombres en español (1=Lunes, …,7=Domingo)
+  const LABEL_DIAS = {
+    1: 'Lunes',
+    2: 'Martes',
+    3: 'Miércoles',
+    4: 'Jueves',
+    5: 'Viernes',
+    6: 'Sábado',
+    7: 'Domingo'
+  };
+  // Convierte una cadena de números separados por coma en una cadena con los nombres de los días en español
+  const diasToLabels = (cadena) => {
+    if (!cadena) return '';
+    return cadena
+      .split(',')
+      .map((d) => LABEL_DIAS[parseInt(d.trim())] || d.trim())
+      .join(', ');
+  };
 
   const fetchReservas = async () => {
     const res = await axios.get('/api/reservas');
@@ -43,8 +62,13 @@ const ReservasPage = () => {
       setForm((prev) => ({ ...prev, fechaClase: '' }));
       return;
     }
-    // Convertir diasSemana y hora a valores utilizable
-    const dias = (clase.diasSemana || '').split(',').map((d) => d.trim());
+    // Convertir diasSemana y hora a valores utilizables
+    // diasSemana contiene números separados por comas (1=Lunes, …, 7=Domingo)
+    const dias = (clase.diasSemana || '')
+      .split(',')
+      .map((d) => parseInt(d.trim()))
+      .filter((n) => !isNaN(n));
+    // Hora viene en formato HH:mm:ss
     const [horaStr, minutoStr] = clase.hora.split(':');
     const hora = parseInt(horaStr, 10);
     const minuto = parseInt(minutoStr, 10);
@@ -55,10 +79,17 @@ const ReservasPage = () => {
     for (let i = 0; i <= diasHastaDomingo; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
-      // Obtener día en inglés para comparar con diasSemana de la clase
-      const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-      if (dias.includes(dayName)) {
-        const optionDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hora, minuto, 0);
+      // Convertir a número de día 1..7
+      const dayNumber = date.getDay() === 0 ? 7 : date.getDay();
+      if (dias.includes(dayNumber)) {
+        const optionDate = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          hora,
+          minuto,
+          0
+        );
         // Solo fechas en el futuro o hoy a una hora futura
         if (optionDate >= today) {
           opciones.push(optionDate);
@@ -114,7 +145,7 @@ const ReservasPage = () => {
               <option value="">Seleccione una clase</option>
               {clases.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.nombre} ({c.diasSemana} {c.hora?.substring(0,5)})
+                  {c.nombre} ({diasToLabels(c.diasSemana)} {c.hora?.substring(0, 5)})
                 </option>
               ))}
             </select>
@@ -130,7 +161,15 @@ const ReservasPage = () => {
               >
                 {scheduleOptions.map((date) => (
                   <option key={date.toISOString()} value={date.toISOString()}>
-                    {date.toLocaleString('es-AR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    {date.toLocaleString('es-AR', {
+                      weekday: 'long',
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: false
+                    })}
                   </option>
                 ))}
               </select>
