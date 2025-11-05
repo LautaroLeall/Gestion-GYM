@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,31 +8,34 @@ import { motion, AnimatePresence } from 'framer-motion';
  */
 const ClasesPage = () => {
   // Días de la semana disponibles con etiquetas en español
+  // Días de la semana disponibles como números (1=Lunes, …, 7=Domingo) con etiquetas en español
   const diasSemanaDisponibles = [
-    { value: 'Monday', label: 'Lunes' },
-    { value: 'Tuesday', label: 'Martes' },
-    { value: 'Wednesday', label: 'Miércoles' },
-    { value: 'Thursday', label: 'Jueves' },
-    { value: 'Friday', label: 'Viernes' },
-    { value: 'Saturday', label: 'Sábado' },
-    { value: 'Sunday', label: 'Domingo' }
+    { value: 1, label: 'Lunes' },
+    { value: 2, label: 'Martes' },
+    { value: 3, label: 'Miércoles' },
+    { value: 4, label: 'Jueves' },
+    { value: 5, label: 'Viernes' },
+    { value: 6, label: 'Sábado' },
+    { value: 7, label: 'Domingo' }
   ];
   // Horarios disponibles de 10:00 a 22:00 en intervalos de 30 minutos
   const horariosDisponibles = [];
-  for (let h = 10; h <= 22; h++) {
+  // Horarios disponibles de 10:00 a 21:30 en intervalos de 30 minutos
+  for (let h = 10; h <= 21; h++) {
     const hourStr = String(h).padStart(2, '0');
     horariosDisponibles.push(`${hourStr}:00`);
-    if (h < 22) horariosDisponibles.push(`${hourStr}:30`);
+    horariosDisponibles.push(`${hourStr}:30`);
   }
 
-  // Convierte una cadena de días separados por coma (en inglés) a una
+  // Convierte una cadena de días separados por coma (números) a una
   // representación en español unida por comas.
   const formatoDias = (dias) => {
     if (!dias) return '';
     return dias
       .split(',')
       .map((d) => {
-        const item = diasSemanaDisponibles.find((x) => x.value === d.trim());
+        const n = parseInt(d.trim());
+        const item = diasSemanaDisponibles.find((x) => x.value === n);
         return item ? item.label : d.trim();
       })
       .join(', ');
@@ -42,7 +45,6 @@ const ClasesPage = () => {
     id: null,
     nombre: '',
     descripcion: '',
-    instructor: '',
     cupoMaximo: '',
     diasSemana: [],
     hora: ''
@@ -63,7 +65,6 @@ const ClasesPage = () => {
       id: null,
       nombre: '',
       descripcion: '',
-      instructor: '',
       cupoMaximo: '',
       diasSemana: [],
       hora: ''
@@ -83,10 +84,9 @@ const ClasesPage = () => {
     const payload = {
       nombre: form.nombre,
       descripcion: form.descripcion || null,
-      instructor: form.instructor,
       cupoMaximo: parseInt(form.cupoMaximo),
       diasSemana: form.diasSemana,
-      // convertir hora a formato HH:mm:ss esperado por la API
+      // Convertir hora a formato HH:mm:ss esperado por la API
       hora: form.hora ? `${form.hora}:00` : null
     };
     try {
@@ -107,12 +107,9 @@ const ClasesPage = () => {
    * encuentra algún problema; en caso contrario devuelve null.
    */
   const validateForm = () => {
-    // Nombre e instructor no vacíos
+    // Nombre no vacío
     if (!form.nombre.trim()) {
       return 'El nombre de la clase es obligatorio.';
-    }
-    if (!form.instructor.trim()) {
-      return 'El nombre del instructor es obligatorio.';
     }
     // Cupo debe estar entre 5 y 50
     const cupo = parseInt(form.cupoMaximo);
@@ -142,9 +139,9 @@ const ClasesPage = () => {
       id: item.id,
       nombre: item.nombre,
       descripcion: item.descripcion || '',
-      instructor: item.instructor,
       cupoMaximo: item.cupoMaximo,
-      diasSemana: item.diasSemana ? item.diasSemana.split(',') : [],
+      // Convertir la cadena de días (números separados por coma) a array de enteros
+      diasSemana: item.diasSemana ? item.diasSemana.split(',').map((d) => parseInt(d)) : [],
       hora: item.hora ? item.hora.substring(0, 5) : ''
     });
   };
@@ -174,10 +171,6 @@ const ClasesPage = () => {
             <input className="w-full border rounded px-2 py-1" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} required />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Instructor</label>
-            <input className="w-full border rounded px-2 py-1" value={form.instructor} onChange={(e) => setForm({ ...form, instructor: e.target.value })} required />
-          </div>
-          <div>
             <label className="block text-sm font-medium mb-1">Cupo máximo</label>
             <input
               type="number"
@@ -191,13 +184,13 @@ const ClasesPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Días de la semana</label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {diasSemanaDisponibles.map(({ value, label }) => (
                 <button
                   type="button"
                   key={value}
                   onClick={() => toggleDia(value)}
-                  className={`px-3 py-1 rounded border transition-colors ${form.diasSemana.includes(value) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}
+                  className={`px-7 py-2 rounded border transition-colors ${form.diasSemana.includes(value) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}
                 >
                   {label}
                 </button>
@@ -206,17 +199,34 @@ const ClasesPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Horario de inicio</label>
-            <select
-              className="w-full border rounded px-2 py-1"
-              value={form.hora}
-              onChange={(e) => setForm({ ...form, hora: e.target.value })}
-              required
+            <div
+              role="radiogroup"
+              aria-label="Horario de inicio"
+              className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-56 overflow-auto pr-2"
             >
-              <option value="">Seleccione un horario</option>
-              {horariosDisponibles.map((h) => (
-                <option key={h} value={h}>{h}</option>
-              ))}
-            </select>
+              {horariosDisponibles.map((h) => {
+                const seleccionado = form.hora === h;
+                return (
+                  <button
+                    key={h}
+                    type="button"
+                    role="radio"
+                    aria-checked={seleccionado}
+                    onClick={() => setForm({ ...form, hora: h })}
+                    className={[
+                      "px-1 py-2 text-sm rounded border transition-colors",
+                      seleccionado
+                        ? "bg-blue-600 text-white border-blue-600"
+                        : "bg-gray-100 text-gray-800 border-gray-300 hover:bg-gray-200"
+                    ].join(" ")}
+                  >
+                    {h}
+                  </button>
+                );
+              })}
+            </div>
+            {/* Para que HTML5 respete required aunque no sea <select> */}
+            <input type="hidden" required value={form.hora} />
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-medium mb-1">Descripción</label>
@@ -236,7 +246,7 @@ const ClasesPage = () => {
           <thead>
             <tr>
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Instructor</th>
+              {/* Eliminado encabezado de instructor */}
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Días</th>
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hora</th>
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Cupo</th>
@@ -248,7 +258,7 @@ const ClasesPage = () => {
               {items.map((item) => (
                 <motion.tr key={item.id} initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: 0.2 }}>
                   <td className="px-4 py-2 whitespace-nowrap">{item.nombre}</td>
-                  <td className="px-4 py-2 whitespace-nowrap">{item.instructor}</td>
+                  {/* Eliminada celda de instructor */}
                   <td className="px-4 py-2 whitespace-nowrap">{formatoDias(item.diasSemana)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0, 5)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.cupoMaximo}</td>
