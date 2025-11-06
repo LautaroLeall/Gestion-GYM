@@ -60,6 +60,10 @@ namespace Gimnasio.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var fechaClaseLocal = dto.FechaClase.Kind == DateTimeKind.Utc
+                ? dto.FechaClase.ToLocalTime()
+                : dto.FechaClase;
+
             // Verificar existencia de socio y clase
             var socio = await _context.Socios.FindAsync(dto.SocioId);
             var clase = await _context.Clases
@@ -70,15 +74,19 @@ namespace Gimnasio.Api.Controllers
                 return BadRequest("Socio o clase no encontrados");
             }
             // Verificar si la fecha seleccionada coincide con los días de la semana de la clase
-            var dias = (clase.DiasSemana ?? string.Empty).Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            // Comparar DayOfWeek.ToString() en inglés, ya que DiasSemana se almacena en ese formato
-            var diaSeleccionado = dto.FechaClase.DayOfWeek.ToString();
-            if (!dias.Any(d => string.Equals(d, diaSeleccionado, StringComparison.InvariantCultureIgnoreCase)))
+            // Los días se almacenan como números separados por comas (1=Lunes, …, 7=Domingo)
+            var dias = (clase.DiasSemana ?? string.Empty)
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(int.Parse)
+                .ToList();
+            // Convertir el día seleccionado al formato numérico 1..7 (domingo es 7)
+            int diaSeleccionado = fechaClaseLocal.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)fechaClaseLocal.DayOfWeek;
+            if (!dias.Contains(diaSeleccionado))
             {
                 return BadRequest("La fecha seleccionada no corresponde a los días de la clase");
             }
-            // Verificar hora
-            if (dto.FechaClase.TimeOfDay != clase.Hora)
+            // Verificar hora (TimeOfDay compara TimeSpan)
+            if (fechaClaseLocal.TimeOfDay != clase.Hora)
             {
                 return BadRequest("La hora seleccionada no corresponde a la hora de la clase");
             }
@@ -86,18 +94,32 @@ namespace Gimnasio.Api.Controllers
             var existe = await _context.Reservas.AnyAsync(r =>
                 r.SocioId == dto.SocioId &&
                 r.ClaseId == dto.ClaseId &&
-                r.FechaClase == dto.FechaClase);
+                r.FechaClase == fechaClaseLocal);
             if (existe)
             {
                 return Conflict("El socio ya tiene una reserva para esta clase en la fecha seleccionada");
             }
+
+            // Validar que la fecha seleccionada esté dentro de la semana actual
+            // Se considera la semana en curso desde hoy hasta el próximo domingo inclusive.
+            var hoy = DateTime.Today;
+            // Calcular los días hasta el domingo (0 = Sunday, 1 = Monday, ...)
+            int diasHastaDomingo = ((int)DayOfWeek.Sunday - (int)hoy.DayOfWeek + 7) % 7;
+            var finSemana = hoy.AddDays(diasHastaDomingo);
+            if (fechaClaseLocal.Date < hoy || fechaClaseLocal.Date > finSemana)
+            {
+                return BadRequest("La fecha seleccionada debe estar dentro de la semana en curso.");
+            }
             // Verificar capacidad para la fecha específica
-            int reservados = await _context.Reservas.CountAsync(r => r.ClaseId == dto.ClaseId && r.FechaClase == dto.FechaClase);
+            int reservados = await _context.Reservas.CountAsync(r =>
+                r.ClaseId == dto.ClaseId &&
+                r.FechaClase == fechaClaseLocal);
             if (reservados >= clase.CupoMaximo)
             {
                 return Conflict("No quedan cupos disponibles para esta clase en la fecha seleccionada");
             }
             var reserva = _mapper.Map<Reserva>(dto);
+            reserva.FechaClase = fechaClaseLocal;
             _context.Reservas.Add(reserva);
             await _context.SaveChangesAsync();
             // Cargar socio y clase para la respuesta

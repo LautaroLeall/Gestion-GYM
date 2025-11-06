@@ -12,21 +12,29 @@ namespace Gimnasio.Api.DTOs
     {
         [Required]
         [MaxLength(50)]
+        [MinLength(3, ErrorMessage = "El nombre debe tener al menos 3 caracteres.")]
+        [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
         public string Nombre { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(50)]
+        [MinLength(3, ErrorMessage = "El apellido debe tener al menos 3 caracteres.")]
+        [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$", ErrorMessage = "El apellido solo puede contener letras y espacios.")]
         public string Apellido { get; set; } = string.Empty;
 
+        [Required]
         [DataType(DataType.Date)]
         public DateTime FechaNacimiento { get; set; }
 
+        [Required]
         [EmailAddress]
-        public string? Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
-        [Phone]
-        public string? Telefono { get; set; }
+        [Required]
+        [RegularExpression(@"^\d{10,13}$", ErrorMessage = "El teléfono debe contener entre 10 y 13 dígitos.")]
+        public string Telefono { get; set; } = string.Empty;
 
-        public int? MembresiaId { get; set; }
+        [Required]
+        public int MembresiaId { get; set; }
     }
 }

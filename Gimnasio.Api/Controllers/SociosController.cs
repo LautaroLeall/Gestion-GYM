@@ -62,6 +62,20 @@ namespace Gimnasio.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            // Validación adicional: el socio debe tener al menos 8 años
+            if (socioDto.FechaNacimiento > DateTime.Today.AddYears(-8))
+            {
+                return BadRequest("La fecha de nacimiento indica que el socio debe tener al menos 8 años.");
+            }
+            // Validación adicional: el correo debe tener al menos 3 caracteres antes del '@'
+            if (!string.IsNullOrEmpty(socioDto.Email))
+            {
+                var partes = socioDto.Email.Split('@');
+                if (partes.Length < 2 || partes[0].Length < 3)
+                {
+                    return BadRequest("El correo electrónico debe tener al menos 3 caracteres antes del @.");
+                }
+            }
             var socio = _mapper.Map<Socio>(socioDto);
             await _repository.AddAsync(socio);
             var resultDto = _mapper.Map<SocioDto>(socio);
@@ -75,6 +89,19 @@ namespace Gimnasio.Api.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            // Validaciones adicionales para actualizar
+            if (socioDto.FechaNacimiento > DateTime.Today.AddYears(-8))
+            {
+                return BadRequest("La fecha de nacimiento indica que el socio debe tener al menos 8 años.");
+            }
+            if (!string.IsNullOrEmpty(socioDto.Email))
+            {
+                var partes = socioDto.Email.Split('@');
+                if (partes.Length < 2 || partes[0].Length < 3)
+                {
+                    return BadRequest("El correo electrónico debe tener al menos 3 caracteres antes del @.");
+                }
             }
             var existing = await _repository.GetByIdAsync(id);
             if (existing == null)

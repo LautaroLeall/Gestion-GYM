@@ -1,0 +1,32 @@
+# Build
+bin/
+obj/
+*.pdb
+*.exe
+*.dll
+*.log
+
+# Razor / caches
+*.cache
+*.cache.json
+
+# SQLite
+*.db-wal
+*.db-shm
+*.db-journal
+
+# VS / VS Code locales
+.vs/
+*.user
+*.suo
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Otros autogenerados de MSBuild
+**/AssemblyInfo.cs
+**/AssemblyInfoInputs.cache
+Gimnasio.Api/bin/
+Gimnasio.Api/obj/
