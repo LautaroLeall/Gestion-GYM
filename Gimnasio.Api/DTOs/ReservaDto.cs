@@ -12,7 +12,7 @@ namespace Gimnasio.Api.DTOs
         public int SocioId { get; set; }
         public int ClaseId { get; set; }
         public DateTime FechaReserva { get; set; }
-        public DateTime z { get; set; }
+        public DateTime FechaClase { get; set; }
         public string? SocioNombreCompleto { get; set; }
         public string? ClaseNombre { get; set; }
     }
