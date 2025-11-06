@@ -1,15 +1,30 @@
-# Archivos generados por compilación
+# Build
 bin/
 obj/
-*.dll
-*.exe
 *.pdb
-*.cache
+*.exe
+*.dll
 *.log
-*.db-shm
+
+# Razor / caches
+*.cache
+*.cache.json
+
+# SQLite
 *.db-wal
+*.db-shm
 *.db-journal
 
-# Archivos de build automáticos de .NET
+# VS / VS Code locales
+.vs/
+*.user
+*.suo
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Otros autogenerados de MSBuild
 **/AssemblyInfo.cs
 **/AssemblyInfoInputs.cache
