@@ -28,3 +28,5 @@ obj/
 # Otros autogenerados de MSBuild
 **/AssemblyInfo.cs
 **/AssemblyInfoInputs.cache
+Gimnasio.Api/bin/
+Gimnasio.Api/obj/
