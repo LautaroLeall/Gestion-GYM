@@ -30,3 +30,11 @@ obj/
 **/AssemblyInfoInputs.cache
 Gimnasio.Api/bin/
 Gimnasio.Api/obj/
+Gimnasio.Api/bin/
+Gimnasio.Api/obj/
+ClientApp/node_modules/
+ClientApp/dist/
+Gimnasio.Api/gimnasio.db
+*.dll
+*.exe
+*.pdb
