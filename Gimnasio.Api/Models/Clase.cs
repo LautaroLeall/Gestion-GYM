@@ -8,7 +8,9 @@ namespace Gimnasio.Api.Models
     /// Representa una clase o actividad ofrecida por el gimnasio. Las
     /// clases se planifican para ciertos días de la semana con una
     /// hora de inicio y un cupo máximo de asistentes. Los socios pueden
-    /// reservar su asistencia a una clase a través de la entidad Reserva.
+    /// inscribirse a una clase mediante la entidad <see
+    /// cref="Inscripcion"/>, que reemplaza a la antigua entidad
+    /// <c>Reserva</c>.
     /// </summary>
     public class Clase
     {
@@ -42,6 +44,13 @@ namespace Gimnasio.Api.Models
         /// </summary>
         public TimeSpan Hora { get; set; }
 
-        public ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
+        /// <summary>
+        /// Inscripciones realizadas a esta clase.  Cada inscripción
+        /// representa la reserva/inscripción de un socio para una
+        /// fecha y hora determinada de la clase.  La colección se
+        /// denomina <c>Inscripciones</c> para reflejar con claridad
+        /// su función.
+        /// </summary>
+        public ICollection<Inscripcion> Inscripciones { get; set; } = new List<Inscripcion>();
     }
 }

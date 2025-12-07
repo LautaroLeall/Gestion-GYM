@@ -1,16 +1,14 @@
-// Definición original de ReservaCreateDto deshabilitada.  Utilice
-// InscripcionCreateDto en su lugar.
-#if false
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gimnasio.Api.DTOs
 {
     /// <summary>
-    /// DTO para crear una reserva. Permite validar la entrada y separa
-    /// propiedades generadas automáticamente, como el identificador.
+    /// DTO para crear una inscripción.  Permite validar la entrada y
+    /// separa propiedades generadas automáticamente, como el
+    /// identificador.
     /// </summary>
-    public class ReservaCreateDto
+    public class InscripcionCreateDto
     {
         [Required]
         public int SocioId { get; set; }
@@ -27,4 +25,3 @@ namespace Gimnasio.Api.DTOs
         public DateTime FechaClase { get; set; }
     }
 }
-#endif

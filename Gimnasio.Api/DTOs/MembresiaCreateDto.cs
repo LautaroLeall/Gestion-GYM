@@ -1,12 +1,11 @@
+// DTO utilizado antiguamente para crear o modificar planes de membresía.
+// El sistema actual ya no gestiona estas entidades, por lo que la
+// clase queda deshabilitada mediante directivas de preprocesador.
+#if false
 using System.ComponentModel.DataAnnotations;
 
 namespace Gimnasio.Api.DTOs
 {
-    /// <summary>
-    /// DTO para la creación o modificación de planes de membresía. Permite
-    /// validar la entrada del usuario y desacoplar el modelo de dominio de
-    /// la forma de entrada de datos.
-    /// </summary>
     public class MembresiaCreateDto
     {
         [Required]
@@ -15,7 +14,6 @@ namespace Gimnasio.Api.DTOs
         [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
         public string Nombre { get; set; } = string.Empty;
 
-        // La descripción es opcional. Debe tener como máximo 50 caracteres y solo letras y espacios.
         [MaxLength(50)]
         [RegularExpression(@"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]*$", ErrorMessage = "La descripción solo puede contener letras y espacios.")]
         public string? Descripcion { get; set; }
@@ -27,3 +25,4 @@ namespace Gimnasio.Api.DTOs
         public int DuracionDias { get; set; }
     }
 }
+#endif

@@ -1,3 +1,8 @@
+// Este archivo contiene la definición original de la entidad Reserva.
+// Se mantiene aquí para referencia histórica, pero está deshabilitado
+// mediante directivas de preprocesador.  Utilice la entidad
+// Inscripcion en su lugar.
+#if false
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,9 +11,8 @@ namespace Gimnasio.Api.Models
 {
     /// <summary>
     /// Registro de la reserva de un socio para una clase específica. Esta
-    /// entidad constituye la relación de muchos a muchos entre socios y
-    /// clases, además de permitir almacenar la fecha en que se realiza la
-    /// reserva.
+    /// entidad constituía la relación de muchos a muchos entre socios y
+    /// clases.  Ha sido reemplazada por <see cref="Inscripcion"/>.
     /// </summary>
     public class Reserva
     {
@@ -26,15 +30,9 @@ namespace Gimnasio.Api.Models
 
         public Clase? Clase { get; set; }
 
-        /// <summary>
-        /// Fecha y hora en que se realizó la reserva. No necesariamente
-        /// coincide con la fecha de la clase.
-        /// </summary>
         public DateTime FechaReserva { get; set; } = DateTime.UtcNow;
 
-        /// <summary>
-        /// Fecha y hora específica de la clase que el socio reservó. Se calcula a partir de los días de la semana y la hora definidos en la clase.
-        /// </summary>
         public DateTime FechaClase { get; set; }
     }
 }
+#endif

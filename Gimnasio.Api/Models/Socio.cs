@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Gimnasio.Api.Models
 {
     /// <summary>
-    /// Representa a un socio del gimnasio. Contiene sus datos básicos y una
-    /// referencia opcional a un plan de membresía. La relación con
-    /// Membresia es uno a muchos: un socio puede tener a lo sumo una
-    /// membresía activa, pero una membresía puede estar asociada a varios
-    /// socios.
+    /// Representa a un socio del gimnasio.  Contiene sus datos básicos,
+    /// como nombre, apellido, fecha de nacimiento, correo electrónico y
+    /// teléfono.  A partir de esta versión se eliminó la referencia a
+    /// un plan de membresía, ya que el sistema de ejemplo se simplificó
+    /// para gestionar únicamente socios, clases e inscripciones.
     /// </summary>
     public class Socio
     {
@@ -34,11 +34,11 @@ namespace Gimnasio.Api.Models
         [Phone]
         public string? Telefono { get; set; }
 
-        // Clave foránea opcional hacia Membresia.
-        public int? MembresiaId { get; set; }
-        public Membresia? Membresia { get; set; }
-
-        // Navegación a las reservas realizadas por el socio.
-        public ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
+        // Lista de inscripciones realizadas por el socio.  Cada inscripción
+        // representa la participación del socio en una clase en una fecha
+        // determinada.  Se renombra la colección "Reservas" a
+        // "Inscripciones" para reflejar que se trata de inscripciones a
+        // clases y se elimina la relación con membresías.
+        public ICollection<Inscripcion> Inscripciones { get; set; } = new List<Inscripcion>();
     }
 }

@@ -20,8 +20,13 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Registrar repositorios genéricos para cada entidad.
 builder.Services.AddScoped<IGenericRepository<Socio>, GenericRepository<Socio>>();
-builder.Services.AddScoped<IGenericRepository<Membresia>, GenericRepository<Membresia>>();
+// El sistema ya no gestiona membresías, por lo que no se registra
+// un repositorio de Membresia.
+// builder.Services.AddScoped<IGenericRepository<Membresia>, GenericRepository<Membresia>>();
 builder.Services.AddScoped<IGenericRepository<Clase>, GenericRepository<Clase>>();
+// Registrar repositorio para inscripciones.  Esta entidad representa
+// la relación entre socios y clases (antes conocida como reservas).
+builder.Services.AddScoped<IGenericRepository<Inscripcion>, GenericRepository<Inscripcion>>();
 
 // Añadir controladores con soporte de JSON.
 builder.Services.AddControllers()

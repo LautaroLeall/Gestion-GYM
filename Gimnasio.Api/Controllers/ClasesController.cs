@@ -30,9 +30,11 @@ namespace Gimnasio.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClaseDto>>> Get()
         {
-            // Incluir el recuento de reservas para cada clase
+            // Incluir el recuento de inscripciones para cada clase.  Al
+            // reemplazar reservas por inscripciones, se ajusta la
+            // inclusión de navegación a la nueva colección.
             var clases = await _context.Clases
-                .Include(c => c.Reservas)
+                .Include(c => c.Inscripciones)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<ClaseDto>>(clases));
         }
@@ -41,7 +43,7 @@ namespace Gimnasio.Api.Controllers
         public async Task<ActionResult<ClaseDto>> GetById(int id)
         {
             var clase = await _context.Clases
-                .Include(c => c.Reservas)
+                .Include(c => c.Inscripciones)
                 .FirstOrDefaultAsync(c => c.Id == id);
             if (clase == null)
             {

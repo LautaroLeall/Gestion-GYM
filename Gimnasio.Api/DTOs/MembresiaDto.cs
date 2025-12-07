@@ -1,9 +1,9 @@
+// DTO de lectura original para planes de membresía.  El sistema
+// actual no expone planes de membresía, por lo que esta clase está
+// deshabilitada.  Se conserva únicamente por motivos de referencia.
+#if false
 namespace Gimnasio.Api.DTOs
 {
-    /// <summary>
-    /// DTO de lectura para los planes de membresía. Expone los campos
-    /// básicos al cliente.
-    /// </summary>
     public class MembresiaDto
     {
         public int Id { get; set; }
@@ -13,3 +13,4 @@ namespace Gimnasio.Api.DTOs
         public int DuracionDias { get; set; }
     }
 }
+#endif

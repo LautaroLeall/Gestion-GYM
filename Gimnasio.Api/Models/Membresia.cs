@@ -1,13 +1,15 @@
+// Esta clase de entidad original de Membresia se conserva para
+// referencia histórica.  El sistema actual ya no gestiona planes de
+// membresía, por lo que la clase está totalmente deshabilitada mediante
+// directivas de preprocesador.  Si en el futuro se reintroduce la
+// funcionalidad de membresías, esta clase se puede habilitar
+// eliminando la directiva #if.
+#if false
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gimnasio.Api.Models
 {
-    /// <summary>
-    /// Define un plan de membresía del gimnasio. Incluye información
-    /// descriptiva y económica que se asigna a los socios para determinar
-    /// precio y duración de sus suscripciones.
-    /// </summary>
     public class Membresia
     {
         [Key]
@@ -18,19 +20,15 @@ namespace Gimnasio.Api.Models
         [MaxLength(100)]
         public string Nombre { get; set; } = string.Empty;
 
-        // La descripción es opcional y se limita a 50 caracteres para evitar textos demasiado largos.
         [MaxLength(50)]
         public string? Descripcion { get; set; }
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal Precio { get; set; }
 
-        /// <summary>
-        /// Duración del plan en días. Se utiliza para calcular la fecha de
-        /// expiración de la membresía de un socio.
-        /// </summary>
         public int DuracionDias { get; set; }
 
         public ICollection<Socio> Socios { get; set; } = new List<Socio>();
     }
 }
+#endif

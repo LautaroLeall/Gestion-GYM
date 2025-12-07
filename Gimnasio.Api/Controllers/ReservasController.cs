@@ -1,3 +1,8 @@
+// Este archivo mantiene el controlador original de reservas para
+// referencia histórica.  Está completamente deshabilitado mediante
+// directivas de preprocesador para evitar que el runtime intente
+// resolver sus dependencias.  Utilice InscripcionesController en su lugar.
+#if false
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -8,11 +13,6 @@ using System.Linq;
 
 namespace Gimnasio.Api.Controllers
 {
-    /// <summary>
-    /// Controlador para gestionar las reservas de clases por parte de los
-    /// socios. Incluye validaciones para evitar sobrepasar el cupo y
-    /// duplicar reservas.
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ReservasController : ControllerBase
@@ -63,8 +63,6 @@ namespace Gimnasio.Api.Controllers
             var fechaClaseLocal = dto.FechaClase.Kind == DateTimeKind.Utc
                 ? dto.FechaClase.ToLocalTime()
                 : dto.FechaClase;
-
-            // Verificar existencia de socio y clase
             var socio = await _context.Socios.FindAsync(dto.SocioId);
             var clase = await _context.Clases
                 .Include(c => c.Reservas)
@@ -73,24 +71,19 @@ namespace Gimnasio.Api.Controllers
             {
                 return BadRequest("Socio o clase no encontrados");
             }
-            // Verificar si la fecha seleccionada coincide con los días de la semana de la clase
-            // Los días se almacenan como números separados por comas (1=Lunes, …, 7=Domingo)
             var dias = (clase.DiasSemana ?? string.Empty)
                 .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .Select(int.Parse)
                 .ToList();
-            // Convertir el día seleccionado al formato numérico 1..7 (domingo es 7)
             int diaSeleccionado = fechaClaseLocal.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)fechaClaseLocal.DayOfWeek;
             if (!dias.Contains(diaSeleccionado))
             {
                 return BadRequest("La fecha seleccionada no corresponde a los días de la clase");
             }
-            // Verificar hora (TimeOfDay compara TimeSpan)
             if (fechaClaseLocal.TimeOfDay != clase.Hora)
             {
                 return BadRequest("La hora seleccionada no corresponde a la hora de la clase");
             }
-            // Verificar si ya existe una reserva del socio para la misma clase en la misma fecha/hora
             var existe = await _context.Reservas.AnyAsync(r =>
                 r.SocioId == dto.SocioId &&
                 r.ClaseId == dto.ClaseId &&
@@ -99,18 +92,13 @@ namespace Gimnasio.Api.Controllers
             {
                 return Conflict("El socio ya tiene una reserva para esta clase en la fecha seleccionada");
             }
-
-            // Validar que la fecha seleccionada esté dentro de la semana actual
-            // Se considera la semana en curso desde hoy hasta el próximo domingo inclusive.
             var hoy = DateTime.Today;
-            // Calcular los días hasta el domingo (0 = Sunday, 1 = Monday, ...)
             int diasHastaDomingo = ((int)DayOfWeek.Sunday - (int)hoy.DayOfWeek + 7) % 7;
             var finSemana = hoy.AddDays(diasHastaDomingo);
             if (fechaClaseLocal.Date < hoy || fechaClaseLocal.Date > finSemana)
             {
                 return BadRequest("La fecha seleccionada debe estar dentro de la semana en curso.");
             }
-            // Verificar capacidad para la fecha específica
             int reservados = await _context.Reservas.CountAsync(r =>
                 r.ClaseId == dto.ClaseId &&
                 r.FechaClase == fechaClaseLocal);
@@ -122,7 +110,6 @@ namespace Gimnasio.Api.Controllers
             reserva.FechaClase = fechaClaseLocal;
             _context.Reservas.Add(reserva);
             await _context.SaveChangesAsync();
-            // Cargar socio y clase para la respuesta
             await _context.Entry(reserva).Reference(r => r.Socio).LoadAsync();
             await _context.Entry(reserva).Reference(r => r.Clase).LoadAsync();
             var result = _mapper.Map<ReservaDto>(reserva);
@@ -144,3 +131,4 @@ namespace Gimnasio.Api.Controllers
         }
     }
 }
+#endif
