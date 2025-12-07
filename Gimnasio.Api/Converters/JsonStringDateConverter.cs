@@ -6,17 +6,18 @@ namespace Gimnasio.Api.Converters
 {
     public class JsonStringDateConverter : JsonConverter<DateTime>
     {
-        private const string Format = "yyyy-MM-dd";
-
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var value = reader.GetString();
-            return DateTime.ParseExact(value!, Format, null);
+            // DateTime.Parse admite formatos ISO con fecha y hora
+            return DateTime.Parse(value!, null, System.Globalization.DateTimeStyles.RoundtripKind);
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString(Format));
+            // Devolver la fecha tal cual la almacena .NET (incluye la hora)
+            writer.WriteStringValue(value.ToString("yyyy-MM-ddTHH:mm:ss"));
         }
     }
+
 }
