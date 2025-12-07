@@ -1,3 +1,10 @@
+// Este controlador se mantiene por compatibilidad histórica.  Está
+// completamente deshabilitado porque el sistema actual ya no gestiona
+// planes de membresía.  Cualquier intento de compilar o ejecutar
+// métodos de este controlador generará un error.  Utilice el
+// controlador de socios, clases e inscripciones para las
+// funcionalidades disponibles.
+#if false
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Gimnasio.Api.Models;
@@ -6,11 +13,6 @@ using Gimnasio.Api.Repositories;
 
 namespace Gimnasio.Api.Controllers
 {
-    /// <summary>
-    /// Controlador para gestionar los planes de membresía. Implementa las
-    /// operaciones CRUD básicas y utiliza AutoMapper para convertir
-    /// entre entidades y DTOs.
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class MembresiasController : ControllerBase
@@ -85,3 +87,4 @@ namespace Gimnasio.Api.Controllers
         }
     }
 }
+#endif

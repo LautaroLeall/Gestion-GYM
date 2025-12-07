@@ -18,9 +18,9 @@ const HomePage = () => {
       >
         <h2 className="text-4xl md:text-5xl font-bold text-blue-700 mb-4">Bienvenido a Gestion GYM</h2>
         <p className="max-w-2xl mx-auto text-gray-700 text-lg md:text-xl">
-          Administra socios, clases y reservas de manera sencilla. <br />
-          Nuestro sistemate permite crear y gestionar membresías,
-          programar clases y llevar un registro ordenado de las reservas para que nada se te escape.
+          Administra socios, clases e inscripciones de manera sencilla. <br />
+          Nuestro sistema te permite crear y gestionar clases y llevar un registro ordenado
+          de las inscripciones realizadas por los socios para que nada se te escape.
         </p>
       </motion.div>
       <motion.div
@@ -55,10 +55,10 @@ const HomePage = () => {
           Ver clases
         </NavLink>
         <NavLink
-          to="/reservas"
+          to="/inscripciones"
           className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md text-lg font-medium"
         >
-          Agendar turno
+          Agendar inscripción
         </NavLink>
       </motion.div>
     </div>

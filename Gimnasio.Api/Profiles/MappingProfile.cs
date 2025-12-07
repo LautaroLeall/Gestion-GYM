@@ -14,15 +14,13 @@ namespace Gimnasio.Api.Profiles
         public MappingProfile()
         {
             // Socio -> SocioDto
-            CreateMap<Socio, SocioDto>()
-                .ForMember(dest => dest.MembresiaNombre, opt => opt.MapFrom(src => src.Membresia != null ? src.Membresia.Nombre : null));
+            CreateMap<Socio, SocioDto>();
             // SocioCreateDto -> Socio
             CreateMap<SocioCreateDto, Socio>();
 
-            // Membresia -> MembresiaDto
-            CreateMap<Membresia, MembresiaDto>();
-            // MembresiaCreateDto -> Membresia
-            CreateMap<MembresiaCreateDto, Membresia>();
+            // El mapeo de membresías se elimina porque el sistema ya no
+            // gestiona planes de membresía.  Si en el futuro se
+            // reintroducen, aquí se volverían a configurar.
 
             // Clase -> ClaseDto
             CreateMap<Clase, ClaseDto>();
@@ -30,13 +28,13 @@ namespace Gimnasio.Api.Profiles
             CreateMap<ClaseCreateDto, Clase>()
                 .ForMember(dest => dest.DiasSemana, opt => opt.MapFrom(src => string.Join(",", src.DiasSemana)));
 
-            // Reserva -> ReservaDto
-            CreateMap<Reserva, ReservaDto>()
+            // Inscripcion -> InscripcionDto
+            CreateMap<Inscripcion, InscripcionDto>()
                 .ForMember(dest => dest.SocioNombreCompleto, opt => opt.MapFrom(src => src.Socio != null ? $"{src.Socio.Nombre} {src.Socio.Apellido}" : null))
                 .ForMember(dest => dest.ClaseNombre, opt => opt.MapFrom(src => src.Clase != null ? src.Clase.Nombre : null));
 
-            // ReservaCreateDto -> Reserva
-            CreateMap<ReservaCreateDto, Reserva>();
+            // InscripcionCreateDto -> Inscripcion
+            CreateMap<InscripcionCreateDto, Inscripcion>();
         }
     }
 }

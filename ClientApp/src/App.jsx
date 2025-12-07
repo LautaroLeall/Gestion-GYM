@@ -2,15 +2,18 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
 import SociosPage from './components/SociosPage.jsx';
-import MembresiasPage from './components/MembresiasPage.jsx';
+// Eliminado import de MembresiasPage: el sistema ya no gestiona
+// planes de membresía.
 import ClasesPage from './components/ClasesPage.jsx';
-import ReservasPage from './components/ReservasPage.jsx';
+// Importar la página de inscripciones (antes ReservasPage).  La ruta
+// cambiará a "/inscripciones".
+import InscripcionesPage from './components/InscripcionesPage.jsx';
 import HomePage from './components/HomePage.jsx';
 
 /**
  * Componente de nivel superior que define la navegación y las rutas de la
  * aplicación. Incluye una barra de navegación persistente y diferentes
- * páginas para gestionar socios, membresías, clases y reservas.
+ * páginas para gestionar socios, clases e inscripciones.
  */
 const App = () => {
   return (
@@ -22,9 +25,10 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/socios" element={<SociosPage />} />
-          <Route path="/membresias" element={<MembresiasPage />} />
+          {/* Se elimina la ruta de membresías */}
           <Route path="/clases" element={<ClasesPage />} />
-          <Route path="/reservas" element={<ReservasPage />} />
+          {/* Las reservas se renombran a inscripciones */}
+          <Route path="/inscripciones" element={<InscripcionesPage />} />
           <Route path="*" element={<div>Página no encontrada</div>} />
         </Routes>
       </main>

@@ -1,0 +1,142 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Gimnasio.Api.DTOs;
+using Gimnasio.Api.Models;
+using Gimnasio.Api.Data;
+using System.Linq;
+
+namespace Gimnasio.Api.Controllers
+{
+    /// <summary>
+    /// Controlador para gestionar las inscripciones de socios a clases.
+    /// Incluye validaciones para evitar sobrepasar el cupo y duplicar
+    /// inscripciones.  Esta clase reemplaza al antiguo
+    /// <c>ReservasController</c> para reflejar que los socios se
+    /// inscriben en las clases.
+    /// </summary>
+    [ApiController]
+    [Route("api/[controller]")]
+    public class InscripcionesController : ControllerBase
+    {
+        private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
+
+        public InscripcionesController(AppDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
+        // GET: api/inscripciones
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<InscripcionDto>>> Get()
+        {
+            var inscripciones = await _context.Inscripciones
+                .Include(i => i.Socio)
+                .Include(i => i.Clase)
+                .ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<InscripcionDto>>(inscripciones));
+        }
+
+        // GET: api/inscripciones/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<InscripcionDto>> GetById(int id)
+        {
+            var inscripcion = await _context.Inscripciones
+                .Include(i => i.Socio)
+                .Include(i => i.Clase)
+                .FirstOrDefaultAsync(i => i.Id == id);
+            if (inscripcion == null)
+            {
+                return NotFound();
+            }
+            return Ok(_mapper.Map<InscripcionDto>(inscripcion));
+        }
+
+        // POST: api/inscripciones
+        [HttpPost]
+        public async Task<ActionResult<InscripcionDto>> Create([FromBody] InscripcionCreateDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var fechaClaseLocal = dto.FechaClase.Kind == DateTimeKind.Utc
+                ? dto.FechaClase.ToLocalTime()
+                : dto.FechaClase;
+
+            // Verificar existencia de socio y clase
+            var socio = await _context.Socios.FindAsync(dto.SocioId);
+            var clase = await _context.Clases
+                .Include(c => c.Inscripciones)
+                .FirstOrDefaultAsync(c => c.Id == dto.ClaseId);
+            if (socio == null || clase == null)
+            {
+                return BadRequest("Socio o clase no encontrados");
+            }
+            // Verificar si la fecha seleccionada coincide con los días de la semana de la clase
+            var dias = (clase.DiasSemana ?? string.Empty)
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(int.Parse)
+                .ToList();
+            int diaSeleccionado = fechaClaseLocal.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)fechaClaseLocal.DayOfWeek;
+            if (!dias.Contains(diaSeleccionado))
+            {
+                return BadRequest("La fecha seleccionada no corresponde a los días de la clase");
+            }
+            // Verificar hora
+            if (fechaClaseLocal.TimeOfDay != clase.Hora)
+            {
+                return BadRequest("La hora seleccionada no corresponde a la hora de la clase");
+            }
+            // Verificar si ya existe una inscripción para la misma clase en la misma fecha/hora
+            var existe = await _context.Inscripciones.AnyAsync(i =>
+                i.SocioId == dto.SocioId &&
+                i.ClaseId == dto.ClaseId &&
+                i.FechaClase == fechaClaseLocal);
+            if (existe)
+            {
+                return Conflict("El socio ya tiene una inscripción para esta clase en la fecha seleccionada");
+            }
+            // Validar que la fecha seleccionada esté dentro de la semana actual
+            var hoy = DateTime.Today;
+            int diasHastaDomingo = ((int)DayOfWeek.Sunday - (int)hoy.DayOfWeek + 7) % 7;
+            var finSemana = hoy.AddDays(diasHastaDomingo);
+            if (fechaClaseLocal.Date < hoy || fechaClaseLocal.Date > finSemana)
+            {
+                return BadRequest("La fecha seleccionada debe estar dentro de la semana en curso.");
+            }
+            // Verificar capacidad
+            int inscriptos = await _context.Inscripciones.CountAsync(i =>
+                i.ClaseId == dto.ClaseId &&
+                i.FechaClase == fechaClaseLocal);
+            if (inscriptos >= clase.CupoMaximo)
+            {
+                return Conflict("No quedan cupos disponibles para esta clase en la fecha seleccionada");
+            }
+            var inscripcion = _mapper.Map<Inscripcion>(dto);
+            inscripcion.FechaClase = fechaClaseLocal;
+            _context.Inscripciones.Add(inscripcion);
+            await _context.SaveChangesAsync();
+            await _context.Entry(inscripcion).Reference(i => i.Socio).LoadAsync();
+            await _context.Entry(inscripcion).Reference(i => i.Clase).LoadAsync();
+            var result = _mapper.Map<InscripcionDto>(inscripcion);
+            return CreatedAtAction(nameof(GetById), new { id = inscripcion.Id }, result);
+        }
+
+        // DELETE: api/inscripciones/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var inscripcion = await _context.Inscripciones.FindAsync(id);
+            if (inscripcion == null)
+            {
+                return NotFound();
+            }
+            _context.Inscripciones.Remove(inscripcion);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+    }
+}

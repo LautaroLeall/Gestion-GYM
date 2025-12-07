@@ -1,15 +1,13 @@
-// Definición original de ReservaDto deshabilitada.  Utilice
-// InscripcionDto en su lugar.
-#if false
 using System;
 
 namespace Gimnasio.Api.DTOs
 {
     /// <summary>
-    /// DTO de lectura para reservas. Muestra la relación entre socio y clase
-    /// junto con las fechas relevantes.
+    /// DTO de lectura para las inscripciones.  Expone los datos
+    /// esenciales de una inscripción e incluye información derivada
+    /// como el nombre completo del socio y el nombre de la clase.
     /// </summary>
-    public class ReservaDto
+    public class InscripcionDto
     {
         public int Id { get; set; }
         public int SocioId { get; set; }
@@ -20,4 +18,3 @@ namespace Gimnasio.Api.DTOs
         public string? ClaseNombre { get; set; }
     }
 }
-#endif

@@ -15,11 +15,11 @@ const SociosPage = () => {
     apellido: '',
     fechaNacimiento: '',
     email: '',
-    telefono: '',
-    membresiaId: ''
+    telefono: ''
   });
 
-  const [membresias, setMembresias] = useState([]);
+  // Ya no se gestionan membresías, por lo que se elimina el estado
+  // membresias.
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
 
@@ -28,18 +28,14 @@ const SociosPage = () => {
     setSocios(res.data);
   };
 
-  const fetchMembresias = async () => {
-    const res = await axios.get('/api/membresias');
-    setMembresias(res.data);
-  };
+  // No se necesita cargar membresías.
 
   useEffect(() => {
     fetchSocios();
-    fetchMembresias();
   }, []);
 
   const resetForm = () => {
-    setForm({ id: null, nombre: '', apellido: '', fechaNacimiento: '', email: '', telefono: '', membresiaId: '' });
+    setForm({ id: null, nombre: '', apellido: '', fechaNacimiento: '', email: '', telefono: '' });
     setIsEditing(false);
     setError(null);
   };
@@ -59,7 +55,7 @@ const SociosPage = () => {
         fechaNacimiento: form.fechaNacimiento,
         email: form.email,
         telefono: form.telefono,
-        membresiaId: form.membresiaId ? Number(form.membresiaId) : null
+        // Ya no se envía membresiaId porque el socio no pertenece a un plan de membresía
       };
       if (isEditing) {
         await axios.put(`/api/socios/${form.id}`, payload);
@@ -109,10 +105,6 @@ const SociosPage = () => {
     if (!/^[0-9]{10,13}$/.test(form.telefono)) {
       return 'El teléfono debe contener solo números y tener entre 10 y 13 dígitos.';
     }
-    // Validar membresía seleccionada
-    if (!form.membresiaId) {
-      return 'Debe seleccionar una membresía.';
-    }
     return null;
   };
 
@@ -124,8 +116,7 @@ const SociosPage = () => {
       apellido: socio.apellido,
       fechaNacimiento: socio.fechaNacimiento.split('T')[0],
       email: socio.email || '',
-      telefono: socio.telefono || '',
-      membresiaId: socio.membresiaId ?? ''
+      telefono: socio.telefono || ''
     });
   };
 
@@ -174,22 +165,7 @@ const SociosPage = () => {
               required
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Membresía</label>
-            <select
-              className="w-full border rounded px-2 py-1"
-              value={form.membresiaId ?? ''}
-              onChange={(e) => setForm({ ...form, membresiaId: e.target.value ? Number(e.target.value) : '' })}
-              required
-            >
-              <option value="">— Seleccionar —</option>
-              {membresias.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.nombre} — ${m.precio} ({m.duracionDias} días)
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Eliminado selector de membresía: los socios ya no tienen plan asociado */}
         </div>
         <div className="flex space-x-2">
           <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">{isEditing ? 'Actualizar' : 'Agregar'}</button>
@@ -206,7 +182,6 @@ const SociosPage = () => {
               <tr>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Apellido</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Membresía</th>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
               </tr>
             </thead>
@@ -222,7 +197,6 @@ const SociosPage = () => {
                   >
                     <td className="px-4 py-2 whitespace-nowrap">{socio.nombre}</td>
                     <td className="px-4 py-2 whitespace-nowrap">{socio.apellido}</td>
-                    <td className="px-4 py-2 whitespace-nowrap">{socio.membresiaNombre || '-'}</td>
                     <td className="px-4 py-2 space-x-2">
                       <button onClick={() => handleEdit(socio)} className="text-blue-600 hover:underline">Editar</button>
                       <button onClick={() => handleDelete(socio.id)} className="text-red-600 hover:underline">Eliminar</button>

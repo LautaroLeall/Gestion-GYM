@@ -4,9 +4,10 @@ namespace Gimnasio.Api.DTOs
 {
     /// <summary>
     /// Representación de un socio para la capa de presentación o transporte.
-    /// Incluye los datos básicos y, de forma opcional, el nombre de la
-    /// membresía asociada. Se utiliza para exponer información a los
-    /// clientes sin revelar la estructura interna de las entidades.
+    /// Incluye los datos básicos (nombre, apellido, fecha de nacimiento,
+    /// correo electrónico y teléfono).  Se ha eliminado cualquier
+    /// referencia a planes de membresía, ya que el sistema actual solo
+    /// gestiona socios, clases e inscripciones.
     /// </summary>
     public class SocioDto
     {
@@ -16,7 +17,7 @@ namespace Gimnasio.Api.DTOs
         public DateTime FechaNacimiento { get; set; }
         public string? Email { get; set; }
         public string? Telefono { get; set; }
-        public int? MembresiaId { get; set; }
-        public string? MembresiaNombre { get; set; }
+        // Se eliminan los campos relacionados con la membresía.  El
+        // sistema actual solo gestiona socios, clases e inscripciones.
     }
 }
