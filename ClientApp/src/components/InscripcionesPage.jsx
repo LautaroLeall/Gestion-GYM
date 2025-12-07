@@ -114,8 +114,16 @@ const InscripcionesPage = () => {
       });
       setForm({ socioId: '', claseId: '', fechaClase: '' });
       fetchInscripciones();
+      setError(null); // limpia el error si todo va bien
     } catch (err) {
-      setError(err.response?.data || 'Error al crear la inscripción');
+      // Normaliza el mensaje a texto
+      let message = 'Error al crear la inscripción';
+      if (err.response && err.response.data) {
+        message = typeof err.response.data === 'string'
+          ? err.response.data
+          : JSON.stringify(err.response.data);
+      }
+      setError(message);
     }
   };
 
