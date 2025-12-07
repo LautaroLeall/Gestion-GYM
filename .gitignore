@@ -1,59 +1,31 @@
-# Logs
-logs
+# === Logs ===
+logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Build
-bin/
-obj/
-*.pdb
-*.exe
-*.dll
-
-# Razor / caches
-*.cache
-*.cache.json
-
-# SQLite
-*.db-wal
-*.db-shm
-*.db-journal
-
-# VS / VS Code locales
+# === Archivos de sistema y editores ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
 .vs/
 *.user
 *.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.idea
-.DS_Store
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
-# Otros autogenerados de MSBuild
-**/AssemblyInfo.cs
-**/AssemblyInfoInputs.cache
-Gimnasio.Api/bin/
-Gimnasio.Api/obj/
-Gimnasio.Api/bin/
-Gimnasio.Api/obj/
+# === Front-end (ClientApp) ===
 ClientApp/node_modules/
 ClientApp/dist/
+
+# === Back-end (Gimnasio.Api) ===
+Gimnasio.Api/bin/
+Gimnasio.Api/obj/
 Gimnasio.Api/gimnasio.db
+Gimnasio.Api/*.db*
 *.dll
 *.exe
 *.pdb
+
+# === Cachés y artefactos de Razor/MSBuild ===
+*.cache
+*.cache.json
+**/AssemblyInfo.cs
+**/AssemblyInfoInputs.cache
