@@ -189,6 +189,7 @@ const InscripcionesPage = () => {
               <th className="px-4 py-2 text-left">Socio</th>
               <th className="px-4 py-2 text-left">Clase</th>
               <th className="px-4 py-2 text-left">Fecha de Clase</th>
+              <th className="px-4 py-2 text-left">Horario de Inicio</th>
               <th className="px-4 py-2 text-left">Fecha de Reserva</th>
               <th className="px-4 py-2 text-center">Acción</th>
             </tr>
@@ -206,6 +207,7 @@ const InscripcionesPage = () => {
                   <td className="px-4 py-2">{insc.socioNombreCompleto}</td>
                   <td className="px-4 py-2">{insc.claseNombre}</td>
                   <td className="px-4 py-2">{new Date(insc.fechaClase).toLocaleDateString('es-AR')}</td>
+                  <td className="px-4 py-2">{insc.hora}</td>
                   <td className="px-4 py-2">{new Date(insc.fechaReserva).toLocaleDateString('es-AR')}</td>
                   <td className="px-4 py-2 text-center">
                     <button
