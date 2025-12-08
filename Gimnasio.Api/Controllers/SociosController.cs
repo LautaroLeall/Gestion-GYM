@@ -74,6 +74,14 @@ namespace Gimnasio.Api.Controllers
                     return BadRequest("El correo electrónico debe tener al menos 3 caracteres antes del @.");
                 }
             }
+            // Validación adicional: el teléfono debe tener entre 10 y 13 dígitos
+            if (!string.IsNullOrEmpty(socioDto.Telefono))
+            {
+                if (socioDto.Telefono.Length < 10 || socioDto.Telefono.Length > 13)
+                {
+                    return BadRequest("El teléfono debe contener entre 10 y 13 dígitos.");
+                }
+            }
             var socio = _mapper.Map<Socio>(socioDto);
             await _repository.AddAsync(socio);
             var resultDto = _mapper.Map<SocioDto>(socio);
@@ -99,6 +107,13 @@ namespace Gimnasio.Api.Controllers
                 if (partes.Length < 2 || partes[0].Length < 3)
                 {
                     return BadRequest("El correo electrónico debe tener al menos 3 caracteres antes del @.");
+                }
+            }
+            if (!string.IsNullOrEmpty(socioDto.Telefono))
+            {
+                if (socioDto.Telefono.Length < 10 || socioDto.Telefono.Length > 13)
+                {
+                    return BadRequest("El teléfono debe contener entre 10 y 13 dígitos.");
                 }
             }
             var existing = await _repository.GetByIdAsync(id);
