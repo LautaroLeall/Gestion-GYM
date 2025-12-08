@@ -18,8 +18,6 @@ const SociosPage = () => {
     telefono: ''
   });
 
-  // Ya no se gestionan membresías, por lo que se elimina el estado
-  // membresias.
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,8 +25,6 @@ const SociosPage = () => {
     const res = await axios.get('/api/socios');
     setSocios(res.data);
   };
-
-  // No se necesita cargar membresías.
 
   useEffect(() => {
     fetchSocios();
@@ -55,7 +51,6 @@ const SociosPage = () => {
         fechaNacimiento: form.fechaNacimiento,
         email: form.email,
         telefono: form.telefono,
-        // Ya no se envía membresiaId porque el socio no pertenece a un plan de membresía
       };
       if (isEditing) {
         await axios.put(`/api/socios/${form.id}`, payload);
@@ -165,7 +160,6 @@ const SociosPage = () => {
               required
             />
           </div>
-          {/* Eliminado selector de membresía: los socios ya no tienen plan asociado */}
         </div>
         <div className="flex space-x-2">
           <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">{isEditing ? 'Actualizar' : 'Agregar'}</button>
