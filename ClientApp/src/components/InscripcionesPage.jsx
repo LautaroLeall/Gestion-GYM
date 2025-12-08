@@ -15,7 +15,7 @@ const InscripcionesPage = () => {
   const [error, setError] = useState(null);
   const [scheduleOptions, setScheduleOptions] = useState([]);
 
-  // Traductor de números de día (1..7) a español
+  // Traductor de números de día (1..7)
   const LABEL_DIAS = { 1: 'Lunes', 2: 'Martes', 3: 'Miércoles', 4: 'Jueves', 5: 'Viernes', 6: 'Sábado', 7: 'Domingo' };
 
   const diasToLabels = (cadena) => {
@@ -69,7 +69,7 @@ const InscripcionesPage = () => {
     const opciones = [];
     const today = new Date();
 
-    // PASO 2: generar fechas hasta tres semanas por delante (21 días)
+    // generar fechas hasta tres semanas por delante (21 días)
     const diasFuturos = 21;
     for (let i = 0; i <= diasFuturos; i++) {
       const date = new Date(today);
@@ -96,7 +96,7 @@ const InscripcionesPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // PASO 1: ya no enviamos `fechaReserva`; el servidor la asigna con DateTime.Now
+      // ya no enviamos `fechaReserva`; el servidor la asigna con DateTime.Now
       await axios.post('/api/inscripciones', {
         socioId: Number(form.socioId),
         claseId: Number(form.claseId),
