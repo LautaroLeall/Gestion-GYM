@@ -6,7 +6,7 @@ namespace Gimnasio.Api.DTOs
     /// <summary>
     /// DTO para crear una inscripción.  Permite validar la entrada y
     /// separa propiedades generadas automáticamente, como el
-    /// identificador.
+    /// identificador y la fecha de reserva.
     /// </summary>
     public class InscripcionCreateDto
     {
@@ -15,8 +15,6 @@ namespace Gimnasio.Api.DTOs
 
         [Required]
         public int ClaseId { get; set; }
-
-        public DateTime FechaReserva { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Fecha y hora específica de la clase que se está reservando.
