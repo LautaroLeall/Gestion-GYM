@@ -4,16 +4,13 @@ using AutoMapper;
 using Gimnasio.Api.DTOs;
 using Gimnasio.Api.Models;
 using Gimnasio.Api.Data;
-using System.Linq;
 
 namespace Gimnasio.Api.Controllers
 {
     /// <summary>
     /// Controlador para gestionar las inscripciones de socios a clases.
     /// Incluye validaciones para evitar sobrepasar el cupo y duplicar
-    /// inscripciones.  Esta clase reemplaza al antiguo
-    /// <c>ReservasController</c> para reflejar que los socios se
-    /// inscriben en las clases.
+    /// inscripciones.  Esta clase reemplaza al antiguo <c>ReservasController</c>.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -47,11 +44,10 @@ namespace Gimnasio.Api.Controllers
                 .Include(i => i.Socio)
                 .Include(i => i.Clase)
                 .FirstOrDefaultAsync(i => i.Id == id);
-            if (inscripcion == null)
-            {
-                return NotFound();
-            }
-            return Ok(_mapper.Map<InscripcionDto>(inscripcion));
+
+            return inscripcion == null
+                ? NotFound()
+                : Ok(_mapper.Map<InscripcionDto>(inscripcion));
         }
 
         // POST: api/inscripciones
@@ -59,9 +55,8 @@ namespace Gimnasio.Api.Controllers
         public async Task<ActionResult<InscripcionDto>> Create([FromBody] InscripcionCreateDto dto)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
             var fechaClaseLocal = dto.FechaClase.Kind == DateTimeKind.Utc
                 ? dto.FechaClase.ToLocalTime()
                 : dto.FechaClase;
@@ -71,56 +66,59 @@ namespace Gimnasio.Api.Controllers
             var clase = await _context.Clases
                 .Include(c => c.Inscripciones)
                 .FirstOrDefaultAsync(c => c.Id == dto.ClaseId);
+
             if (socio == null || clase == null)
-            {
                 return BadRequest("Socio o clase no encontrados");
-            }
-            // Verificar si la fecha seleccionada coincide con los días de la semana de la clase
+
+            // Verificar día de la semana
             var dias = (clase.DiasSemana ?? string.Empty)
                 .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .Select(int.Parse)
                 .ToList();
+
             int diaSeleccionado = fechaClaseLocal.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)fechaClaseLocal.DayOfWeek;
             if (!dias.Contains(diaSeleccionado))
-            {
                 return BadRequest("La fecha seleccionada no corresponde a los días de la clase");
-            }
+
             // Verificar hora
             if (fechaClaseLocal.TimeOfDay != clase.Hora)
-            {
                 return BadRequest("La hora seleccionada no corresponde a la hora de la clase");
-            }
-            // Verificar si ya existe una inscripción para la misma clase en la misma fecha/hora
-            var existe = await _context.Inscripciones.AnyAsync(i =>
+
+            // Verificar inscripción duplicada
+            bool existe = await _context.Inscripciones.AnyAsync(i =>
                 i.SocioId == dto.SocioId &&
                 i.ClaseId == dto.ClaseId &&
                 i.FechaClase == fechaClaseLocal);
+
             if (existe)
-            {
                 return Conflict("El socio ya tiene una inscripción para esta clase en la fecha seleccionada");
-            }
-            // Validar que la fecha seleccionada esté dentro de la semana actual
+
+            // PASO 2: permitir inscribirse hasta 21 días (tres semanas)
             var hoy = DateTime.Today;
-            int diasHastaDomingo = ((int)DayOfWeek.Sunday - (int)hoy.DayOfWeek + 7) % 7;
-            var finSemana = hoy.AddDays(diasHastaDomingo);
-            if (fechaClaseLocal.Date < hoy || fechaClaseLocal.Date > finSemana)
-            {
-                return BadRequest("La fecha seleccionada debe estar dentro de la semana en curso.");
-            }
+            var maxFecha = hoy.AddDays(21);
+            if (fechaClaseLocal.Date < hoy || fechaClaseLocal.Date > maxFecha)
+                return BadRequest("La fecha seleccionada debe estar dentro de las próximas tres semanas.");
+
             // Verificar capacidad
             int inscriptos = await _context.Inscripciones.CountAsync(i =>
-                i.ClaseId == dto.ClaseId &&
-                i.FechaClase == fechaClaseLocal);
+                i.ClaseId == dto.ClaseId && i.FechaClase == fechaClaseLocal);
+
             if (inscriptos >= clase.CupoMaximo)
-            {
                 return Conflict("No quedan cupos disponibles para esta clase en la fecha seleccionada");
-            }
+
+            // Crear la inscripción
             var inscripcion = _mapper.Map<Inscripcion>(dto);
+
+            // PASO 1: fijar la fecha y hora de reserva al momento actual
             inscripcion.FechaClase = fechaClaseLocal;
+            inscripcion.FechaReserva = DateTime.Now;
+
             _context.Inscripciones.Add(inscripcion);
             await _context.SaveChangesAsync();
+
             await _context.Entry(inscripcion).Reference(i => i.Socio).LoadAsync();
             await _context.Entry(inscripcion).Reference(i => i.Clase).LoadAsync();
+
             var result = _mapper.Map<InscripcionDto>(inscripcion);
             return CreatedAtAction(nameof(GetById), new { id = inscripcion.Id }, result);
         }
@@ -131,9 +129,8 @@ namespace Gimnasio.Api.Controllers
         {
             var inscripcion = await _context.Inscripciones.FindAsync(id);
             if (inscripcion == null)
-            {
                 return NotFound();
-            }
+
             _context.Inscripciones.Remove(inscripcion);
             await _context.SaveChangesAsync();
             return NoContent();
