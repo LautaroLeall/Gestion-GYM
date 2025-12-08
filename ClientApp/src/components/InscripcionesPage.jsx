@@ -126,9 +126,101 @@ const InscripcionesPage = () => {
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold">Inscripciones</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
-        {/* formulario para crear inscripciones */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Socio</label>
+            <select
+              value={form.socioId}
+              onChange={(e) => setForm({ ...form, socioId: e.target.value })}
+              className="w-full border rounded px-3 py-2"
+              required
+            >
+              <option value="">Seleccionar socio</option>
+              {socios.map(s => (
+                <option key={s.id} value={s.id}>
+                  {s.nombre} {s.apellido}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Clase</label>
+            <select
+              value={form.claseId}
+              onChange={(e) => setForm({ ...form, claseId: e.target.value })}
+              className="w-full border rounded px-3 py-2"
+              required
+            >
+              <option value="">Seleccionar clase</option>
+              {clases.map(c => (
+                <option key={c.id} value={c.id}>
+                  {c.nombre} ({diasToLabels(c.diasSemana)})
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Fecha</label>
+            <select
+              value={form.fechaClase}
+              onChange={(e) => setForm({ ...form, fechaClase: e.target.value })}
+              className="w-full border rounded px-3 py-2"
+              required
+            >
+              <option value="">Seleccionar fecha</option>
+              {scheduleOptions.map((date, i) => (
+                <option key={i} value={date.toISOString()}>
+                  {date.toLocaleDateString('es-AR')} - {date.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        {error && <div className="text-red-600 font-semibold">{error}</div>}
+        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+          Inscribir
+        </button>
       </form>
-      {/* tabla con inscripciones existentes */}
+
+      <div className="bg-white shadow-md rounded overflow-hidden">
+        <table className="w-full">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="px-4 py-2 text-left">Socio</th>
+              <th className="px-4 py-2 text-left">Clase</th>
+              <th className="px-4 py-2 text-left">Fecha de Clase</th>
+              <th className="px-4 py-2 text-left">Fecha de Reserva</th>
+              <th className="px-4 py-2 text-center">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <AnimatePresence>
+              {inscripciones.map(insc => (
+                <motion.tr
+                  key={insc.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="border-t hover:bg-gray-100"
+                >
+                  <td className="px-4 py-2">{insc.socioNombreCompleto}</td>
+                  <td className="px-4 py-2">{insc.claseNombre}</td>
+                  <td className="px-4 py-2">{new Date(insc.fechaClase).toLocaleDateString('es-AR')}</td>
+                  <td className="px-4 py-2">{new Date(insc.fechaReserva).toLocaleDateString('es-AR')}</td>
+                  <td className="px-4 py-2 text-center">
+                    <button
+                      onClick={() => handleDelete(insc.id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                    >
+                      Cancelar
+                    </button>
+                  </td>
+                </motion.tr>
+              ))}
+            </AnimatePresence>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
