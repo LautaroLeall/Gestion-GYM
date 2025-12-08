@@ -17,9 +17,7 @@ const NavBar = () => {
         <div className="flex space-x-4">
           <NavLink to="/" className={navItemClass}>Inicio</NavLink>
           <NavLink to="/socios" className={navItemClass}>Socios</NavLink>
-          {/* Se elimina el enlace a membresías ya que el sistema actual no las gestiona */}
           <NavLink to="/clases" className={navItemClass}>Clases</NavLink>
-          {/* Las reservas pasan a llamarse inscripciones */}
           <NavLink to="/inscripciones" className={navItemClass}>Inscripciones</NavLink>
         </div>
       </div>
