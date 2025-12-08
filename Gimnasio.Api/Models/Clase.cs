@@ -5,12 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Gimnasio.Api.Models
 {
     /// <summary>
-    /// Representa una clase o actividad ofrecida por el gimnasio. Las
-    /// clases se planifican para ciertos días de la semana con una
-    /// hora de inicio y un cupo máximo de asistentes. Los socios pueden
-    /// inscribirse a una clase mediante la entidad <see
-    /// cref="Inscripcion"/>, que reemplaza a la antigua entidad
-    /// <c>Reserva</c>.
+    /// Representa una clase ofrecida por el gimnasio. 
+    /// Las clases se planifican para ciertos días de la semana con una hora de inicio y un cupo máximo de asistentes. 
+    /// Los socios pueden inscribirse a una clase mediante la entidad 
+    /// <see cref="Inscripcion"/>
     /// </summary>
     public class Clase
     {
@@ -34,7 +32,6 @@ namespace Gimnasio.Api.Models
 
         /// <summary>
         /// Días de la semana en los que se dicta la clase, codificados como números separados por comas (1=Lunes, 2=Martes, ... ,7=Domingo).
-        /// Por ejemplo "1,3,5" indica lunes, miércoles y viernes. Se utiliza para validar las reservas.
         /// </summary>
         [MaxLength(50)]
         public string DiasSemana { get; set; } = string.Empty;
@@ -45,11 +42,9 @@ namespace Gimnasio.Api.Models
         public TimeSpan Hora { get; set; }
 
         /// <summary>
-        /// Inscripciones realizadas a esta clase.  Cada inscripción
-        /// representa la reserva/inscripción de un socio para una
-        /// fecha y hora determinada de la clase.  La colección se
-        /// denomina <c>Inscripciones</c> para reflejar con claridad
-        /// su función.
+        /// Inscripciones realizadas a esta clase.  
+        /// Cada inscripción representa la reserva/inscripción de un socio para una fecha y hora determinada de la clase.
+        /// La colección se denomina <c>Inscripciones</c> para reflejar con claridad su función.
         /// </summary>
         public ICollection<Inscripcion> Inscripciones { get; set; } = new List<Inscripcion>();
     }

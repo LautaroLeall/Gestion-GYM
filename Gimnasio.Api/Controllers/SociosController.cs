@@ -9,9 +9,8 @@ using Gimnasio.Api.Data;
 namespace Gimnasio.Api.Controllers
 {
     /// <summary>
-    /// Controlador que gestiona las operaciones CRUD para los socios. Se
-    /// comunica con el repositorio genérico y utiliza AutoMapper para
-    /// convertir entre entidades y DTOs.
+    /// Controlador que gestiona las operaciones CRUD para los socios. 
+    /// Se comunica con el repositorio genérico y utiliza AutoMapper para convertir entre entidades y DTOs.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -32,9 +31,7 @@ namespace Gimnasio.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SocioDto>>> GetSocios()
         {
-            // No se incluye Membresia ya que el sistema actual no
-            // gestiona planes de membresía.  Simplemente se obtiene la
-            // lista de socios y se mapea al DTO.
+            // Se obtiene la lista de socios y se mapea al DTO.
             var socios = await _context.Socios
                 .AsNoTracking()
                 .ToListAsync();
