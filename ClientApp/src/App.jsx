@@ -9,6 +9,7 @@ import ClasesPage from './components/ClasesPage.jsx';
 // cambiará a "/inscripciones".
 import InscripcionesPage from './components/InscripcionesPage.jsx';
 import HomePage from './components/HomePage.jsx';
+import Footer from './components/Footer.jsx';
 
 /**
  * Componente de nivel superior que define la navegación y las rutas de la
@@ -32,6 +33,8 @@ const App = () => {
           <Route path="*" element={<div>Página no encontrada</div>} />
         </Routes>
       </main>
+      {/* Pie de página simple */}
+      <Footer/>
     </div>
   );
 };
