@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Gimnasio.Api.DTOs
 {
     /// <summary>
-    /// DTO para la creación y actualización de clases. Permite validar la
-    /// entrada del usuario y separar el modelo de dominio de la interfaz.
+    /// DTO para la creación y actualización de clases. 
+    /// Permite validar la entrada del usuario y separar el modelo de dominio de la interfaz.
     /// </summary>
     public class ClaseCreateDto
     {

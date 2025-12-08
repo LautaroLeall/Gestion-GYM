@@ -3,8 +3,8 @@ using System;
 namespace Gimnasio.Api.DTOs
 {
     /// <summary>
-    /// DTO de lectura para clases. Incluye la información necesaria para
-    /// mostrar una clase en el cliente.
+    /// DTO de lectura para clases. 
+    /// Incluye la información necesaria para mostrar una clase en el cliente.
     /// </summary>
     public class ClaseDto
     {

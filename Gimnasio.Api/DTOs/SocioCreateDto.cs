@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Gimnasio.Api.DTOs
 {
     /// <summary>
-    /// DTO utilizado para la creación o actualización de socios.  Se
-    /// separa del DTO de lectura para permitir validaciones específicas
-    /// de entrada sin exponer propiedades que solo el servidor debe
-    /// controlar.  Este DTO ya no incluye información de membresías
-    /// porque el sistema de ejemplo no gestiona planes de membresía.
+    /// DTO utilizado para la creación o actualización de socios.  
+    /// Se separa del DTO de lectura para permitir validaciones específicas de entrada 
+    /// sin exponer propiedades que solo el servidor debe controlar.  
     /// </summary>
     public class SocioCreateDto
     {
@@ -36,10 +34,5 @@ namespace Gimnasio.Api.DTOs
         [RegularExpression(@"^\d{10,13}$", ErrorMessage = "El teléfono debe contener entre 10 y 13 dígitos.")]
         public string Telefono { get; set; } = string.Empty;
 
-        // Se elimina la propiedad MembresiaId.  El sistema actual
-        // solamente gestiona socios, clases e inscripciones, por lo que
-        // los socios ya no están ligados a planes de membresía.
-        //
-        // public int MembresiaId { get; set; }
     }
 }

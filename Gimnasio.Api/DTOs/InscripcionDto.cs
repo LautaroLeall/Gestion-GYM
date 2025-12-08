@@ -3,9 +3,9 @@ using System;
 namespace Gimnasio.Api.DTOs
 {
     /// <summary>
-    /// DTO de lectura para las inscripciones.  Expone los datos
-    /// esenciales de una inscripción e incluye información derivada
-    /// como el nombre completo del socio y el nombre de la clase.
+    /// DTO de lectura para las inscripciones.  
+    /// Expone los datos esenciales de una inscripción e 
+    /// incluye información derivada como el nombre completo del socio y el nombre de la clase.
     /// </summary>
     public class InscripcionDto
     {

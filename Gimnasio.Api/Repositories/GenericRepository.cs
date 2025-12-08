@@ -6,9 +6,8 @@ using Gimnasio.Api.Data;
 namespace Gimnasio.Api.Repositories
 {
     /// <summary>
-    /// Implementación genérica de IGenericRepository que utiliza EF Core
-    /// para realizar las operaciones CRUD. Este repositorio funciona para
-    /// cualquier entidad registrada en AppDbContext.
+    /// Implementación genérica de IGenericRepository que utiliza EF Core para realizar las operaciones CRUD. 
+    /// Este repositorio funciona para cualquier entidad registrada en AppDbContext.
     /// </summary>
     /// <typeparam name="T">Entidad de dominio</typeparam>
     public class GenericRepository<T> : IGenericRepository<T> where T : class
