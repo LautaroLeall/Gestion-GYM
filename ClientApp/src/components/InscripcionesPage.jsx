@@ -3,9 +3,9 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * Página para gestionar las inscripciones. Permite crear nuevas
- * inscripciones seleccionando un socio y una clase. También
- * lista las inscripciones existentes y permite eliminarlas.
+ * Página para gestionar las inscripciones.  
+ * Permite crear nuevas inscripciones seleccionando un socio y una clase.  
+ * También lista las inscripciones existentes y permite eliminarlas.
  */
 const InscripcionesPage = () => {
   const [inscripciones, setInscripciones] = useState([]);
@@ -15,7 +15,7 @@ const InscripcionesPage = () => {
   const [error, setError] = useState(null);
   const [scheduleOptions, setScheduleOptions] = useState([]);
 
-  // Traductor de números de día (1..7)
+  // Traductor de números de día (1..7) a español
   const LABEL_DIAS = { 1: 'Lunes', 2: 'Martes', 3: 'Miércoles', 4: 'Jueves', 5: 'Viernes', 6: 'Sábado', 7: 'Domingo' };
 
   const diasToLabels = (cadena) => {
@@ -69,7 +69,7 @@ const InscripcionesPage = () => {
     const opciones = [];
     const today = new Date();
 
-    // generar fechas hasta tres semanas por delante (21 días)
+    // Generar fechas hasta tres semanas adelante (21 días)
     const diasFuturos = 21;
     for (let i = 0; i <= diasFuturos; i++) {
       const date = new Date(today);
@@ -96,7 +96,7 @@ const InscripcionesPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // ya no enviamos `fechaReserva`; el servidor la asigna con DateTime.Now
+      // El servidor la asigna con DateTime.Now
       await axios.post('/api/inscripciones', {
         socioId: Number(form.socioId),
         claseId: Number(form.claseId),
@@ -168,11 +168,15 @@ const InscripcionesPage = () => {
               required
             >
               <option value="">Seleccionar fecha</option>
-              {scheduleOptions.map((date, i) => (
-                <option key={i} value={date.toISOString()}>
-                  {date.toLocaleDateString('es-AR')} - {date.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}
-                </option>
-              ))}
+              {scheduleOptions.map((date, i) => {
+                // Construye la etiqueta con hora en formato 24 horas (HH:mm)
+                const hora = String(date.getHours()).padStart(2, '0') + ':' + String(date.getMinutes()).padStart(2, '0');
+                return (
+                  <option key={i} value={date.toISOString()}>
+                    {date.toLocaleDateString('es-AR')} - {hora}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -182,46 +186,58 @@ const InscripcionesPage = () => {
         </button>
       </form>
 
-      <div className="bg-white shadow-md rounded overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="px-4 py-2 text-left">Socio</th>
-              <th className="px-4 py-2 text-left">Clase</th>
-              <th className="px-4 py-2 text-left">Fecha de Clase</th>
-              <th className="px-4 py-2 text-left">Horario de Inicio</th>
-              <th className="px-4 py-2 text-left">Fecha de Reserva</th>
-              <th className="px-4 py-2 text-center">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <AnimatePresence>
-              {inscripciones.map(insc => (
-                <motion.tr
-                  key={insc.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="border-t hover:bg-gray-100"
-                >
-                  <td className="px-4 py-2">{insc.socioNombreCompleto}</td>
-                  <td className="px-4 py-2">{insc.claseNombre}</td>
-                  <td className="px-4 py-2">{new Date(insc.fechaClase).toLocaleDateString('es-AR')}</td>
-                  <td className="px-4 py-2">{insc.hora}</td>
-                  <td className="px-4 py-2">{new Date(insc.fechaReserva).toLocaleDateString('es-AR')}</td>
-                  <td className="px-4 py-2 text-center">
-                    <button
-                      onClick={() => handleDelete(insc.id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+      <div className="bg-white shadow-md rounded p-4">
+        <h3 className="text-lg font-medium mb-2">Listado de inscripciones</h3>
+        {/* Contenedor para scroll horizontal en pantallas pequeñas */}
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Socio</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Clase</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Fecha de Clase</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Horario de Inicio</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Fecha de Reserva</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Acción</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              <AnimatePresence>
+                {inscripciones.map(insc => {
+                  // Calculamos fecha y hora por separado para mostrar en 24 horas
+                  const fechaClase = new Date(insc.fechaClase);
+                  const fechaClaseTexto = fechaClase.toLocaleDateString('es-AR');
+                  const horaClaseTexto = String(fechaClase.getHours()).padStart(2, '0') + ':' + String(fechaClase.getMinutes()).padStart(2, '0');
+                  const fechaReserva = new Date(insc.fechaReserva);
+                  const fechaReservaTexto = fechaReserva.toLocaleDateString('es-AR');
+                  return (
+                    <motion.tr
+                      key={insc.id}
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 5 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      Cancelar
-                    </button>
-                  </td>
-                </motion.tr>
-              ))}
-            </AnimatePresence>
-          </tbody>
-        </table>
+                      <td className="px-4 py-2 whitespace-nowrap">{insc.socioNombreCompleto}</td>
+                      <td className="px-4 py-2 whitespace-nowrap">{insc.claseNombre}</td>
+                      <td className="px-4 py-2 whitespace-nowrap">{fechaClaseTexto}</td>
+                      <td className="px-4 py-2 whitespace-nowrap">{horaClaseTexto}</td>
+                      <td className="px-4 py-2 whitespace-nowrap">{fechaReservaTexto}</td>
+                      <td className="px-4 py-2 whitespace-nowrap">
+                        <button
+                          onClick={() => handleDelete(insc.id)}
+                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                        >
+                          Cancelar
+                        </button>
+                      </td>
+                    </motion.tr>
+                  );
+                })}
+              </AnimatePresence>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
