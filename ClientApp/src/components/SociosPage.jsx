@@ -3,9 +3,8 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * Página para gestionar socios. Permite listar, crear, actualizar y
- * eliminar socios mediante llamadas a la API. Usa Framer Motion para
- * animar la entrada y salida de elementos de la lista.
+ * Página para gestionar socios. 
+ * Permite listar, crear, actualizar y eliminar socios mediante llamadas a la API.
  */
 const SociosPage = () => {
   const [socios, setSocios] = useState([]);
@@ -65,8 +64,8 @@ const SociosPage = () => {
   };
 
   /**
-   * Valida el formulario de socios. Devuelve una cadena con el mensaje
-   * de error si hay algún problema; de lo contrario devuelve null.
+   * Valida el formulario de socios. 
+   * Devuelve una cadena con el mensaje de error si hay algún problema; de lo contrario devuelve null.
    */
   const validateForm = () => {
     // Validar nombre: mínimo 3 letras, solo letras y espacios
@@ -130,15 +129,31 @@ const SociosPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Nombre</label>
-            <input className="w-full border rounded px-2 py-1" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} required />
+            <input
+              className="w-full border rounded px-2 py-1"
+              value={form.nombre}
+              onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+              required
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Apellido</label>
-            <input className="w-full border rounded px-2 py-1" value={form.apellido} onChange={(e) => setForm({ ...form, apellido: e.target.value })} required />
+            <input
+              className="w-full border rounded px-2 py-1"
+              value={form.apellido}
+              onChange={(e) => setForm({ ...form, apellido: e.target.value })}
+              required
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Fecha de nacimiento</label>
-            <input type="date" className="w-full border rounded px-2 py-1" value={form.fechaNacimiento} onChange={(e) => setForm({ ...form, fechaNacimiento: e.target.value })} required />
+            <input
+              type="date"
+              className="w-full border rounded px-2 py-1"
+              value={form.fechaNacimiento}
+              onChange={(e) => setForm({ ...form, fechaNacimiento: e.target.value })}
+              required
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Correo electrónico</label>
@@ -162,9 +177,18 @@ const SociosPage = () => {
           </div>
         </div>
         <div className="flex space-x-2">
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">{isEditing ? 'Actualizar' : 'Agregar'}</button>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            {isEditing ? 'Actualizar' : 'Agregar'}
+          </button>
           {isEditing && (
-            <button type="button" className="bg-gray-400 text-white px-4 py-2 rounded" onClick={resetForm}>Cancelar</button>
+            <button
+              type="button"
+              className="bg-gray-400 text-white px-4 py-2 rounded"
+              onClick={resetForm}>
+              Cancelar
+            </button>
           )}
         </div>
       </form>
@@ -176,6 +200,8 @@ const SociosPage = () => {
               <tr>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Apellido</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Correo electrónico</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
               </tr>
             </thead>
@@ -191,9 +217,21 @@ const SociosPage = () => {
                   >
                     <td className="px-4 py-2 whitespace-nowrap">{socio.nombre}</td>
                     <td className="px-4 py-2 whitespace-nowrap">{socio.apellido}</td>
+                    <td className="px-4 py-2 whitespace-nowrap">{socio.email}</td>
+                    <td className="px-4 py-2 whitespace-nowrap">{socio.telefono}</td>
                     <td className="px-4 py-2 space-x-2">
-                      <button onClick={() => handleEdit(socio)} className="text-blue-600 hover:underline">Editar</button>
-                      <button onClick={() => handleDelete(socio.id)} className="text-red-600 hover:underline">Eliminar</button>
+                      <button
+                        onClick={() => handleEdit(socio)}
+                        className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => handleDelete(socio.id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                      >
+                        Eliminar
+                      </button>
                     </td>
                   </motion.tr>
                 ))}

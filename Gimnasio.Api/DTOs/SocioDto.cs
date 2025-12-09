@@ -14,5 +14,7 @@ namespace Gimnasio.Api.DTOs
         public DateTime FechaNacimiento { get; set; }
         public string? Email { get; set; }
 
+        public string Telefono { get; set; } = string.Empty;
+
     }
 }

@@ -31,6 +31,7 @@ namespace Gimnasio.Api.DTOs
         public string Email { get; set; } = string.Empty;
 
         [Required]
+        [Phone]
         [RegularExpression(@"^\d{10,13}$", ErrorMessage = "El teléfono debe contener entre 10 y 13 dígitos.")]
         public string Telefono { get; set; } = string.Empty;
 

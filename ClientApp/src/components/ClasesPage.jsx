@@ -3,11 +3,12 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * Página para gestionar clases del gimnasio. Permite crear y modificar
- * clases, así como eliminarlas. Se muestra la fecha y el cupo máximo.
+ * Página para gestionar clases del gimnasio. 
+ * Permite crear y modificar clases, así como eliminarlas. 
+ * Se muestra la fecha y el cupo máximo.
  */
 const ClasesPage = () => {
-  // Días de la semana disponibles como números (1=Lunes, …, 7=Domingo)
+  // Días de la semana disponibles como números (1=Lunes, …, 7=Domingo) con etiquetas en español
   const diasSemanaDisponibles = [
     { value: 1, label: 'Lunes' },
     { value: 2, label: 'Martes' },
@@ -17,15 +18,15 @@ const ClasesPage = () => {
     { value: 6, label: 'Sábado' },
     { value: 7, label: 'Domingo' }
   ];
-  const horariosDisponibles = [];
   // Horarios disponibles de 10:00 a 21:30 en intervalos de 30 minutos
+  const horariosDisponibles = [];
   for (let h = 10; h <= 21; h++) {
     const hourStr = String(h).padStart(2, '0');
     horariosDisponibles.push(`${hourStr}:00`);
     horariosDisponibles.push(`${hourStr}:30`);
   }
 
-  // Convierte una cadena de días separados por coma (números) a una
+  // Convierte una cadena de días separados por coma (números) a una representación en español unida por comas.
   const formatoDias = (dias) => {
     if (!dias) return '';
     return dias
@@ -37,6 +38,7 @@ const ClasesPage = () => {
       })
       .join(', ');
   };
+
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({
     id: null,
@@ -100,8 +102,8 @@ const ClasesPage = () => {
   };
 
   /**
-   * Valida el formulario de clases. Devuelve un mensaje de error si
-   * encuentra algún problema; en caso contrario devuelve null.
+   * Valida el formulario de clases. 
+   * Devuelve un mensaje de error si encuentra algún problema; en caso contrario devuelve null.
    */
   const validateForm = () => {
     // Nombre no vacío
@@ -258,8 +260,18 @@ const ClasesPage = () => {
                   <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0, 5)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.cupoMaximo}</td>
                   <td className="px-4 py-2 space-x-2">
-                    <button onClick={() => handleEdit(item)} className="text-blue-600 hover:underline">Editar</button>
-                    <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">Eliminar</button>
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                    >
+                      Eliminar
+                    </button>
                   </td>
                 </motion.tr>
               ))}
