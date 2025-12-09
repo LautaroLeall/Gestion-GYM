@@ -9,9 +9,8 @@ using Gimnasio.Api.Data;
 namespace Gimnasio.Api.Controllers
 {
     /// <summary>
-    /// Controlador que gestiona las operaciones CRUD para los socios. Se
-    /// comunica con el repositorio genérico y utiliza AutoMapper para
-    /// convertir entre entidades y DTOs.
+    /// Controlador que gestiona las operaciones CRUD para los socios. 
+    /// Se comunica con el repositorio genérico y utiliza AutoMapper para convertir entre entidades y DTOs.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -32,9 +31,7 @@ namespace Gimnasio.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SocioDto>>> GetSocios()
         {
-            // No se incluye Membresia ya que el sistema actual no
-            // gestiona planes de membresía.  Simplemente se obtiene la
-            // lista de socios y se mapea al DTO.
+            // Se obtiene la lista de socios y se mapea al DTO.
             var socios = await _context.Socios
                 .AsNoTracking()
                 .ToListAsync();
@@ -77,6 +74,14 @@ namespace Gimnasio.Api.Controllers
                     return BadRequest("El correo electrónico debe tener al menos 3 caracteres antes del @.");
                 }
             }
+            // Validación adicional: el teléfono debe tener entre 10 y 13 dígitos
+            if (!string.IsNullOrEmpty(socioDto.Telefono))
+            {
+                if (socioDto.Telefono.Length < 10 || socioDto.Telefono.Length > 13)
+                {
+                    return BadRequest("El teléfono debe contener entre 10 y 13 dígitos.");
+                }
+            }
             var socio = _mapper.Map<Socio>(socioDto);
             await _repository.AddAsync(socio);
             var resultDto = _mapper.Map<SocioDto>(socio);
@@ -102,6 +107,13 @@ namespace Gimnasio.Api.Controllers
                 if (partes.Length < 2 || partes[0].Length < 3)
                 {
                     return BadRequest("El correo electrónico debe tener al menos 3 caracteres antes del @.");
+                }
+            }
+            if (!string.IsNullOrEmpty(socioDto.Telefono))
+            {
+                if (socioDto.Telefono.Length < 10 || socioDto.Telefono.Length > 13)
+                {
+                    return BadRequest("El teléfono debe contener entre 10 y 13 dígitos.");
                 }
             }
             var existing = await _repository.GetByIdAsync(id);

@@ -3,11 +3,11 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * Página para gestionar clases del gimnasio. Permite crear y modificar
- * clases, así como eliminarlas. Se muestra la fecha y el cupo máximo.
+ * Página para gestionar clases del gimnasio. 
+ * Permite crear y modificar clases, así como eliminarlas. 
+ * Se muestra la fecha y el cupo máximo.
  */
 const ClasesPage = () => {
-  // Días de la semana disponibles con etiquetas en español
   // Días de la semana disponibles como números (1=Lunes, …, 7=Domingo) con etiquetas en español
   const diasSemanaDisponibles = [
     { value: 1, label: 'Lunes' },
@@ -18,17 +18,15 @@ const ClasesPage = () => {
     { value: 6, label: 'Sábado' },
     { value: 7, label: 'Domingo' }
   ];
-  // Horarios disponibles de 10:00 a 22:00 en intervalos de 30 minutos
-  const horariosDisponibles = [];
   // Horarios disponibles de 10:00 a 21:30 en intervalos de 30 minutos
+  const horariosDisponibles = [];
   for (let h = 10; h <= 21; h++) {
     const hourStr = String(h).padStart(2, '0');
     horariosDisponibles.push(`${hourStr}:00`);
     horariosDisponibles.push(`${hourStr}:30`);
   }
 
-  // Convierte una cadena de días separados por coma (números) a una
-  // representación en español unida por comas.
+  // Convierte una cadena de días separados por coma (números) a una representación en español unida por comas.
   const formatoDias = (dias) => {
     if (!dias) return '';
     return dias
@@ -40,6 +38,7 @@ const ClasesPage = () => {
       })
       .join(', ');
   };
+
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({
     id: null,
@@ -103,8 +102,8 @@ const ClasesPage = () => {
   };
 
   /**
-   * Valida el formulario de clases. Devuelve un mensaje de error si
-   * encuentra algún problema; en caso contrario devuelve null.
+   * Valida el formulario de clases. 
+   * Devuelve un mensaje de error si encuentra algún problema; en caso contrario devuelve null.
    */
   const validateForm = () => {
     // Nombre no vacío
@@ -160,7 +159,7 @@ const ClasesPage = () => {
     }
   };
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-16">
       <h2 className="text-2xl font-semibold">Clases</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
         <h3 className="text-lg font-medium">{isEditing ? 'Editar clase' : 'Nueva clase'}</h3>
@@ -170,7 +169,6 @@ const ClasesPage = () => {
             <label className="block text-sm font-medium mb-1">Nombre</label>
             <input className="w-full border rounded px-2 py-1" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} required />
           </div>
-          {/* Eliminado campo Instructor: las clases ya no tienen instructor asignado */}
           <div>
             <label className="block text-sm font-medium mb-1">Cupo máximo</label>
             <input
@@ -247,7 +245,6 @@ const ClasesPage = () => {
           <thead>
             <tr>
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-              {/* Eliminado encabezado de instructor */}
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Días</th>
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hora</th>
               <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Cupo</th>
@@ -259,13 +256,22 @@ const ClasesPage = () => {
               {items.map((item) => (
                 <motion.tr key={item.id} initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: 0.2 }}>
                   <td className="px-4 py-2 whitespace-nowrap">{item.nombre}</td>
-                  {/* Eliminada celda de instructor */}
                   <td className="px-4 py-2 whitespace-nowrap">{formatoDias(item.diasSemana)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.hora?.substring(0, 5)}</td>
                   <td className="px-4 py-2 whitespace-nowrap">{item.cupoMaximo}</td>
                   <td className="px-4 py-2 space-x-2">
-                    <button onClick={() => handleEdit(item)} className="text-blue-600 hover:underline">Editar</button>
-                    <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">Eliminar</button>
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                    >
+                      Eliminar
+                    </button>
                   </td>
                 </motion.tr>
               ))}

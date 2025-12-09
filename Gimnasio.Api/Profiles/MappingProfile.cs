@@ -5,9 +5,8 @@ using Gimnasio.Api.Models;
 namespace Gimnasio.Api.Profiles
 {
     /// <summary>
-    /// Define las configuraciones de AutoMapper para convertir entre las
-    /// entidades de dominio y los distintos DTOs. Centralizar estos
-    /// mapeos evita repetir código en los controladores y servicios.
+    /// Define las configuraciones de AutoMapper para convertir entre las entidades de dominio y los distintos DTOs. 
+    /// Centralizar estos mapeos evita repetir código en los controladores y servicios.
     /// </summary>
     public class MappingProfile : Profile
     {
@@ -15,15 +14,13 @@ namespace Gimnasio.Api.Profiles
         {
             // Socio -> SocioDto
             CreateMap<Socio, SocioDto>();
+
             // SocioCreateDto -> Socio
             CreateMap<SocioCreateDto, Socio>();
 
-            // El mapeo de membresías se elimina porque el sistema ya no
-            // gestiona planes de membresía.  Si en el futuro se
-            // reintroducen, aquí se volverían a configurar.
-
             // Clase -> ClaseDto
             CreateMap<Clase, ClaseDto>();
+
             // ClaseCreateDto -> Clase
             CreateMap<ClaseCreateDto, Clase>()
                 .ForMember(dest => dest.DiasSemana, opt => opt.MapFrom(src => string.Join(",", src.DiasSemana)));

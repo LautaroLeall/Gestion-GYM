@@ -5,12 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Gimnasio.Api.Models
 {
     /// <summary>
-    /// Registro de la inscripción de un socio para una clase específica.  Esta
-    /// entidad constituye la relación de muchos a muchos entre socios y
-    /// clases.  A diferencia de la antigua entidad <c>Reserva</c>, se
-    /// utiliza el término "inscripción" para reflejar con mayor claridad
-    /// que un socio se inscribe a una clase en una fecha y hora
-    /// determinada.
+    /// Registro de la inscripción de un socio para una clase específica.  
+    /// Esta entidad constituye la relación de muchos a muchos entre socios y clases.  
     /// </summary>
     public class Inscripcion
     {
@@ -29,15 +25,14 @@ namespace Gimnasio.Api.Models
         public Clase? Clase { get; set; }
 
         /// <summary>
-        /// Fecha y hora en que se realizó la inscripción.  No
-        /// necesariamente coincide con la fecha de la clase.
+        /// Fecha y hora en que se realizó la inscripción.  
+        /// No necesariamente coincide con la fecha de la clase.
         /// </summary>
         public DateTime FechaReserva { get; set; } = DateTime.UtcNow;
 
         /// <summary>
-        /// Fecha y hora específica de la clase que el socio inscribió.  Se
-        /// calcula a partir de los días de la semana y la hora definidos
-        /// en la clase.
+        /// Fecha y hora específica de la clase que el socio inscribió.  
+        /// Se calcula a partir de los días de la semana y la hora definidos en la clase.
         /// </summary>
         public DateTime FechaClase { get; set; }
     }

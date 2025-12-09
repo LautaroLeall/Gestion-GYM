@@ -2,12 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 
-/**
- * Página de inicio del sistema de gestión de gimnasio. Muestra
- * información introductoria, una imagen decorativa y enlaces para
- * comenzar a explorar las diferentes funcionalidades. Se utilizan
- * animaciones de Framer Motion para un efecto de entrada suave.
- */
+// Página de inicio del sistema de gestión de gimnasio
 const HomePage = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-8">

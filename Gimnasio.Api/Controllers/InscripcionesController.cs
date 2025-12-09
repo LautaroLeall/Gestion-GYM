@@ -9,8 +9,7 @@ namespace Gimnasio.Api.Controllers
 {
     /// <summary>
     /// Controlador para gestionar las inscripciones de socios a clases.
-    /// Incluye validaciones para evitar sobrepasar el cupo y duplicar
-    /// inscripciones.  Esta clase reemplaza al antiguo <c>ReservasController</c>.
+    /// Incluye validaciones para evitar sobrepasar el cupo y duplicar inscripciones.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -93,7 +92,7 @@ namespace Gimnasio.Api.Controllers
             if (existe)
                 return Conflict("El socio ya tiene una inscripción para esta clase en la fecha seleccionada");
 
-            // PASO 2: permitir inscribirse hasta 21 días (tres semanas)
+            // permitir inscribirse hasta 21 días (tres semanas)
             var hoy = DateTime.Today;
             var maxFecha = hoy.AddDays(21);
             if (fechaClaseLocal.Date < hoy || fechaClaseLocal.Date > maxFecha)
@@ -109,7 +108,7 @@ namespace Gimnasio.Api.Controllers
             // Crear la inscripción
             var inscripcion = _mapper.Map<Inscripcion>(dto);
 
-            // PASO 1: fijar la fecha y hora de reserva al momento actual
+            // fijar la fecha y hora de reserva al momento actual
             inscripcion.FechaClase = fechaClaseLocal;
             inscripcion.FechaReserva = DateTime.Now;
 

@@ -8,8 +8,8 @@ using Gimnasio.Api.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar conexión a la base de datos SQLite. En un entorno real
-// este valor podría provenir de un archivo de configuración (appsettings.json).
+// Configurar conexión a la base de datos SQLite. 
+// En un entorno real este valor podría provenir de un archivo de configuración (appsettings.json).
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=gimnasio.db";
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -20,12 +20,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Registrar repositorios genéricos para cada entidad.
 builder.Services.AddScoped<IGenericRepository<Socio>, GenericRepository<Socio>>();
-// El sistema ya no gestiona membresías, por lo que no se registra
-// un repositorio de Membresia.
-// builder.Services.AddScoped<IGenericRepository<Membresia>, GenericRepository<Membresia>>();
+
 builder.Services.AddScoped<IGenericRepository<Clase>, GenericRepository<Clase>>();
-// Registrar repositorio para inscripciones.  Esta entidad representa
-// la relación entre socios y clases (antes conocida como reservas).
+
 builder.Services.AddScoped<IGenericRepository<Inscripcion>, GenericRepository<Inscripcion>>();
 
 // Añadir controladores con soporte de JSON.
@@ -54,12 +51,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Asegurarse de que la base de datos y sus tablas existan al iniciar.
-// En lugar de requerir migraciones generadas manualmente, se invoca
-// EnsureCreated(), que crea la base de datos y todas las tablas
-// necesarias según el modelo definido. Si ya existe, este método
-// simplemente no realiza cambios. Para entornos de producción
-// con control de versiones de base de datos, se recomienda usar
-// migraciones explícitas en su lugar.
+// En lugar de requerir migraciones generadas manualmente, se invoca EnsureCreated(), 
+// que crea la base de datos y todas las tablas necesarias según el modelo definido. 
+// Si ya existe, este método simplemente no realiza cambios. 
+// Para entornos de producción con control de versiones de base de datos, 
+// se recomienda usar migraciones explícitas en su lugar.
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();

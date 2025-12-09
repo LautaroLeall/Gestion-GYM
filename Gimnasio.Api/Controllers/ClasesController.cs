@@ -9,8 +9,8 @@ using Gimnasio.Api.Data;
 namespace Gimnasio.Api.Controllers
 {
     /// <summary>
-    /// Controlador para las clases ofrecidas por el gimnasio. Gestiona
-    /// operaciones CRUD y consulta la capacidad al listar.
+    /// Controlador para las clases ofrecidas por el gimnasio. 
+    /// Gestiona operaciones CRUD y consulta la capacidad al listar.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -30,9 +30,7 @@ namespace Gimnasio.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClaseDto>>> Get()
         {
-            // Incluir el recuento de inscripciones para cada clase.  Al
-            // reemplazar reservas por inscripciones, se ajusta la
-            // inclusión de navegación a la nueva colección.
+            // Incluir el recuento de inscripciones para cada clase.
             var clases = await _context.Clases
                 .Include(c => c.Inscripciones)
                 .ToListAsync();
@@ -73,7 +71,7 @@ namespace Gimnasio.Api.Controllers
                     return BadRequest($"El día '{dia}' no es válido. Debe estar entre 1 y 7.");
                 }
             }
-            // Validar la hora: debe ser en punto o y media y entre 10:00 y 21:30
+            // Validar la hora: debe ser en punto o/y media y entre 10:00 y 21:30
             if (dto.Hora.Minutes != 0 && dto.Hora.Minutes != 30)
             {
                 return BadRequest("La hora de la clase debe ser en punto o y media.");
