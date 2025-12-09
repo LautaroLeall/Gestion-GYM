@@ -126,9 +126,9 @@ const InscripcionesPage = () => {
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold">Inscripciones</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
           <div>
-            <label className="block text-sm font-medium mb-2">Socio</label>
+            <label className="block text-sm font-medium mb-3">Socio</label>
             <select
               value={form.socioId}
               onChange={(e) => setForm({ ...form, socioId: e.target.value })}
@@ -144,7 +144,7 @@ const InscripcionesPage = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Clase</label>
+            <label className="block text-sm font-medium mb-3">Clase</label>
             <select
               value={form.claseId}
               onChange={(e) => setForm({ ...form, claseId: e.target.value })}
@@ -160,7 +160,7 @@ const InscripcionesPage = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Fecha</label>
+            <label className="block text-sm font-medium mb-3">Fecha</label>
             <select
               value={form.fechaClase}
               onChange={(e) => setForm({ ...form, fechaClase: e.target.value })}
