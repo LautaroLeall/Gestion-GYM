@@ -121,7 +121,7 @@ const SociosPage = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-16">
       <h2 className="text-2xl font-semibold">Socios</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
         <h3 className="text-lg font-medium">{isEditing ? 'Editar socio' : 'Nuevo socio'}</h3>

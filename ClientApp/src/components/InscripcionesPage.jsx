@@ -123,7 +123,7 @@ const InscripcionesPage = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-16">
       <h2 className="text-2xl font-semibold">Inscripciones</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
