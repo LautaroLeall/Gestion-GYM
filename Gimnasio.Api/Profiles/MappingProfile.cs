@@ -5,32 +5,88 @@ using Gimnasio.Api.Models;
 namespace Gimnasio.Api.Profiles
 {
     /// <summary>
-    /// Define las configuraciones de AutoMapper para convertir entre las entidades de dominio y los distintos DTOs. 
-    /// Centralizar estos mapeos evita repetir código en los controladores y servicios.
+    /// Perfil de AutoMapper que define todas las conversiones entre:
+    /// - Entidades de dominio
+    /// - DTOs de lectura
+    /// - DTOs de creación/actualización
+    ///
+    /// Esta configuración centraliza los mapeos y evita repetición de código en controladores y servicios. 
+    /// Además garantiza consistencia en la transformación de datos a lo largo de toda la aplicación.
+    /// 
+    /// AutoMapper aplicará estas reglas automáticamente en tiempo de ejecución
+    /// cuando se invoquen métodos como:
+    ///   _mapper.Map<Destino>(origen)
     /// </summary>
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            // Socio -> SocioDto
+            // SOCIO
+
+            /// <summary>
+            /// Mapeo entidad -> DTO de lectura.
+            /// Convierte automáticamente todas las propiedades con nombres coincidientes.
+            /// </summary>
             CreateMap<Socio, SocioDto>();
 
-            // SocioCreateDto -> Socio
+            /// <summary>
+            /// Mapeo DTO de creación -> entidad.
+            /// No se asigna Id ni propiedades calculadas (EF Core las genera).
+            /// </summary>
             CreateMap<SocioCreateDto, Socio>();
 
-            // Clase -> ClaseDto
+
+            // CLASE
+
+            /// <summary>
+            /// Entidad Clase -> DTO de lectura.
+            /// Las propiedades se mapean directamente.
+            /// </summary>
             CreateMap<Clase, ClaseDto>();
 
-            // ClaseCreateDto -> Clase
+            /// <summary>
+            /// DTO de creación -> entidad Clase.
+            /// Conversión especial:
+            /// DiasSemana se recibe como List<int> y se guarda como string "1,3,5".
+            /// </summary>
             CreateMap<ClaseCreateDto, Clase>()
-                .ForMember(dest => dest.DiasSemana, opt => opt.MapFrom(src => string.Join(",", src.DiasSemana)));
+                .ForMember(dest => dest.DiasSemana,
+                    opt => opt.MapFrom(src =>
+                        string.Join(",", src.DiasSemana)
+                    )
+                );
 
-            // Inscripcion -> InscripcionDto
+
+            // INSCRIPCIÓN
+
+            /// <summary>
+            /// Entidad Inscripcion -> DTO de lectura.
+            /// Incluye datos derivados como:
+            /// - Nombre completo del socio
+            /// - Nombre de la clase
+            /// Esto evita consultas adicionales desde el cliente.
+            /// </summary>
             CreateMap<Inscripcion, InscripcionDto>()
-                .ForMember(dest => dest.SocioNombreCompleto, opt => opt.MapFrom(src => src.Socio != null ? $"{src.Socio.Nombre} {src.Socio.Apellido}" : null))
-                .ForMember(dest => dest.ClaseNombre, opt => opt.MapFrom(src => src.Clase != null ? src.Clase.Nombre : null));
+                .ForMember(dest => dest.SocioNombreCompleto,
+                    opt => opt.MapFrom(src =>
+                        src.Socio != null
+                        ? $"{src.Socio.Nombre} {src.Socio.Apellido}"
+                        : null
+                    )
+                )
+                .ForMember(dest => dest.ClaseNombre,
+                    opt => opt.MapFrom(src =>
+                        src.Clase != null
+                            ? src.Clase.Nombre
+                            : null
+                    )
+                );
 
-            // InscripcionCreateDto -> Inscripcion
+            /// <summary>
+            /// DTO de creación -> entidad Inscripcion.
+            /// No se asigna FechaReserva porque se calcula en el modelo o en el servicio.
+            /// Tampoco se asignan propiedades de navegación.
+            /// </summary>
             CreateMap<InscripcionCreateDto, Inscripcion>();
         }
     }
